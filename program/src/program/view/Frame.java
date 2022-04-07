@@ -15,7 +15,7 @@ public class Frame extends JFrame{
 
     private void setupFrame(){
         this.setVisible(true);
-        this.setSize(800, 601);
+        this.setSize(800, 600);
         this.setResizable(false);
         this.setTitle("My Frame");
 

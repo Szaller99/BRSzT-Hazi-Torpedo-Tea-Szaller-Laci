@@ -1,5 +1,4 @@
 package program.controller;
-
 import program.view.Frame;
 
 public class Controller {
