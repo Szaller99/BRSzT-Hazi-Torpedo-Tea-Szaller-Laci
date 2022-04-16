@@ -23,23 +23,23 @@ public class GameFrame extends Frame {
         Container gameFrameContainer = this.getContentPane();
         gameFrameContainer.setBackground(new Color(00,00,00));
 
+        Field myField = new Field(false);
+        Field enemyField = new Field(true);
+
         JPanel gamePanel = new JPanel();
         gamePanel.setLayout(new GridLayout(2,1,5,5));
         gamePanel.setBackground(new Color(30,30,30));
+
+        gamePanel.add(enemyField); // place fields based on order
+        gamePanel.add(myField);
 
         JPanel infoPanel = new JPanel();
         infoPanel.setLayout(new GridLayout(1,1,5,5));
         infoPanel.setBackground(new Color(30,30,100));
 
-        Field myField = new Field(false);
-        Field enemyField = new Field(true);
-
-
 
         gameFrameContainer.setLayout(new GridLayout(1,2, 10, 10));
         gameFrameContainer.add(gamePanel);
-        gamePanel.add(enemyField); // place fields based on order
-        gamePanel.add(myField);
         gameFrameContainer.add(infoPanel);
         this.pack();
         this.setSize(600,600);
