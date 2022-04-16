@@ -3,8 +3,8 @@ package program.view;
 import program.controller.Controller;
 import program.view.components.Field;
 import program.view.components.Frame;
-import program.view.components.Entity;
-import javax.swing.JPanel;
+
+import javax.swing.*;
 import java.awt.*;
 
 public class GameFrame extends Frame {
@@ -20,23 +20,27 @@ public class GameFrame extends Frame {
                 "Battleships Game",
                 false,
                 true );
-        Container c = this.getContentPane();
-        c.setBackground(new Color(30,30,30));
+        Container gameFrameContainer = this.getContentPane();
+        gameFrameContainer.setBackground(new Color(00,00,00));
+
+        JPanel gamePanel = new JPanel();
+        gamePanel.setLayout(new GridLayout(2,1,5,5));
+        gamePanel.setBackground(new Color(30,30,30));
+
+        JPanel infoPanel = new JPanel();
+        infoPanel.setLayout(new GridLayout(1,1,5,5));
+        infoPanel.setBackground(new Color(30,30,100));
 
         Field myField = new Field(false);
         Field enemyField = new Field(true);
 
-        JPanel fieldPanel = new JPanel();
-        fieldPanel.setLayout(new GridLayout(2,1,10,10));
-        JPanel infoPanel = new JPanel();
-        infoPanel.setLayout(new GridLayout(1,1,10,10));
 
-        fieldPanel.add(myField);
-        fieldPanel.add(enemyField);
 
-        this.setLayout(new GridLayout(1,2, 10, 10));
-        this.add(fieldPanel);
-        this.add(infoPanel);
+        gameFrameContainer.setLayout(new GridLayout(1,2, 10, 10));
+        gameFrameContainer.add(gamePanel);
+        gamePanel.add(enemyField); // place fields based on order
+        gamePanel.add(myField);
+        gameFrameContainer.add(infoPanel);
         this.pack();
         this.setSize(600,600);
 

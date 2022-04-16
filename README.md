@@ -15,6 +15,6 @@ Beágyazott Rendszerek Szoftvertechnológiája házi feladat - Torpedó játék 
 
  ## Java boost
  A gui fejlesztéséhez a következő framework-öket használjuk:
-  - Megjelentések: Swing: https://javapoint.com/java-swing
-  - Eventek: AWT: https://javapoint.com/java-awt
+  - Megjelentések: Swing: https://www.javapoint.com/java-swing
+  - Eventek: AWT: https://www.javapoint.com/java-awt
   - A felhasznált dolgokkal ez a lista még bővülni fog...  
