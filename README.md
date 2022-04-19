@@ -14,7 +14,7 @@ Beágyazott Rendszerek Szoftvertechnológiája házi feladat - Torpedó játék 
  - Ha végeztél vele, akkor merge development-be
 
  ## Java boost
- A gui fejlesztéséhez a következő frame-worköket használjuk:
-  - Megjelentések: Swing: http://javapoint.com/java-swing
-  - Eventek: AWT: http://javapoint.com/java-awt
+ A gui fejlesztéséhez a következő framework-öket használjuk:
+  - Megjelentések: Swing: https://www.javapoint.com/java-swing
+  - Eventek: AWT: https://www.javapoint.com/java-awt
   - A felhasznált dolgokkal ez a lista még bővülni fog...  
