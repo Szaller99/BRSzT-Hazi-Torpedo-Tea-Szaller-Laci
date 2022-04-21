@@ -26,8 +26,7 @@ public class Field extends JComponent {
         else {
             this.setBackground(new Color(80,150,80));
         }
-
-
+       
         Tile[][] tiles = new Tile[11][11];
         for (int i = 0; i <= 10; i++) {
             for (int j = 0; j <= 10; j++) {
@@ -35,10 +34,26 @@ public class Field extends JComponent {
                 this.add(tiles[i][j]);
             }
         }
+
+        Legend[] sideLegends = new Legend[11];
+        for (int i=0; i<= 10; i++) {
+            sideLegends[i] = new Legend(0,i,String.valueOf(i));
+            this.add(sideLegends[i]);
+        }
+
+        Legend[] lowerLegends = new Legend[10];
+        for (int i=1; i< 10; i++) {
+            lowerLegends[i] = new Legend(i,0,String.valueOf(i));
+            this.add(lowerLegends[i]);
+        }
+        this.paintComponents(this.getGraphics());
+       
+
     }
-    public void paint(Graphics g) {
-        g.setColor(this.getBackground());
-        g.fillRect(20,20,240, 240);
-        // g.clearRect(30,30,220,220);
-    }
+
+    // public void paint(Graphics g) {
+    //     g.setColor(this.getBackground());
+    //     g.fillRect(20,20,240, 240);
+    //     g.clearRect(30,30,220,220);
+    // }
 }

@@ -13,6 +13,7 @@ public class Tile extends JButton implements MouseListener{
         this.setBounds(30+xPosition*20, 30+yPosition*20, 20, 20);
         this.tileName = "x" + String.valueOf(xPosition) + "y" + String.valueOf(yPosition);
         this.setBackground(new Color(100,100,100));
+        
         this.addMouseListener(this);
         this.setFocusable(true);
         this.setVisible(true);
@@ -20,6 +21,7 @@ public class Tile extends JButton implements MouseListener{
 
     public void mouseClicked(MouseEvent e){
         System.out.print("tile " + this.tileName + " was clicked\n");
+        this.setBackground(Color.RED);
     }
     public void mousePressed(MouseEvent e){
 
