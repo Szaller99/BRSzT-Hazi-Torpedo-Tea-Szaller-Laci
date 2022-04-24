@@ -28,24 +28,36 @@ public class Field extends JComponent {
         }
        
         Tile[][] tiles = new Tile[11][11];
-        for (int i = 0; i <= 10; i++) {
-            for (int j = 0; j <= 10; j++) {
+
+        for (int i=0; i<= 10; i++) {
+            tiles[0][i] = new LegendTile(0,i,String.valueOf(i));
+            this.add(tiles[0][i]);
+        }
+
+        for (int i=0; i<= 10; i++) {
+            tiles[i][0] = new LegendTile(i,0,String.valueOf(i));
+            this.add(tiles[i][0]);
+        }
+
+        for (int i = 1; i <= 10; i++) {
+            for (int j = 1; j <= 10; j++) {
                 tiles[i][j] = new Tile(i, j);
                 this.add(tiles[i][j]);
             }
         }
 
-        Legend[] sideLegends = new Legend[11];
-        for (int i=0; i<= 10; i++) {
-            sideLegends[i] = new Legend(0,i,String.valueOf(i));
-            this.add(sideLegends[i]);
-        }
+        // LegendTile[] sideLegends = new LegendTile[11];
+        // for (int i=0; i<= 10; i++) {
+        //     sideLegends[i] = new LegendTile(0,i,String.valueOf(i));
+        //     this.add(sideLegends[i]);
+        // }
 
-        Legend[] lowerLegends = new Legend[10];
-        for (int i=1; i< 10; i++) {
-            lowerLegends[i] = new Legend(i,0,String.valueOf(i));
-            this.add(lowerLegends[i]);
-        }
+        // LegendTile[] upperLegends = new LegendTile[11];
+        // for (int i=0; i<= 10; i++) {
+        //     upperLegends[i] = new LegendTile(i,0,String.valueOf(i));
+        //     this.add(upperLegends[i]);
+        // }
+        
         this.paintComponents(this.getGraphics());
        
 
