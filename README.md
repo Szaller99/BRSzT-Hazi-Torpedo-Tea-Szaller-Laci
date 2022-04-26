@@ -17,4 +17,5 @@ Beágyazott Rendszerek Szoftvertechnológiája házi feladat - Torpedó játék 
  A gui fejlesztéséhez a következő framework-öket használjuk:
   - Megjelentések: Swing: https://www.javapoint.com/java-swing
   - Eventek: AWT: https://www.javapoint.com/java-awt
-  - A felhasznált dolgokkal ez a lista még bővülni fog...  
+
+A JSON kezeléshez a json-simple (https://www.javatpoint.com/java-json-example) könyvtárat használjuk, a dependecy kezelést a Maven segítségével végezzük.
