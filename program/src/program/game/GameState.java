@@ -1,7 +1,6 @@
 package program.game;
 
 import org.json.simple.JSONObject;
-import program.view.components.Tile;
 
 
 public class GameState {
@@ -12,16 +11,18 @@ public class GameState {
         end
     }
     public State gameStage;
-    public Tile[] hostTiles = new Tile[11];
-    public Tile[] clientTiles = new Tile[11];
 
 
     public GameState() {
         this.gameStage = State.start;
+        this.getJSON();
     }
+
+
     public void update(Game game){
 
     }
+
     public JSONObject getJSON() {
         JSONObject gameJSON = new JSONObject();
         gameJSON.put("state", this.gameStage);

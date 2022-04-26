@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="BRSzT-Hazi-Torpedo-Tea-Szaller-Laci" target="18" />
+      <module name="BRSzT-Hazi-Torpedo-Tea-Szaller-Laci" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>

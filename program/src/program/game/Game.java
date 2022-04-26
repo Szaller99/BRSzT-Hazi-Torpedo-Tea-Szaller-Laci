@@ -40,7 +40,9 @@ public class Game {
     }
 
     private void startGame() {
-        this.gameState.update(this);
         this.frame = new GameFrame(this.app);
+        this.gameState.update(this);
     }
+
+
 }

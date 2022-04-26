@@ -7,12 +7,17 @@ import java.awt.*;
 public class Field extends JComponent {
     private boolean isUpper;
     private boolean isLower;
+    public Tile[][] tiles;
 
     public Field(boolean isUpper) {
         super();
         this.isUpper = isUpper;
         this.isLower = !isUpper;
         setupField();
+    }
+
+    public Tile[][] getHostTiles() {
+        return this.tiles;
     }
 
     private void setupField() {
