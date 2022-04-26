@@ -1,13 +1,19 @@
 package program.controller;
-import program.view.GameFrame;
+import program.view.*;
+import program.game.Game;
 
 public class Controller {
 
-    private GameFrame gameframe;
+    private WelcomeFrame welcomeFrame;
+    private GameFrame gameFrame;
+    private Game game;
 
     public Controller()
     {
-        this.gameframe = new GameFrame(this);
+        // this.welcomeFrame = new WelcomeFrame(this);
+
+        this.game = new Game(this);
+        this.gameFrame = this.game.frame;
     }
 
     public void start()
