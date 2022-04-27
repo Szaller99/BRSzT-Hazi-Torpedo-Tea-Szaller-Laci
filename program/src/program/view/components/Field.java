@@ -58,6 +58,9 @@ public class Field extends JComponent {
             for (int j = 1; j <= 10; j++) {
                 tiles[i][j] = new GameTile(i, j);
                 this.add(tiles[i][j]);
+                if(isLower){
+                    tiles[i][j].set2Water();
+                }
             }
         }
 
