@@ -5,7 +5,7 @@ enum Orient {
         HORIZONTAL
     }
 
-public class BattleShip {
+public class Battleship {
     
     private boolean isDestroyed;
     private boolean isPlaced;
@@ -15,7 +15,7 @@ public class BattleShip {
     private Orient Orientation;
 
 
-    public BattleShip(int len, int xPos, int yPos, Orient or) {
+    public Battleship(int len, int xPos, int yPos, Orient or) {
         this.isPlaced = true;
         this.isDestroyed = false;
         this.length = len;
@@ -23,7 +23,7 @@ public class BattleShip {
         this.yPosition = yPos;
         this.Orientation = or;
     }
-    public BattleShip(int len) {
+    public Battleship(int len) {
         this.isPlaced = false;
         this.isDestroyed = false;
         this.length = len;
@@ -31,7 +31,7 @@ public class BattleShip {
         this.yPosition = 0;
         this.Orientation = Orient.VERTICAL;
     }
-    public BattleShip() {
+    public Battleship() {
         this.isPlaced = false;
         this.isDestroyed = false;
         this.length = 0;

@@ -3,8 +3,8 @@ import program.game.BattleShip;
 
 public class Game {
 
-    private BattleShip[] hostShips;
-    private BattleShip[] enemyShips;
+    private Battleship[] hostShips;
+    private Battleship[] enemyShips;
 
     public Game() {
         int len;
@@ -32,8 +32,8 @@ public class Game {
                     len = 0;
                     break;
             }
-            this.hostShips[i] = new BattleShip(len);
-            this.enemyShips[i] = new BattleShip(len);
+            this.hostShips[i] = new Battleship(len);
+            this.enemyShips[i] = new Battleship(len);
         }
         
     }
