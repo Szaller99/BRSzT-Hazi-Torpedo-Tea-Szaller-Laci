@@ -1,5 +1,5 @@
 package program.game;
-import program.game.BattleShip;
+import program.game.Battleship;
 
 public class Game {
 
