@@ -1,26 +1,52 @@
 package program.game;
 
-
-import javafx.geometry.Point2D;
-
-public class BattleShip {
-    enum Orient {
+enum Orient {
         VERTICAL,
         HORIZONTAL
     }
 
+public class BattleShip {
+    
     private boolean isDestroyed;
+    private boolean isPlaced;
     private int length;
-    private Point2D position;
-    private Orient Orientation ;
+    private int xPosition;
+    private int yPosition;
+    private Orient Orientation;
 
-    public BattleShip(int len, Point2D pos, Orient or) {
+
+    public BattleShip(int len, int xPos, int yPos, Orient or) {
+        this.isPlaced = true;
         this.isDestroyed = false;
         this.length = len;
-        this.position = pos;
+        this.xPosition = xPos;
+        this.yPosition = yPos;
         this.Orientation = or;
     }
-
+    public BattleShip(int len) {
+        this.isPlaced = false;
+        this.isDestroyed = false;
+        this.length = len;
+        this.xPosition = 0;
+        this.yPosition = 0;
+        this.Orientation = Orient.VERTICAL;
+    }
+    public BattleShip() {
+        this.isPlaced = false;
+        this.isDestroyed = false;
+        this.length = 0;
+        this.xPosition = 0;
+        this.yPosition = 0;
+        this.Orientation = Orient.VERTICAL;
+    }
+    public void placeShip(int len, int xPos, int yPos, Orient or) {
+        this.isPlaced = true;
+        this.isDestroyed = false;
+        this.length = len;
+        this.xPosition = xPos;
+        this.yPosition = yPos;
+        this.Orientation = or;
+    }
     public void rotate() {
         if(this.Orientation == Orient.VERTICAL)
         {
@@ -36,11 +62,26 @@ public class BattleShip {
         //TODO
     }
 
+
+
     public boolean isDestroyed() {
         return this.isDestroyed;
     }
 
+    public boolean isPlaced() {
+        return this.isPlaced;
+    }
+
     public int getlength() {
         return this.length;
+    }
+
+    public boolean destroy() {
+        if(this.isDestroyed == true) {
+            return false;
+        } else {
+            this.isDestroyed = true;
+            return true;
+        }
     }
 }
