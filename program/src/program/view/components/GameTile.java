@@ -61,7 +61,7 @@ public class GameTile extends Tile{
     }
 
     public void mouseClicked(MouseEvent e){
-        System.out.print("game tile " + this.tileName + " was clicked \n");
+        // System.out.print("game tile " + this.tileName + " was clicked \n");
 
         if(this.isEditable()){
             this.set2SingleShip();
@@ -97,7 +97,7 @@ public class GameTile extends Tile{
         
     }
     public void mousePressed(MouseEvent e){
-        System.out.print("game tile " + this.tileName + " was pressed \n");
+        // System.out.print("game tile " + this.tileName + " was pressed \n");
         if (this.isEditable()){
             myField.startShip(this.x,this.y);
         }
