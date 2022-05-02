@@ -70,6 +70,10 @@ public class Field extends JComponent {
                 this.add(tiles[i][j]);
                 if(isLower){
                     tiles[i][j].set2Water();
+                    tiles[i][j].setEditable(true); // for testing
+                }
+                else{
+                    tiles[i][j].setShootable(true); // for testing
                 }
             }
         }
@@ -117,6 +121,8 @@ public class Field extends JComponent {
                 tiles[startX][startY].set2EndShip(ShipEndType.right);
                 tiles[x][y].set2MiddleShip(false);
             }
+            this.prevX = x;
+            this.prevY = y;
         }
         else if (x==startX){
             if(y>startY){
@@ -127,10 +133,11 @@ public class Field extends JComponent {
                 tiles[startX][startY].set2EndShip(ShipEndType.lower);
                 tiles[x][y].set2MiddleShip(true);
             }
+            this.prevX = x;
+            this.prevY = y;
         }
 
-        this.prevX = x;
-        this.prevY = y;
+        
     }
 
     public void endShip(){
@@ -141,21 +148,42 @@ public class Field extends JComponent {
             if(prevX>startX){
                 tiles[startX][startY].set2EndShip(ShipEndType.left);
                 tiles[prevX][prevY].set2EndShip(ShipEndType.right);
+                for(int i=startX;i<=prevX;i++){
+                    tiles[i][startY].setEditable(false);
+                }
             }
             else{
                 tiles[startX][startY].set2EndShip(ShipEndType.right);
                 tiles[prevX][prevY].set2EndShip(ShipEndType.left);
+                for(int i=prevX;i<=startX;i++){
+                    tiles[i][startY].setEditable(false);
+                }
             }
         }
         else if (prevX==startX){
             if(prevY>startY){
                 tiles[startX][startY].set2EndShip(ShipEndType.upper);
                 tiles[prevX][prevY].set2EndShip(ShipEndType.lower);
+                for(int i=startY;i<=prevY;i++){
+                    tiles[startX][i].setEditable(false);
+                }
             }
             else{
                 tiles[startX][startY].set2EndShip(ShipEndType.lower);
                 tiles[prevX][prevY].set2EndShip(ShipEndType.upper);
+                for(int i=startY;i<=prevY;i++){
+                    tiles[startX][i].setEditable(false);
+                }
             }
-        }    
+        }
+    }
+    public void gotHit(int x, int y){
+        tiles[x][y].gotHit();
+    }
+
+    public tileType shoot(int x, int y){
+        // TODO
+        // function witch sends the coordinates end returns the tile type abd if it is the last of the ship by enemy
+        return tileType.water;
     }
 }
