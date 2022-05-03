@@ -10,18 +10,18 @@ import java.awt.event.MouseListener;
 public class Field extends JComponent {
     private boolean isUpper;
     private boolean isLower;
-    private boolean isEditable;
     private int startX;
     private int startY;
     private int prevX;
     private int prevY;
+    private int thisShipLength;
+    private Tile[] thisShipTiles;
     public Tile[][] tiles;
 
     public Field(boolean isUpper) {
         super();
         this.isUpper = isUpper;
         this.isLower = !isUpper;
-        this.isEditable = false;
         setupField();
     }
 
@@ -74,6 +74,10 @@ public class Field extends JComponent {
                 this.add(tiles[i][j]);
                 if(isLower){
                     tiles[i][j].set2Water();
+                    tiles[i][j].setEditable(true); // for testing
+                }
+                else{
+                    tiles[i][j].setShootable(true); // for testing
                 }
             }
         }
@@ -90,13 +94,6 @@ public class Field extends JComponent {
         this.paintComponents(g);
     }
 
-    public void setEditable(){
-        this.isEditable = true;
-    }
-
-    public void clearEditable(){
-        this.isEditable = false;
-    }
 
     public void testMessage(){
         System.out.print("test\n");
@@ -109,6 +106,10 @@ public class Field extends JComponent {
 
         this.prevX = x;
         this.prevY = y;
+
+        this.thisShipLength = 0;
+        this.thisShipTiles = new Tile[0];
+        this.addTile2Ship(this.thisShipTiles, tiles[x][y]);
     }
 
     public void continueShip(int x, int y){
@@ -121,6 +122,11 @@ public class Field extends JComponent {
                 tiles[startX][startY].set2EndShip(ShipEndType.right);
                 tiles[x][y].set2MiddleShip(false);
             }
+            this.prevX = x;
+            this.prevY = y;
+
+            this.thisShipLength ++;
+            this.addTile2Ship(this.thisShipTiles, tiles[x][y]);
         }
         else if (x==startX){
             if(y>startY){
@@ -131,10 +137,15 @@ public class Field extends JComponent {
                 tiles[startX][startY].set2EndShip(ShipEndType.lower);
                 tiles[x][y].set2MiddleShip(true);
             }
+            this.prevX = x;
+            this.prevY = y;
+
+            this.thisShipLength ++;
+            this.addTile2Ship(this.thisShipTiles, tiles[x][y]);
         }
 
-        this.prevX = x;
-        this.prevY = y;
+       
+        
     }
 
     public void endShip(){
@@ -145,21 +156,82 @@ public class Field extends JComponent {
             if(prevX>startX){
                 tiles[startX][startY].set2EndShip(ShipEndType.left);
                 tiles[prevX][prevY].set2EndShip(ShipEndType.right);
+                for(int i=startX;i<=prevX;i++){
+                    tiles[i][startY].setEditable(false);
+                }
             }
             else{
                 tiles[startX][startY].set2EndShip(ShipEndType.right);
                 tiles[prevX][prevY].set2EndShip(ShipEndType.left);
+                for(int i=prevX;i<=startX;i++){
+                    tiles[i][startY].setEditable(false);
+                }
             }
         }
         else if (prevX==startX){
             if(prevY>startY){
                 tiles[startX][startY].set2EndShip(ShipEndType.upper);
                 tiles[prevX][prevY].set2EndShip(ShipEndType.lower);
+                for(int i=startY;i<=prevY;i++){
+                    tiles[startX][i].setEditable(false);
+                }
             }
             else{
                 tiles[startX][startY].set2EndShip(ShipEndType.lower);
                 tiles[prevX][prevY].set2EndShip(ShipEndType.upper);
+                for(int i=startY;i<=prevY;i++){
+                    tiles[startX][i].setEditable(false);
+                }
             }
-        }    
+        }
+        
+        this.thisShipLength ++;
+        // this.addTile2Ship(this.thisShipTiles, tiles[prevX][prevY]);
+
+        System.out.print("ship length: " + String.valueOf(this.thisShipLength) + "\n");
+    }
+    public void gotHit(int x, int y){
+        tiles[x][y].gotHit();
+    }
+
+    public tileType shoot(int x, int y){
+        // TODO
+        // function witch sends the coordinates end returns the tile type abd if it is the last of the ship by enemy
+        return tileType.water;
+    }
+
+    private Tile[] addTile2Ship(Tile[] ship, Tile tile){
+        int n = ship.length;
+        Tile[] newShip = new Tile[n+1];
+        for (int i = 0; i<n;i++){
+            newShip[i]=ship[i];
+        }
+        newShip[n]=tile;
+        System.out.print("added tile (" + String.valueOf(tile.x) + "," + String.valueOf(tile.y) + ") to the ship \n");
+        return newShip;
+    }
+
+    public void set2ShipSetup(){
+        for (int i = 1; i <= 10; i++) {
+            for (int j = 1; j <= 10; j++) {
+                tiles[i][j].setEditable(true); // for testing
+            }
+        }
+    }
+
+    public void set2Hitable(){
+        for (int i = 1; i <= 10; i++) {
+            for (int j = 1; j <= 10; j++) {
+                tiles[i][j].setHitable(true); // for testing
+            }
+        }
+    }
+
+    public void set2Shootable(){
+        for (int i = 1; i <= 10; i++) {
+            for (int j = 1; j <= 10; j++) {
+                tiles[i][j].setShootable(true); // for testing
+            }
+        }
     }
 }

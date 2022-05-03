@@ -58,8 +58,43 @@ public class Tile extends JButton implements MouseListener{
        
     }
 
+    public void gotHit(){
+    }
+
     public Point getPosition(){
         return new Point(this.x,this.y);
+    }
+
+    public boolean isHit() {
+        return false;
+    }
+
+    public void setHit(boolean isHit) {
+        
+    }
+
+    public boolean isEditable() {
+        return false;
+    }
+
+    public void setEditable(boolean isEditable) {
+        
+    }
+
+    public boolean isHitable() {
+        return false;
+    }
+
+    public void setHitable(boolean isHitable) {
+        
+    }
+
+    public boolean isShootable() {
+        return false;
+    }
+
+    public void setShootable(boolean isShootable) {
+        
     }
 
 }
