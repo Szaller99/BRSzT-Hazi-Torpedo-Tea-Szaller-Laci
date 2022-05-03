@@ -32,6 +32,7 @@ public class GameFrame extends Frame {
 
         gamePanel.add(enemyField); // place fields based on order
         gamePanel.add(myField);
+        this.paintComponents(this.getGraphics());
 
         JPanel infoPanel = new JPanel();
         infoPanel.setLayout(new GridLayout(1,1,5,5));
@@ -42,7 +43,7 @@ public class GameFrame extends Frame {
         gameFrameContainer.add(gamePanel);
         gameFrameContainer.add(infoPanel);
         this.pack();
-        this.setSize(600,600);
-
+        this.setSize(600,650);
+        
     }
 }
