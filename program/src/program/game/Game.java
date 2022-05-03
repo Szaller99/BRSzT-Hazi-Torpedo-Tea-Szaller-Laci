@@ -1,17 +1,15 @@
 package program.game;
-import program.game.Battleship;
 
 import program.communication.Communication;
 import program.controller.Controller;
 import program.view.GameFrame;
+
 import java.awt.*;
 
 public class Game {
     private Controller app;
     private Player hostPlayer;
     private Player clientPlayer;
-    private BattleShip[] hostShips;
-    private BattleShip[] clientShips;
 
     public GameFrame frame;
 
@@ -21,22 +19,22 @@ public class Game {
     public Game(Controller app) {
         this.hostPlayer = new Player(true);
         this.clientPlayer = new Player();
-        this.hostShips = createShips();
-        this.clientShips = createShips();
+        this.hostships = createShips();
+        this.clientships = createShips();
         this.gameState = new GameState();
         // this.communication.init();
         this.startGame();
     }
 
-    private BattleShip[] createShips() {
-        BattleShip[] ships = new BattleShip[6];
+    private Battleship[] createShips() {
+        Battleship[] ships = new Battleship[6];
         Dimension defaultPoint = new Dimension(0,0);
-        ships[0]=(new BattleShip(5, defaultPoint, 0));
-        ships[1]=(new BattleShip(4, defaultPoint, 0));
-        ships[2]=(new BattleShip(3, defaultPoint, 0));
-        ships[3]=(new BattleShip(3, defaultPoint, 0));
-        ships[4]=(new BattleShip(2, defaultPoint, 0));
-        ships[5]=(new BattleShip(2, defaultPoint, 0));
+        ships[0]=(new Battleship());
+        ships[1]=(new Battleship());
+        ships[2]=(new Battleship());
+        ships[3]=(new Battleship());
+        ships[4]=(new Battleship());
+        ships[5]=(new Battleship());
         return ships;
     }
 
@@ -46,9 +44,8 @@ public class Game {
     }
 
 
-
-    private Battleship[] hostShips;
-    private Battleship[] enemyShips;
+    private Battleship[] hostships;
+    private Battleship[] clientships;
 
     public Game() {
         int len;
@@ -76,21 +73,21 @@ public class Game {
                     len = 0;
                     break;
             }
-            this.hostShips[i] = new Battleship(len);
-            this.enemyShips[i] = new Battleship(len);
+            this.hostships[i] = new Battleship(len);
+            this.clientships[i] = new Battleship(len);
         }
         
     }
 
     public boolean placeShip(int len, int xPos, int yPos, Orient or) {
         int i = 0;
-        while (!(this.hostShips[i].getlength() == len && this.hostShips[i].isPlaced() == false)) {
+        while (!(this.hostships[i].getlength() == len && this.hostships[i].isPlaced() == false)) {
             i++;
         }
         if(i>7) {
             return false;
         } else {
-            this.hostShips[i].placeShip(len, xPos, yPos, or);
+            this.hostships[i].placeShip(len, xPos, yPos, or);
             return true;
         }
     }
