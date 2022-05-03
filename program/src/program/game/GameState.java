@@ -1,7 +1,5 @@
 package program.game;
 
-import org.json.simple.JSONObject;
-
 
 public class GameState {
     enum State {
@@ -15,7 +13,6 @@ public class GameState {
 
     public GameState() {
         this.gameStage = State.start;
-        this.getJSON();
     }
 
 
@@ -23,9 +20,4 @@ public class GameState {
 
     }
 
-    public JSONObject getJSON() {
-        JSONObject gameJSON = new JSONObject();
-        gameJSON.put("state", this.gameStage);
-        return gameJSON;
-    }
 }
