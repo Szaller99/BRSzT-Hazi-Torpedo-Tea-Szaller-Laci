@@ -11,17 +11,19 @@ public class TurnSign extends JComponent {
     JLabel FieldSign;
     
     public TurnSign(){
-        this.setBounds(20,200,240,40);
+        this.setBounds(20,200,240,50);
         this.setVisible(true);
 
         this.setBackground(Color.LIGHT_GRAY);
         this.setBorder(BorderFactory.createLineBorder(Color.RED));
+        this.setFocusable(true);
+        this.setVisible(true);
 
         this.FieldSign = new JLabel("",SwingConstants.CENTER);
         this.FieldSign.setVisible(true);
         this.FieldSign.setForeground(Color.RED);
         this.FieldSign.setFont(new Font("Arial", Font.BOLD, 20));
-        this.FieldSign.setBounds(30, 20, 240, 20);
+        this.FieldSign.setBounds(30, 15, 240, 30);
         this.add(FieldSign);
 
         this.paintComponents(this.getGraphics());

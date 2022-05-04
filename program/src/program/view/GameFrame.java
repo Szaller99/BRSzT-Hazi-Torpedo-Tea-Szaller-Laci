@@ -11,6 +11,10 @@ import java.awt.GridBagLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.border.Border;
+import javax.swing.plaf.basic.BasicBorders;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class GameFrame extends Frame {
     private Controller app;
@@ -44,6 +48,29 @@ public class GameFrame extends Frame {
         TurnSign turnSign = new TurnSign();
         turnSign.ShipSetup(); // for testing
 
+        JButton readyButton = new JButton("Ready to play!");
+        readyButton.setBackground(Color.LIGHT_GRAY);
+        readyButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        readyButton.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent e)
+            {
+                System.out.print("Ready Button was pressed \n");
+                // todo ready to play function
+            }
+        });
+        JButton deleteButton = new JButton("Delete Ship");
+        deleteButton.setBackground(Color.LIGHT_GRAY);
+        deleteButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        deleteButton.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent e)
+            {
+                System.out.print("Delete Button was pressed \n");
+                // todo delete ship function
+            }
+        });
+
         JPanel infoPanel = new JPanel();
         infoPanel.setBackground(new Color(30,30,100));
         infoPanel.setLayout(new GridBagLayout());
@@ -53,13 +80,15 @@ public class GameFrame extends Frame {
         c.weightx = 240;
         c.weighty = 230;
         c.ipadx = 35;
+        c.gridwidth = GridBagConstraints.REMAINDER;
         c.fill = GridBagConstraints.BOTH;
         infoPanel.add(enemyShips, c);
         c.gridx = 0;
         c.gridy = 1;
         c.weightx = 240;
         c.weighty = 50;
-        c.ipadx = 35;
+        c.ipadx = 5;
+        c.gridwidth = GridBagConstraints.REMAINDER;
         c.fill = GridBagConstraints.BOTH;
         c.anchor = GridBagConstraints.CENTER;
         infoPanel.add(turnSign, c);
@@ -68,8 +97,24 @@ public class GameFrame extends Frame {
         c.weightx = 240;
         c.weighty = 230;
         c.ipadx = 35;
+        c.gridwidth = GridBagConstraints.REMAINDER;
         c.fill = GridBagConstraints.BOTH;
         infoPanel.add(myShips, c);
+        c.gridx = 0;
+        c.gridy = 3;
+        c.weightx = 100;
+        c.weighty = 20;
+        c.ipadx = 35;
+        c.gridwidth = 1;
+        c.fill = GridBagConstraints.BOTH;
+        infoPanel.add(deleteButton, c);
+        c.gridx = 1;
+        c.gridy = 3;
+        c.weightx = 100;
+        c.weighty = 20;
+        c.ipadx = 35;
+        c.fill = GridBagConstraints.BOTH;
+        infoPanel.add(readyButton, c);
 
         // infoPanel.add(enemyShips); // place fields based on order
         // infoPanel.add(turnSign);
