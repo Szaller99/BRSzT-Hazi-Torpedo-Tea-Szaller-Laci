@@ -25,6 +25,8 @@ public class GameFrame extends Frame {
     private Controller app;
     private Game myGame;
     public TurnSign turnSign;
+    public Field myField;
+    public Field enemyField;
     public GameFrame(Controller app, Game myGame) {
         super(app);
         this.app = app;
@@ -41,15 +43,15 @@ public class GameFrame extends Frame {
         Container gameFrameContainer = this.getContentPane();
         gameFrameContainer.setBackground(new Color(00,00,00));
 
-        Field myField = new Field(false, this);
-        Field enemyField = new Field(true, this);
+        this.myField = new Field(false, this);
+        this.enemyField = new Field(true, this);
 
         JPanel gamePanel = new JPanel();
         gamePanel.setLayout(new GridLayout(2,1,5,5));
         gamePanel.setBackground(new Color(30,30,30));
 
-        gamePanel.add(enemyField); // place fields based on order
-        gamePanel.add(myField);
+        gamePanel.add(this.enemyField); // place fields based on order
+        gamePanel.add(this.myField);
         this.paintComponents(this.getGraphics());
 
         ShipsInfo myShips = new ShipsInfo(false);
@@ -57,7 +59,7 @@ public class GameFrame extends Frame {
         this.turnSign = new TurnSign();
         this.turnSign.ShipSetup(); // for testing
 
-        ReadyButton readyButton = new ReadyButton();
+        ReadyButton readyButton = new ReadyButton(this);
         DeleteButton deleteButton = new DeleteButton(myField, this.turnSign);
 
         JPanel infoPanel = new JPanel();
@@ -127,5 +129,16 @@ public class GameFrame extends Frame {
     public int[][] deleteShip(int x, int y){
         this.turnSign.ShipSetup();
         return this.myGame.deleteShip(x, y);     
+    }
+
+    public void ready2Play(){
+        boolean canBeReady = this.myGame.ready2Play();
+        if (canBeReady){
+            this.myField.clearAllStatus();
+            this.enemyField.clearAllStatus();
+        }
+        else{
+            this.turnSign.NotDone();
+        }
     }
 }

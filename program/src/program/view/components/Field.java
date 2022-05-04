@@ -240,7 +240,7 @@ public class Field extends JComponent {
     public void set2Delete(){
         for (int i = 1; i <= 10; i++) {
             for (int j = 1; j <= 10; j++) {
-                tiles[i][j].setToDelete(true); // for testing
+                tiles[i][j].setToDelete(true);
             }
         }
     }
@@ -248,7 +248,7 @@ public class Field extends JComponent {
     public void clear2Delete(){
         for (int i = 1; i <= 10; i++) {
             for (int j = 1; j <= 10; j++) {
-                tiles[i][j].setToDelete(false); // for testing
+                tiles[i][j].setToDelete(false);
             }
         }
     }
@@ -263,5 +263,16 @@ public class Field extends JComponent {
         }
 
         this.clear2Delete();
+    }
+
+    public void clearAllStatus(){
+        for (int i = 1; i <= 10; i++) {
+            for (int j = 1; j <= 10; j++) {
+                tiles[i][j].setToDelete(false);
+                tiles[i][j].setEditable(false);
+                tiles[i][j].setHitable(false);
+                tiles[i][j].setShootable(false);
+            }
+        }
     }
 }

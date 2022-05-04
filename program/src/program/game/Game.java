@@ -101,12 +101,21 @@ public class Game {
 
     public int[][] deleteShip(int x, int y){
 
-        // todo: delete ship on (x,y) tile, return tiles where the ship was
+        // todo: delete ship on (x,y) tile, return tiles where the ship was (it will desappear already from field I hope)
         int length = 1; // for testing
         int[][] ships = new int[length][2];
         ships[0][0] = 1; // for testing
         ships[0][1] = 1; // for testing
 
         return ships;
+    }
+
+    public boolean ready2Play(){
+        // todo:
+        // check if all the ships are placed
+        // if yes, set the status to ready to play
+        // if no then don't no anything and return false
+
+        return false;
     }
 }

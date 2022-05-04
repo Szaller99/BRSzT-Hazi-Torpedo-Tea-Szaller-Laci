@@ -45,6 +45,10 @@ public class TurnSign extends JComponent {
         this.FieldSign.setText("Choose your ship to delete!");
     }
 
+    public void NotDone(){
+        this.FieldSign.setText("You have some ship left!");
+    }
+
     public void clearSign(){
         this.FieldSign.setText("");
     }
