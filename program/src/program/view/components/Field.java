@@ -3,6 +3,8 @@ package program.view.components;
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 
+import program.view.GameFrame;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -17,11 +19,13 @@ public class Field extends JComponent {
     private int thisShipLength;
     private Tile[] thisShipTiles;
     public Tile[][] tiles;
+    private GameFrame myFrame;
 
-    public Field(boolean isUpper) {
+    public Field(boolean isUpper, GameFrame myFrame) {
         super();
         this.isUpper = isUpper;
         this.isLower = !isUpper;
+        this.myFrame = myFrame;
         setupField();
     }
 
@@ -195,9 +199,7 @@ public class Field extends JComponent {
     }
 
     public tileType shoot(int x, int y){
-        // TODO
-        // function witch sends the coordinates end returns the tile type abd if it is the last of the ship by enemy
-        return tileType.water;
+        return this.myFrame.shootEnemy(x, y);
     }
 
     private Tile[] addTile2Ship(Tile[] ship, Tile tile){

@@ -2,6 +2,7 @@ package program.game;
 
 import program.communication.Communication;
 import program.controller.Controller;
+import program.view.components.*;
 import program.view.GameFrame;
 
 import java.awt.*;
@@ -39,7 +40,7 @@ public class Game {
     }
 
     private void startGame() {
-        this.frame = new GameFrame(this.app);
+        this.frame = new GameFrame(this.app, this);
         this.gameState.update(this);
     }
 
@@ -90,5 +91,11 @@ public class Game {
             this.hostships[i].placeShip(len, xPos, yPos, or);
             return true;
         }
+    }
+
+    public tileType shootEnemy(int x, int y){
+        // todo: got the type of enemy's tile in x,y
+
+        return tileType.water;
     }
 }

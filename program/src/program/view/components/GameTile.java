@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-enum tileType {water,ship,unknown}
+
 
 public class GameTile extends Tile{
     public tileType type;

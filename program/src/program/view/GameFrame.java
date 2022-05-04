@@ -1,10 +1,15 @@
 package program.view;
 
 import program.controller.Controller;
+import program.game.Game;
 import program.view.components.Field;
 import program.view.components.Frame;
 import program.view.components.ShipsInfo;
 import program.view.components.TurnSign;
+
+import program.view.components.*;
+
+import program.view.components.GameTile;
 
 import java.awt.GridBagConstraints;  
 import java.awt.GridBagLayout;  
@@ -18,11 +23,14 @@ import java.awt.event.MouseListener;
 
 public class GameFrame extends Frame {
     private Controller app;
-    public GameFrame(Controller app) {
+    private Game myGame;
+    public GameFrame(Controller app, Game myGame) {
         super(app);
         this.app = app;
+        this.myGame = myGame;
         setupGameFrame();
     }
+
     private void setupGameFrame(){
         this.setupFrame(
                 new Dimension(600, 600),
@@ -32,8 +40,8 @@ public class GameFrame extends Frame {
         Container gameFrameContainer = this.getContentPane();
         gameFrameContainer.setBackground(new Color(00,00,00));
 
-        Field myField = new Field(false);
-        Field enemyField = new Field(true);
+        Field myField = new Field(false, this);
+        Field enemyField = new Field(true, this);
 
         JPanel gamePanel = new JPanel();
         gamePanel.setLayout(new GridLayout(2,1,5,5));
@@ -127,5 +135,11 @@ public class GameFrame extends Frame {
         this.pack();
         this.setSize(600,650);
         
+    }
+
+    public tileType shootEnemy(int x, int y){
+        // todo: got the type of enemy's tile in x,y
+
+        return this.myGame.shootEnemy(x, y);
     }
 }
