@@ -1,4 +1,4 @@
-package program.view;
+package program.view.components;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

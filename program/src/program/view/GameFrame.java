@@ -2,14 +2,8 @@ package program.view;
 
 import program.controller.Controller;
 import program.game.Game;
-import program.view.components.Field;
 import program.view.components.Frame;
-import program.view.components.ShipsInfo;
-import program.view.components.TurnSign;
-
 import program.view.components.*;
-
-import program.view.components.GameTile;
 
 import java.awt.GridBagConstraints;  
 import java.awt.GridBagLayout;  
