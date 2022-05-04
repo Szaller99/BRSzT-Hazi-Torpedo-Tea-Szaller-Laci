@@ -259,6 +259,7 @@ public class Field extends JComponent {
 
         for(int i = 0; i<length; i++){
             tiles[ship[i][0]][ship[i][1]].set2Water();
+            tiles[ship[i][0]][ship[i][1]].setEditable(true);
         }
 
         this.clear2Delete();
