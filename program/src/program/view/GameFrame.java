@@ -24,6 +24,7 @@ import java.awt.event.MouseListener;
 public class GameFrame extends Frame {
     private Controller app;
     private Game myGame;
+    public TurnSign turnSign;
     public GameFrame(Controller app, Game myGame) {
         super(app);
         this.app = app;
@@ -53,31 +54,11 @@ public class GameFrame extends Frame {
 
         ShipsInfo myShips = new ShipsInfo(false);
         ShipsInfo enemyShips = new ShipsInfo(true);
-        TurnSign turnSign = new TurnSign();
-        turnSign.ShipSetup(); // for testing
+        this.turnSign = new TurnSign();
+        this.turnSign.ShipSetup(); // for testing
 
-        JButton readyButton = new JButton("Ready to play!");
-        readyButton.setBackground(Color.LIGHT_GRAY);
-        readyButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        readyButton.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent e)
-            {
-                System.out.print("Ready Button was pressed \n");
-                // todo ready to play function
-            }
-        });
-        JButton deleteButton = new JButton("Delete Ship");
-        deleteButton.setBackground(Color.LIGHT_GRAY);
-        deleteButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        deleteButton.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent e)
-            {
-                System.out.print("Delete Button was pressed \n");
-                // todo delete ship function
-            }
-        });
+        ReadyButton readyButton = new ReadyButton();
+        DeleteButton deleteButton = new DeleteButton(myField, this.turnSign);
 
         JPanel infoPanel = new JPanel();
         infoPanel.setBackground(new Color(30,30,100));
@@ -99,7 +80,7 @@ public class GameFrame extends Frame {
         c.gridwidth = GridBagConstraints.REMAINDER;
         c.fill = GridBagConstraints.BOTH;
         c.anchor = GridBagConstraints.CENTER;
-        infoPanel.add(turnSign, c);
+        infoPanel.add(this.turnSign, c);
         c.gridx = 0;
         c.gridy = 2;
         c.weightx = 240;
@@ -141,5 +122,10 @@ public class GameFrame extends Frame {
         // todo: got the type of enemy's tile in x,y
 
         return this.myGame.shootEnemy(x, y);
+    }
+
+    public int[][] deleteShip(int x, int y){
+        this.turnSign.ShipSetup();
+        return this.myGame.deleteShip(x, y);     
     }
 }

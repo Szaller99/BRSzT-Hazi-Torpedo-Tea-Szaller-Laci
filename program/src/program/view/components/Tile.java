@@ -97,4 +97,7 @@ public class Tile extends JButton implements MouseListener{
         
     }
 
+    public void setToDelete(boolean isToDelete) {
+    }
+
 }

@@ -236,4 +236,31 @@ public class Field extends JComponent {
             }
         }
     }
+
+    public void set2Delete(){
+        for (int i = 1; i <= 10; i++) {
+            for (int j = 1; j <= 10; j++) {
+                tiles[i][j].setToDelete(true); // for testing
+            }
+        }
+    }
+
+    public void clear2Delete(){
+        for (int i = 1; i <= 10; i++) {
+            for (int j = 1; j <= 10; j++) {
+                tiles[i][j].setToDelete(false); // for testing
+            }
+        }
+    }
+
+    public void deleteShip(int x, int y){
+        int[][] ship = this.myFrame.deleteShip(x, y);
+        int length = ship.length;
+
+        for(int i = 0; i<length; i++){
+            tiles[ship[i][0]][ship[i][1]].set2Water();
+        }
+
+        this.clear2Delete();
+    }
 }

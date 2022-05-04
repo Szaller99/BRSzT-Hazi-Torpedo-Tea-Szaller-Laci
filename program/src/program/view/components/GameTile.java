@@ -15,7 +15,8 @@ public class GameTile extends Tile{
     private boolean isHit;
     private boolean isEditable; // is true if tile is on my field and player can place ship on this tile
     private boolean isHitable; // is true if tile is on my field and enemy can shoot this tile
-    private boolean isShootable; // is trie if tile is on enemy's field and player can shoot this tile
+    private boolean isShootable; // is true if tile is on enemy's field and player can shoot this tile
+    private boolean isToDelete; // is true if user wants to delete a ship
     public Field myField;
     public GameTile(int xPosition, int yPosition, Field field){
         super(xPosition, yPosition);
@@ -60,26 +61,40 @@ public class GameTile extends Tile{
         this.isShootable = isShootable;
     }
 
+    public boolean isToDelete() {
+        return isToDelete;
+    }
+
+    public void setToDelete(boolean isToDelete) {
+        this.isToDelete = isToDelete;
+    }
+
     public void mouseClicked(MouseEvent e){
         // System.out.print("game tile " + this.tileName + " was clicked \n");
 
-        if(this.isEditable()){
-            this.set2SingleShip();
-            this.setEditable(false);
+        if(this.isToDelete()){
+            this.myField.deleteShip(this.x, this.y);
         }
-        if(this.isShootable()){
-            tileType enemyType = myField.shoot(this.x, this.y);
-            switch(enemyType){
-                case water:
-                this.set2Water();
-                break;
-                
-                case ship:
+        else{
+        
+            if(this.isEditable()){
                 this.set2SingleShip();
-                break;
-                
-                default:
+                this.setEditable(false);
+            }
+            if(this.isShootable()){
+                tileType enemyType = myField.shoot(this.x, this.y);
+                switch(enemyType){
+                    case water:
+                    this.set2Water();
                     break;
+                    
+                    case ship:
+                    this.set2SingleShip();
+                    break;
+                    
+                    default:
+                        break;
+                }
             }
         }
 
@@ -98,42 +113,50 @@ public class GameTile extends Tile{
     }
     public void mousePressed(MouseEvent e){
         // System.out.print("game tile " + this.tileName + " was pressed \n");
-        if (this.isEditable()){
-            myField.startShip(this.x,this.y);
+        if(!this.isToDelete()){
+            if (this.isEditable()){
+                myField.startShip(this.x,this.y);
+            }
         }
     }
     
     public void mouseReleased(MouseEvent e){
-        if (this.isEditable()){
-            myField.endShip();
-            this.setEditable(false);
-        }
-        if(this.isShootable()){
-            tileType enemyType = myField.shoot(this.x, this.y);
-            switch(enemyType){
-                case water:
-                this.set2Water();
-                break;
-                
-                case ship:
-                this.set2SingleShip();
-                break;
-                
-                default:
+        if(!this.isToDelete()){
+            if (this.isEditable()){
+                myField.endShip();
+                this.setEditable(false);
+            }
+            if(this.isShootable()){
+                tileType enemyType = myField.shoot(this.x, this.y);
+                switch(enemyType){
+                    case water:
+                    this.set2Water();
                     break;
+                    
+                    case ship:
+                    this.set2SingleShip();
+                    break;
+                    
+                    default:
+                        break;
+                }
             }
         }
     }
     public void mouseEntered(MouseEvent e){
-        if(e.getModifiersEx()!=0 && this.isEditable()){
-            myField.continueShip(this.x,this.y);
-            
+        if(!this.isToDelete()){
+            if(e.getModifiersEx()!=0 && this.isEditable()){
+                myField.continueShip(this.x,this.y);
+                
+            }
         }
     }
     public void mouseExited(MouseEvent e){
-        // this.gotHit();
-        if(e.getModifiersEx()!=0){
-            // this.setEditable(false);
+        if(!this.isToDelete()){
+            // this.gotHit();
+            if(e.getModifiersEx()!=0){
+                // this.setEditable(false);
+            }
         }
     }
 

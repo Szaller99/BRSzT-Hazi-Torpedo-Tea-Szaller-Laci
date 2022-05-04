@@ -22,7 +22,7 @@ public class TurnSign extends JComponent {
         this.FieldSign = new JLabel("",SwingConstants.CENTER);
         this.FieldSign.setVisible(true);
         this.FieldSign.setForeground(Color.RED);
-        this.FieldSign.setFont(new Font("Arial", Font.BOLD, 20));
+        this.FieldSign.setFont(new Font("Arial", Font.BOLD, 16));
         this.FieldSign.setBounds(30, 15, 240, 30);
         this.add(FieldSign);
 
@@ -39,6 +39,10 @@ public class TurnSign extends JComponent {
 
     public void ShipSetup(){
         this.FieldSign.setText("Set up your Field!");
+    }
+
+    public void DeleteShip(){
+        this.FieldSign.setText("Choose your ship to delete!");
     }
 
     public void clearSign(){
