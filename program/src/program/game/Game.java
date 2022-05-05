@@ -104,17 +104,20 @@ public class Game {
                 xPos=xEnd;
             }
         }
+        
+        // todo
+        // int i = 0;
+        // while (!(this.hostships[i].getlength() == len && this.hostships[i].isPlaced() == false)) {
+        //     i++;
+        // }
+        // if(i>7) {
+        //     return false;
+        // } else {
+        //     this.hostships[i].placeShip(len, xPos, yPos, or);
+        //     return true;
+        // }
 
-        int i = 0;
-        while (!(this.hostships[i].getlength() == len && this.hostships[i].isPlaced() == false)) {
-            i++;
-        }
-        if(i>7) {
-            return false;
-        } else {
-            this.hostships[i].placeShip(len, xPos, yPos, or);
-            return true;
-        }
+        return true; // for testing
     }
 
     public tileType shootEnemy(int x, int y){
@@ -138,7 +141,7 @@ public class Game {
         // todo:
         // check if all the ships are placed
         // if yes, set the status to ready to play
-        // if no then don't no anything and return false
+        // if no then don't do anything and return false
 
         return false;
     }

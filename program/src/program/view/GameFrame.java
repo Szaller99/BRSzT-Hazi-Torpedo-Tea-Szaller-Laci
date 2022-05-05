@@ -21,6 +21,8 @@ public class GameFrame extends Frame {
     public TurnSign turnSign;
     public Field myField;
     public Field enemyField;
+    public ShipsInfo myShips;
+    public ShipsInfo enemyShips;
     public GameFrame(Controller app, Game myGame) {
         super(app);
         this.app = app;
@@ -48,8 +50,8 @@ public class GameFrame extends Frame {
         gamePanel.add(this.myField);
         this.paintComponents(this.getGraphics());
 
-        ShipsInfo myShips = new ShipsInfo(false);
-        ShipsInfo enemyShips = new ShipsInfo(true);
+        this.myShips = new ShipsInfo(false);
+        this.enemyShips = new ShipsInfo(true);
         this.turnSign = new TurnSign();
         this.turnSign.ShipSetup(); // for testing
 
@@ -122,6 +124,7 @@ public class GameFrame extends Frame {
 
     public int[][] deleteShip(int x, int y){
         this.turnSign.ShipSetup();
+        // todo: show again the ship
         return this.myGame.deleteShip(x, y);     
     }
 
@@ -138,6 +141,8 @@ public class GameFrame extends Frame {
 
     public boolean placeShip(int len, int xStart, int yStart, int xEnd, int yEnd){
 
-        return this.myGame.placeShip(len, xStart, yStart, xEnd, yEnd);
+        boolean isSuccess = this.myGame.placeShip(len, xStart, yStart, xEnd, yEnd);
+        this.myShips.hideShip(len);
+        return isSuccess;
     }
 }

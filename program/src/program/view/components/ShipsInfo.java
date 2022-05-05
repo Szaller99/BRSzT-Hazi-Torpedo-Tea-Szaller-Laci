@@ -103,4 +103,72 @@ public class ShipsInfo extends JComponent {
         this.paintComponents(g);
     }
 
+    public void hideShip(int length){
+        switch(length){
+            case 5:
+            this.ship_5.setVisible(false);
+            break;
+
+            case 4:
+            this.ship_4.setVisible(false);
+            break;
+
+            case 3:
+            this.ship_3.setVisible(false);
+            break;
+
+            case 2:
+            if(this.ship_2_1.isVisible()){
+                this.ship_2_1.setVisible(false);
+            }
+            else{
+                this.ship_2_2.setVisible(false);
+            }
+            break;
+
+            case 1:
+            if(this.ship_1_1.isVisible()){
+                this.ship_1_1.setVisible(false);
+            }
+            else{
+                this.ship_1_2.setVisible(false);
+            }
+            break;
+        }
+    }
+
+    public void showShip(int length, int number){
+        switch(length){
+            case 5:
+            this.ship_5.setVisible(true);
+            break;
+
+            case 4:
+            this.ship_4.setVisible(true);
+            break;
+
+            case 3:
+            this.ship_3.setVisible(true);
+            break;
+
+            case 2:
+            if(this.ship_2_1.isVisible()){
+                this.ship_2_2.setVisible(true);
+            }
+            else{
+                this.ship_2_1.setVisible(true);
+            }
+            break;
+
+            case 1:
+            if(this.ship_1_1.isVisible()){
+                this.ship_1_2.setVisible(true);
+            }
+            else{
+                this.ship_1_1.setVisible(true);
+            }
+            break;
+        }
+    }
+
 }
