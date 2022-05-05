@@ -1,9 +1,9 @@
 package program.view;
 
 import program.controller.Controller;
-import program.game.Game;
 import program.view.components.Frame;
 import program.view.components.*;
+import program.game.*;
 
 import java.awt.GridBagConstraints;  
 import java.awt.GridBagLayout;  
@@ -134,5 +134,10 @@ public class GameFrame extends Frame {
         else{
             this.turnSign.NotDone();
         }
+    }
+
+    public boolean placeShip(int len, int xStart, int yStart, int xEnd, int yEnd){
+
+        return this.myGame.placeShip(len, xStart, yStart, xEnd, yEnd);
     }
 }

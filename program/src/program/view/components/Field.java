@@ -17,7 +17,8 @@ public class Field extends JComponent {
     private int prevX;
     private int prevY;
     private int thisShipLength;
-    private Tile[] thisShipTiles;
+    private int[] shipX;
+    private int[] shipY;
     public Tile[][] tiles;
     private GameFrame myFrame;
 
@@ -111,9 +112,11 @@ public class Field extends JComponent {
         this.prevX = x;
         this.prevY = y;
 
-        this.thisShipLength = 0;
-        this.thisShipTiles = new Tile[0];
-        this.addTile2Ship(this.thisShipTiles, tiles[x][y]);
+        this.thisShipLength = 1;
+        this.shipX = new int[1];
+        this.shipX[0] = x;
+        this.shipY = new int[1];
+        this.shipY[0] = y;
     }
 
     public void continueShip(int x, int y){
@@ -129,8 +132,10 @@ public class Field extends JComponent {
             this.prevX = x;
             this.prevY = y;
 
+            this.shipX = this.addCoordinate(this.shipX, this.thisShipLength, x);
+            this.shipY = this.addCoordinate(this.shipY, this.thisShipLength, y);
             this.thisShipLength ++;
-            this.addTile2Ship(this.thisShipTiles, tiles[x][y]);
+            // this.thisShipTiles = this.addTile2Ship(this.thisShipTiles, this.thisShipLength, tiles[x][y]);
         }
         else if (x==startX){
             if(y>startY){
@@ -144,8 +149,11 @@ public class Field extends JComponent {
             this.prevX = x;
             this.prevY = y;
 
+            
+            // this.thisShipTiles = this.addTile2Ship(this.thisShipTiles, this.thisShipLength, tiles[x][y]);
+            this.shipX = this.addCoordinate(this.shipX, this.thisShipLength, x);
+            this.shipY = this.addCoordinate(this.shipY, this.thisShipLength, y);
             this.thisShipLength ++;
-            this.addTile2Ship(this.thisShipTiles, tiles[x][y]);
         }
 
        
@@ -189,11 +197,24 @@ public class Field extends JComponent {
             }
         }
         
-        this.thisShipLength ++;
+        // this.thisShipLength ++;
         // this.addTile2Ship(this.thisShipTiles, tiles[prevX][prevY]);
 
         System.out.print("ship length: " + String.valueOf(this.thisShipLength) + "\n");
+        boolean isSuccess = this.myFrame.placeShip(this.thisShipLength, this.startX, this.startY, this.prevX, this.prevY);
+
+        if (isSuccess){
+            // todo: set fields around to not editable
+        }
+        else{
+            // todo: set ship fields to water
+            for(int i=0; i<this.thisShipLength; i++){
+                tiles[this.shipX[i]][this.shipY[i]].set2Water();
+                tiles[this.shipX[i]][this.shipY[i]].setEditable(true);
+            }
+        }
     }
+
     public void gotHit(int x, int y){
         tiles[x][y].gotHit();
     }
@@ -202,14 +223,17 @@ public class Field extends JComponent {
         return this.myFrame.shootEnemy(x, y);
     }
 
-    private Tile[] addTile2Ship(Tile[] ship, Tile tile){
-        int n = ship.length;
-        Tile[] newShip = new Tile[n+1];
+    private int[] addCoordinate(int[] ship, int n, int tile){
+        int[] newShip = new int[n+1];
         for (int i = 0; i<n;i++){
             newShip[i]=ship[i];
+            System.out.print(String.valueOf(newShip[i]) + "\n");
         }
         newShip[n]=tile;
-        System.out.print("added tile (" + String.valueOf(tile.x) + "," + String.valueOf(tile.y) + ") to the ship \n");
+        System.out.print(String.valueOf(newShip[n]) + "\n");
+        // System.out.print("added tile (" + String.valueOf(tile.x) + "," + String.valueOf(tile.y) + ") to the ship \n");
+        System.out.print("length is " + String.valueOf(n+1) + "\n");
+        
         return newShip;
     }
 

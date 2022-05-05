@@ -80,7 +80,31 @@ public class Game {
         
     }
 
-    public boolean placeShip(int len, int xPos, int yPos, Orient or) {
+    public boolean placeShip(int len, int xStart, int yStart, int xEnd, int yEnd) {
+        int xPos = 0;
+        int yPos = 0;
+        Orient or = Orient.VERTICAL;
+        if (xStart == xEnd){
+            xPos = xStart;
+            or = Orient.HORIZONTAL;
+            if(yStart<yEnd){
+                yPos = yStart;
+            }
+            else{
+                yPos = yEnd;
+            }
+        }
+        else if(yStart == yEnd){
+            yPos = yStart;
+            or = Orient.VERTICAL;
+            if(xStart<xEnd){
+                xPos=xStart;
+            }
+            else{
+                xPos=xEnd;
+            }
+        }
+
         int i = 0;
         while (!(this.hostships[i].getlength() == len && this.hostships[i].isPlaced() == false)) {
             i++;

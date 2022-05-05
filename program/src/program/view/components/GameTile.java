@@ -89,7 +89,7 @@ public class GameTile extends Tile{
                     break;
                     
                     case ship:
-                    this.set2SingleShip();
+                    this.set2SingleShip(); // todo
                     break;
                     
                     default:
@@ -123,8 +123,9 @@ public class GameTile extends Tile{
     public void mouseReleased(MouseEvent e){
         if(!this.isToDelete()){
             if (this.isEditable()){
-                myField.endShip();
                 this.setEditable(false);
+                myField.endShip();
+                
             }
             if(this.isShootable()){
                 tileType enemyType = myField.shoot(this.x, this.y);
