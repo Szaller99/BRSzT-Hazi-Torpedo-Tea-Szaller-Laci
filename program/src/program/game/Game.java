@@ -11,6 +11,9 @@ public class Game {
     private Controller app;
     private Player hostPlayer;
     private Player clientPlayer;
+    
+    private Battleship[] hostships;
+    private Battleship[] clientships;
 
     public GameFrame frame;
 
@@ -28,14 +31,15 @@ public class Game {
     }
 
     private Battleship[] createShips() {
-        Battleship[] ships = new Battleship[6];
+        Battleship[] ships = new Battleship[7];
         Dimension defaultPoint = new Dimension(0,0);
-        ships[0]=(new Battleship());
-        ships[1]=(new Battleship());
-        ships[2]=(new Battleship());
-        ships[3]=(new Battleship());
-        ships[4]=(new Battleship());
-        ships[5]=(new Battleship());
+        ships[0]=(new Battleship(1));
+        ships[1]=(new Battleship(1));
+        ships[2]=(new Battleship(2));
+        ships[3]=(new Battleship(2));
+        ships[4]=(new Battleship(3));
+        ships[5]=(new Battleship(4));
+        ships[6]=(new Battleship(5));
         return ships;
     }
 
@@ -45,40 +49,6 @@ public class Game {
     }
 
 
-    private Battleship[] hostships;
-    private Battleship[] clientships;
-
-    public Game() {
-        int len;
-        for(int i = 0; i < 7; i++)
-        {
-            switch (i) {
-                case 0:
-                case 1:
-                    len = 1;
-                    break;
-                case 2:
-                case 3:
-                    len = 2;
-                    break;
-                case 4:
-                    len = 3;
-                    break;
-                case 5:
-                    len = 4;
-                    break;
-                case 6:
-                    len = 5;
-                    break;
-                default:
-                    len = 0;
-                    break;
-            }
-            this.hostships[i] = new Battleship(len);
-            this.clientships[i] = new Battleship(len);
-        }
-        
-    }
 
     public boolean placeShip(int len, int xStart, int yStart, int xEnd, int yEnd) {
         int xPos = 0;
@@ -122,23 +92,34 @@ public class Game {
 
     public tileType shootEnemy(int x, int y){
         // todo: got the type of enemy's tile in x,y
-
+        for(int i = 0; i < 7; i++)
+        {
+            if(this.clientships[i].isMe(x, y) == true)
+            {
+                return tileType.ship;
+            }
+        }
         return tileType.water;
     }
 
     public int[][] deleteShip(int x, int y){
 
         // todo: delete ship on (x,y) tile, return tiles where the ship was (it will desappear already from field I hope)
-        int length = 1; // for testing
-        int[][] ships = new int[length][2];
-        ships[0][0] = 1; // for testing
-        ships[0][1] = 1; // for testing
-
-        return ships;
+        int i = 0;
+        while(this.hostships[i].getX() == x && this.hostships[i].getY() == y)
+        {
+            i++;
+            if(i == 7)
+            {
+                return null;
+            }
+        }
+        return this.hostships[i].getTileIDs();
     }
 
     public boolean ready2Play(){
         // todo:
+        // biztos kell ez? nem egy gomb lesz erre?
         // check if all the ships are placed
         // if yes, set the status to ready to play
         // if no then don't do anything and return false

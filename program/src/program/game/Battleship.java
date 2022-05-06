@@ -58,8 +58,26 @@ public class Battleship {
         }
     }
 
-    public void getTileIDs() {
-        //TODO
+    public int[][] getTileIDs() {
+        if(this.isPlaced() == false)
+        {
+            return null;
+        }
+        int[][] tiles = new int[this.length][2];
+        for(int i = 0; i < this.length; i++)
+        {
+            if(this.Orientation == Orient.HORIZONTAL)
+            {
+                tiles[i][0] = this.xPosition + i;
+                tiles[i][1] = this.yPosition;
+            } else
+            {
+                tiles[i][0] = this.xPosition;
+                tiles[i][1] = this.yPosition - i;
+            }
+            
+        }
+        return tiles;
     }
 
 
@@ -83,5 +101,38 @@ public class Battleship {
             this.isDestroyed = true;
             return true;
         }
+    }
+
+    public boolean deleteShip() {
+        if(this.isPlaced == true)
+        {
+            this.isPlaced = false;
+            return true;
+        }
+        return false;
+    }
+
+    public int getX() {
+        return this.xPosition;
+    }
+
+    public int getY() {
+        return this.yPosition;
+    }
+
+    public boolean isMe(int x, int y) {
+        if(this.isPlaced() == false)
+        {
+            return false;
+        }
+        int[][] tiles = this.getTileIDs();
+        for(int i = 0; i < this.length; i++)
+        {
+            if(tiles[i][0] == x && tiles[i][1] == y)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
