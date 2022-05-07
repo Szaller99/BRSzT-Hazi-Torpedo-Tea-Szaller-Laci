@@ -25,6 +25,8 @@ public class Game {
         this.clientPlayer = new Player();
         this.hostships = createShips();
         this.clientships = createShips();
+        this.clientships[4].placeShip(3, 2, 2, Orient.VERTICAL); // for testing
+        // Battleship/placeShip comment folyt.: szóvel pl itt ha megadnám hogy legyen ez a hajó egy 4-es akkor az megváltoztatja a hosszát és 2 4-es hajó lesz de 0 3-as... 
         this.gameState = new GameState();
         // this.communication.init();
         this.startGame();
@@ -105,6 +107,7 @@ public class Game {
     public int[][] deleteShip(int x, int y){
 
         // todo: delete ship on (x,y) tile, return tiles where the ship was (it will desappear already from field I hope)
+        // note: (x,y) tile is not the start of the ship, it could be any tile which is part of the ship!!!
         int i = 0;
         while(this.hostships[i].getX() == x && this.hostships[i].getY() == y)
         {
@@ -119,7 +122,7 @@ public class Game {
 
     public boolean ready2Play(){
         // todo:
-        // biztos kell ez? nem egy gomb lesz erre?
+        // biztos kell ez? nem egy gomb lesz erre? -> ezt a függvényt hívja meg a gomb listenerje... csak a gomb nem látja, hogy le van e helyezve minden hajó, ezért itt kell megmondani neki... szóval kell
         // check if all the ships are placed
         // if yes, set the status to ready to play
         // if no then don't do anything and return false

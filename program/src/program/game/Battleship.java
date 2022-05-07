@@ -42,7 +42,7 @@ public class Battleship {
     public void placeShip(int len, int xPos, int yPos, Orient or) {
         this.isPlaced = true;
         this.isDestroyed = false;
-        this.length = len;
+        this.length = len; // most akkor mikor állítjuk be a hosszát, amikor létrehozod, vagy amikor lerakod? Lerakáskor megváltozhat a hossza egy hajónak?
         this.xPosition = xPos;
         this.yPosition = yPos;
         this.Orientation = or;
@@ -73,7 +73,7 @@ public class Battleship {
             } else
             {
                 tiles[i][0] = this.xPosition;
-                tiles[i][1] = this.yPosition - i;
+                tiles[i][1] = this.yPosition + i;
             }
             
         }
