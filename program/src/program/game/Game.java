@@ -25,6 +25,8 @@ public class Game {
         this.clientPlayer = new Player();
         this.hostships = createShips();
         this.clientships = createShips();
+        this.clientships[4].placeShip(2, 2, Orient.VERTICAL);
+        this.clientships[5].placeShip(1, 6, Orient.HORIZONTAL);
         this.gameState = new GameState();
         // this.communication.init();
         this.startGame();
