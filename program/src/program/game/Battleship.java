@@ -39,11 +39,11 @@ public class Battleship {
         this.yPosition = 0;
         this.Orientation = Orient.VERTICAL;
     }
-    public void placeShip(int len, int xPos, int yPos, Orient or) {
+    public void placeShip(int xPos, int yPos, Orient or) {
         this.isPlaced = true;
         this.isDestroyed = false;
-        this.length = len; // most akkor mikor állítjuk be a hosszát, amikor létrehozod, vagy amikor lerakod? Lerakáskor megváltozhat a hossza egy hajónak?
-        this.xPosition = xPos;
+        //this.length = len; // most akkor mikor állítjuk be a hosszát, amikor létrehozod, vagy amikor lerakod? Lerakáskor megváltozhat a hossza egy hajónak? Ja ez a sor ide nem kell
+        this.xPosition = xPos; //létrehozáskor állítom be a hosszát, mert úgy figyelem, hogy melyik hajók vannak már lerakva
         this.yPosition = yPos;
         this.Orientation = or;
     }
