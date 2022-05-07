@@ -131,6 +131,7 @@ public class GameFrame extends Frame {
         if (canBeReady){
             this.myField.clearAllStatus();
             this.enemyField.clearAllStatus();
+            this.turnSign.Done();
         }
         else{
             this.turnSign.NotDone();
@@ -159,5 +160,10 @@ public class GameFrame extends Frame {
     public void endEnemyShip(int x, int y, int length, Orient or){
         System.out.print("Ship destroyed \n");
         this.enemyField.endEnemyShip(x, y, length, or);
+    }
+
+    public void startFight(){
+        this.enemyField.set2Shootable();
+        this.myField.set2Hitable();
     }
 }

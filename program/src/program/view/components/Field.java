@@ -226,19 +226,19 @@ public class Field extends JComponent {
     public void shoot(int x, int y){
         tileType enemyType = this.myFrame.shootEnemy(x, y);
             if(tiles[x][y].getType() == tileType.unknown){
-            switch(enemyType){
-                case water:
-                this.tiles[x][y].set2Water();
-                break;
-                
-                case ship:
-                this.tiles[x][y].set2SingleShip();
-                break;
-                
-                default:
+                switch(enemyType){
+                    case water:
+                    this.tiles[x][y].set2Water();
                     break;
+                    
+                    case ship:
+                    this.tiles[x][y].set2SingleShip();
+                    break;
+                    
+                    default:
+                        break;
+                }
             }
-        }
     }
 
     private int[] addCoordinate(int[] ship, int n, int tile){
