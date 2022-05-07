@@ -163,7 +163,9 @@ public class GameFrame extends Frame {
     }
 
     public void startFight(){
+        //todo: call this function when the actual game begins
         this.enemyField.set2Shootable();
         this.myField.set2Hitable();
+        this.myShips.showAllShips();
     }
 }
