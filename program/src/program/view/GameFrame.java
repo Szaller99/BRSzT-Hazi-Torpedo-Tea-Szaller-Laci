@@ -23,6 +23,8 @@ public class GameFrame extends Frame {
     public Field enemyField;
     public ShipsInfo myShips;
     public ShipsInfo enemyShips;
+    private ReadyButton readyButton;
+    private DeleteButton deleteButton;
     public GameFrame(Controller app, Game myGame) {
         super(app);
         this.app = app;
@@ -55,8 +57,8 @@ public class GameFrame extends Frame {
         this.turnSign = new TurnSign();
         this.turnSign.ShipSetup(); // for testing
 
-        ReadyButton readyButton = new ReadyButton(this);
-        DeleteButton deleteButton = new DeleteButton(myField, this.turnSign);
+        this.readyButton = new ReadyButton(this);
+        this.deleteButton = new DeleteButton(myField, this.turnSign);
 
         JPanel infoPanel = new JPanel();
         infoPanel.setBackground(new Color(30,30,100));
@@ -136,6 +138,8 @@ public class GameFrame extends Frame {
             this.myField.clearAllStatus();
             this.enemyField.clearAllStatus();
             this.turnSign.Done();
+            this.readyButton.setVisible(false);
+            this.deleteButton.setVisible(false);
         }
         else{
             this.turnSign.NotDone();
