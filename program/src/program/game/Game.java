@@ -77,19 +77,16 @@ public class Game {
             }
         }
         
-        // todo
-        // int i = 0;
-        // while (!(this.hostships[i].getlength() == len && this.hostships[i].isPlaced() == false)) {
-        //     i++;
-        // }
-        // if(i>7) {
-        //     return false;
-        // } else {
-        //     this.hostships[i].placeShip(len, xPos, yPos, or);
-        //     return true;
-        // }
-
-        return true; // for testing
+        // todo -> corrected
+        for(int i = 0; i < 7; i++)
+        {
+            if(this.hostships[i].getlength() == len && this.hostships[i].isPlaced() == false)
+            {
+                this.hostships[i].placeShip(xPos, yPos, or);
+                return true;
+            }
+        }
+        return false;
     }
 
     public tileType shootEnemy(int x, int y){
@@ -121,27 +118,36 @@ public class Game {
     public int[][] deleteShip(int x, int y){
 
         // todo: delete ship on (x,y) tile, return tiles where the ship was (it will desappear already from field I hope)
-        // note: (x,y) tile is not the start of the ship, it could be any tile which is part of the ship!!!
-        int i = 0;
-        while(this.hostships[i].getX() == x && this.hostships[i].getY() == y)
+        // note: (x,y) tile is not the start of the ship, it could be any tile which is part of the ship!!! -> Done
+        for(int s = 0; s < 7; s++)
         {
-            i++;
-            if(i == 7)
+            int[][] tiles = this.hostships[s].getTileIDs();
+            for(int t = 0; t < this.hostships[s].getlength(); t++)
             {
-                return null;
+                if(tiles[t][0] == x && tiles[t][1] == y)
+                {
+                    return tiles;
+                }
             }
         }
-        return this.hostships[i].getTileIDs();
+        return null;
     }
 
     public boolean ready2Play(){
         // todo:
-        // biztos kell ez? nem egy gomb lesz erre? -> ezt a függvényt hívja meg a gomb listenerje... csak a gomb nem látja, hogy le van e helyezve minden hajó, ezért itt kell megmondani neki... szóval kell
         // check if all the ships are placed
         // if yes, set the status to ready to play
         // if no then don't do anything and return false
 
-        return false;
+        for(int i = 0; i < 7; i++)
+        {
+            if(this.hostships[i].isPlaced() == false)
+            {
+                return false;
+            }
+        }
+        //this.hostPlayer.ready();
+        return true;
     }
 
     public void gotHit(int x, int y){
