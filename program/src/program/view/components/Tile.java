@@ -100,4 +100,8 @@ public class Tile extends JButton implements MouseListener{
     public void setToDelete(boolean isToDelete) {
     }
 
+    public tileType getType(){
+        return tileType.unknown;
+    }
+
 }

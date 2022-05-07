@@ -27,6 +27,7 @@ public class Game {
         this.clientships = createShips();
         this.clientships[4].placeShip(3, 2, 2, Orient.VERTICAL); // for testing
         // Battleship/placeShip comment folyt.: szóvel pl itt ha megadnám hogy legyen ez a hajó egy 4-es akkor az megváltoztatja a hosszát és 2 4-es hajó lesz de 0 3-as... 
+        this.clientships[5].placeShip(4, 1, 6, Orient.HORIZONTAL); // for testing
         this.gameState = new GameState();
         // this.communication.init();
         this.startGame();
@@ -98,6 +99,20 @@ public class Game {
         {
             if(this.clientships[i].isMe(x, y) == true)
             {
+                this.frame.setHit(x, y);
+                int[][] ShipIDs = this.clientships[i].getTileIDs();
+                int length = this.clientships[i].getlength();
+                boolean gotDestroyed = true;
+                for (int j=0;j<length;j++){
+                    if (!this.frame.EnemyIsHit(ShipIDs[j][0], ShipIDs[j][1])){
+                        gotDestroyed = false;
+                    }
+                }
+                if (gotDestroyed){
+                    this.clientships[i].destroy();
+                    this.frame.enemyShips.hideShip(length);
+                    this.frame.endEnemyShip(this.clientships[i].getX(), this.clientships[i].getY(), length, this.clientships[i].getOrient());
+                }
                 return tileType.ship;
             }
         }
@@ -128,5 +143,10 @@ public class Game {
         // if no then don't do anything and return false
 
         return false;
+    }
+
+    public void gotHit(int x, int y){
+        // todo: call this function when get tile ID where enemy shoots from communication
+        this.frame.gotHit(x, y);
     }
 }

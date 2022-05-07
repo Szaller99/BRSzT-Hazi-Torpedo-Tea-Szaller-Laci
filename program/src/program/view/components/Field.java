@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 
 import program.view.GameFrame;
+import program.game.*;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -222,8 +223,22 @@ public class Field extends JComponent {
         tiles[x][y].gotHit();
     }
 
-    public tileType shoot(int x, int y){
-        return this.myFrame.shootEnemy(x, y);
+    public void shoot(int x, int y){
+        tileType enemyType = this.myFrame.shootEnemy(x, y);
+            if(tiles[x][y].getType() == tileType.unknown){
+            switch(enemyType){
+                case water:
+                this.tiles[x][y].set2Water();
+                break;
+                
+                case ship:
+                this.tiles[x][y].set2SingleShip();
+                break;
+                
+                default:
+                    break;
+            }
+        }
     }
 
     private int[] addCoordinate(int[] ship, int n, int tile){
@@ -299,6 +314,46 @@ public class Field extends JComponent {
                 tiles[i][j].setEditable(false);
                 tiles[i][j].setHitable(false);
                 tiles[i][j].setShootable(false);
+            }
+        }
+    }
+
+    public void setHit(int x, int y){
+        this.tiles[x][y].setHit(true);
+    }
+
+    public boolean isHit(int x, int y){
+        return this.tiles[x][y].isHit();
+    }
+
+    public void endEnemyShip(int x, int y, int length, Orient or){
+        if(length==1){
+            this.tiles[x][y].set2SingleShip();
+        }
+        else{
+            if (or == Orient.HORIZONTAL){
+                for(int i=0; i<length;i++){
+                    this.tiles[x+i][y].set2MiddleShip(false);
+                    if(y!=1){this.tiles[x+i][y-1].set2Water();}
+                    if(y!=10){this.tiles[x+i][y+1].set2Water();}
+                }
+                this.tiles[x][y].set2EndShip(ShipEndType.left);
+                this.tiles[x+length-1][y].set2EndShip(ShipEndType.right);
+
+                if(x!=1){this.tiles[x-1][y].set2Water();}
+                if(x+length<11){this.tiles[x+length][y].set2Water();}
+            }
+            else{
+                for(int i=0; i<length;i++){
+                    this.tiles[x][y+i].set2MiddleShip(true);
+                    if(x!=1){this.tiles[x-1][y+i].set2Water();}
+                    if(x!=10){this.tiles[x+1][y+i].set2Water();}
+                }
+                this.tiles[x][y].set2EndShip(ShipEndType.upper);
+                this.tiles[x][y+length-1].set2EndShip(ShipEndType.lower);
+
+                if(y!=1){this.tiles[x][y-1].set2Water();}
+                if(y+length<11){this.tiles[x][y+length].set2Water();}
             }
         }
     }

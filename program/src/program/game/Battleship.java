@@ -1,9 +1,6 @@
 package program.game;
 
-enum Orient {
-        VERTICAL,
-        HORIZONTAL
-    }
+import program.game.*;
 
 public class Battleship {
     
@@ -134,5 +131,9 @@ public class Battleship {
             }
         }
         return false;
+    }
+
+    public Orient getOrient(){
+        return this.Orientation;
     }
 }

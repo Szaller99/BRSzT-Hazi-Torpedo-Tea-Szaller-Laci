@@ -82,19 +82,20 @@ public class GameTile extends Tile{
                 this.setEditable(false);
             }
             if(this.isShootable()){
-                tileType enemyType = myField.shoot(this.x, this.y);
-                switch(enemyType){
-                    case water:
-                    this.set2Water();
-                    break;
+                myField.shoot(this.x, this.y);
+                // tileType enemyType = myField.shoot(this.x, this.y);
+                // switch(enemyType){
+                //     case water:
+                //     this.set2Water();
+                //     break;
                     
-                    case ship:
-                    this.set2SingleShip(); // todo
-                    break;
+                //     case ship:
+                //     this.set2SingleShip(); // todo
+                //     break;
                     
-                    default:
-                        break;
-                }
+                //     default:
+                //         break;
+                // }
             }
         }
 
@@ -128,19 +129,20 @@ public class GameTile extends Tile{
                 
             }
             if(this.isShootable()){
-                tileType enemyType = myField.shoot(this.x, this.y);
-                switch(enemyType){
-                    case water:
-                    this.set2Water();
-                    break;
+                // myField.shoot(this.x, this.y);
+                // tileType enemyType = myField.shoot(this.x, this.y);
+                // switch(enemyType){
+                //     case water:
+                //     this.set2Water();
+                //     break;
                     
-                    case ship:
-                    this.set2SingleShip();
-                    break;
+                //     case ship:
+                //     this.set2SingleShip();
+                //     break;
                     
-                    default:
-                        break;
-                }
+                //     default:
+                //         break;
+                // }
             }
         }
     }
@@ -220,6 +222,10 @@ public class GameTile extends Tile{
             this.setHitable(false);
         }
           
+    }
+
+    public tileType getType(){
+        return this.type;
     }
     
 }

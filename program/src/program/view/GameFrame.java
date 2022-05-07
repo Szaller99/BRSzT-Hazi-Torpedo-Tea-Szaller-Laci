@@ -117,8 +117,6 @@ public class GameFrame extends Frame {
     }
 
     public tileType shootEnemy(int x, int y){
-        // todo: got the type of enemy's tile in x,y
-
         return this.myGame.shootEnemy(x, y);
     }
 
@@ -144,5 +142,22 @@ public class GameFrame extends Frame {
         boolean isSuccess = this.myGame.placeShip(len, xStart, yStart, xEnd, yEnd);
         this.myShips.hideShip(len);
         return isSuccess;
+    }
+
+    public void setHit(int x, int y){
+        this.enemyField.setHit(x, y);
+    }
+
+    public void gotHit(int x, int y){
+        this.myField.gotHit(x, y);
+    }
+
+    public boolean EnemyIsHit(int x, int y){
+        return this.enemyField.isHit(x, y);
+    }
+
+    public void endEnemyShip(int x, int y, int length, Orient or){
+        System.out.print("Ship destroyed \n");
+        this.enemyField.endEnemyShip(x, y, length, or);
     }
 }
