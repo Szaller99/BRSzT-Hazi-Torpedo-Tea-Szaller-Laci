@@ -209,6 +209,20 @@ public class Field extends JComponent {
 
         if (isSuccess){
             // todo: set fields around to not editable
+            // if(this.startX == this.prevX){
+            //     for(int i=0; i<this.thisShipLength; i++){
+            //         tiles[this.shipX[i]][this.shipY[i]].setEditable(true);
+            //         tiles[this.shipX[i]+1][this.shipY[i]].setEditable(true);
+            //         tiles[this.shipX[i]-1][this.shipY[i]].setEditable(true);
+            //     }
+            // }
+            // else if(this.startY == this.prevY){
+            //     for(int i=0; i<this.thisShipLength; i++){
+            //         tiles[this.shipX[i]][this.shipY[i]].setEditable(true);
+            //         tiles[this.shipX[i]][this.shipY[i]+1].setEditable(true);
+            //         tiles[this.shipX[i]][this.shipY[i]-1].setEditable(true);
+            //     }
+            // }
         }
         else{
             // todo: set ship fields to water
@@ -225,20 +239,111 @@ public class Field extends JComponent {
 
     public void shoot(int x, int y){
         tileType enemyType = this.myFrame.shootEnemy(x, y);
-            if(tiles[x][y].getType() == tileType.unknown){
-                switch(enemyType){
-                    case water:
-                    this.tiles[x][y].set2Water();
-                    break;
-                    
-                    case ship:
-                    this.tiles[x][y].set2SingleShip();
-                    break;
-                    
-                    default:
-                        break;
+
+        // if ship is destroyed, status already updated in upper levels
+        if(tiles[x][y].getType() == tileType.unknown){
+            switch(enemyType){
+                case water:
+                this.tiles[x][y].set2Water();
+                if(tiles[x-1][y].getType() == tileType.ship){
+                    if (this.tiles[x-2][y].getType() == tileType.ship) { this.tiles[x-1][y].set2EndShip(ShipEndType.right); }
                 }
+                if(tiles[x+1][y].getType() == tileType.ship){
+                    if (this.tiles[x+2][y].getType() == tileType.ship) { this.tiles[x+1][y].set2EndShip(ShipEndType.left); }
+                }
+                if(tiles[x][y-1].getType() == tileType.ship){
+                    if (this.tiles[x][y-2].getType() == tileType.ship) { this.tiles[x][y-1].set2EndShip(ShipEndType.lower); }
+                }
+                if(tiles[x][y+1].getType() == tileType.ship){
+                    if (this.tiles[x][y+2].getType() == tileType.ship) { this.tiles[x][y+1].set2EndShip(ShipEndType.upper); }
+                }
+                break;
+                    
+                case ship:
+                this.tiles[x][y].set2SingleShip();
+
+                if(tiles[x-1][y].getType() == tileType.ship){
+                    if(x==1){
+                        this.tiles[x][y].set2EndShip(ShipEndType.right);
+                    }
+                    else if(x==10){
+                        this.tiles[x][y].set2EndShip(ShipEndType.left);
+                    }
+                    else{
+                        this.tiles[x][y].set2MiddleShip(false);
+                    }
+                    if (this.tiles[x-1][y].isSingleShip() || (x-1 == 1)) { 
+                        if(this.tiles[x-2][y].getType() != tileType.water  && (x-1 != 1)){
+                            this.tiles[x-1][y].set2MiddleShip(false); 
+                        }
+                        else{
+                            this.tiles[x-1][y].set2EndShip(ShipEndType.left);
+                        }
+                    }
+                }
+                if(tiles[x+1][y].getType() == tileType.ship){
+                    if(x==1){
+                        this.tiles[x][y].set2EndShip(ShipEndType.left);
+                    }
+                    else if(x==10){
+                        this.tiles[x][y].set2EndShip(ShipEndType.right);
+                    }
+                    else{
+                        this.tiles[x][y].set2MiddleShip(false);
+                    }
+                    if (this.tiles[x+1][y].isSingleShip() || (x+1 == 10)) { 
+                        if(this.tiles[x+2][y].getType() != tileType.water  && (x+1 != 10)){
+                            this.tiles[x+1][y].set2MiddleShip(false); 
+                        }
+                        else{
+                            this.tiles[x+1][y].set2EndShip(ShipEndType.right);
+                        }
+                    }
+                }
+                if(tiles[x][y-1].getType() == tileType.ship){
+                    if(y==1){
+                        this.tiles[x][y].set2EndShip(ShipEndType.upper);
+                    }
+                    else if(y==10){
+                        this.tiles[x][y].set2EndShip(ShipEndType.lower);
+                    }
+                    else{
+                        this.tiles[x][y].set2MiddleShip(true);
+                    }
+                    if (this.tiles[x][y-1].isSingleShip() || (y-1 == 1)) {
+                        if (this.tiles[x][y-2].getType() != tileType.water  && (y-1 != 1)) { 
+                            this.tiles[x][y-1].set2MiddleShip(true); 
+                        }
+                        else{
+                            this.tiles[x][y-1].set2EndShip(ShipEndType.upper);
+                        }
+                    }
+                }
+                if(tiles[x][y+1].getType() == tileType.ship){
+                    if(y==1){
+                        this.tiles[x][y].set2EndShip(ShipEndType.lower);
+                    }
+                    else if(y==10){
+                        this.tiles[x][y].set2EndShip(ShipEndType.upper);
+                    }
+                    else{
+                        this.tiles[x][y].set2MiddleShip(true);
+                    }
+                    if (this.tiles[x][y+1].isSingleShip() || (y+1 == 10)) { 
+                        if (this.tiles[x][y+2].getType() != tileType.water  && (y+1 != 10)) { 
+                            this.tiles[x][y+1].set2MiddleShip(true); 
+                        }
+                        else{
+                            this.tiles[x][y+1].set2EndShip(ShipEndType.lower);
+                        }
+                    }
+                }
+                break;
+                
+                default:
+                break;
             }
+        }
     }
 
     private int[] addCoordinate(int[] ship, int n, int tile){
@@ -297,14 +402,16 @@ public class Field extends JComponent {
 
     public void deleteShip(int x, int y){
         int[][] ship = this.myFrame.deleteShip(x, y);
-        int length = ship.length;
+        if(ship != null){
+            int length = ship.length;
 
-        for(int i = 0; i<length; i++){
-            tiles[ship[i][0]][ship[i][1]].set2Water();
-            tiles[ship[i][0]][ship[i][1]].setEditable(true);
+            for(int i = 0; i<length; i++){
+                this.tiles[ship[i][0]][ship[i][1]].set2Water();
+                this.tiles[ship[i][0]][ship[i][1]].setEditable(true);
+            }
+
+            this.clear2Delete();
         }
-
-        this.clear2Delete();
     }
 
     public void clearAllStatus(){
@@ -329,31 +436,32 @@ public class Field extends JComponent {
     public void endEnemyShip(int x, int y, int length, Orient or){
         if(length==1){
             this.tiles[x][y].set2SingleShip();
+            this.tiles[x][y].setShootable(false);
         }
         else{
             if (or == Orient.HORIZONTAL){
                 for(int i=0; i<length;i++){
                     this.tiles[x+i][y].set2MiddleShip(false);
-                    if(y!=1){this.tiles[x+i][y-1].set2Water();}
-                    if(y!=10){this.tiles[x+i][y+1].set2Water();}
+                    if(y!=1){this.tiles[x+i][y-1].set2Water(); this.tiles[x+i][y-1].setShootable(false);}
+                    if(y!=10){this.tiles[x+i][y+1].set2Water(); this.tiles[x+i][y+1]. setShootable(false);}
                 }
                 this.tiles[x][y].set2EndShip(ShipEndType.left);
                 this.tiles[x+length-1][y].set2EndShip(ShipEndType.right);
 
-                if(x!=1){this.tiles[x-1][y].set2Water();}
-                if(x+length<11){this.tiles[x+length][y].set2Water();}
+                if(x!=1){this.tiles[x-1][y].set2Water(); this.tiles[x-1][y].setShootable(false);}
+                if(x+length<11){this.tiles[x+length][y].set2Water(); this.tiles[x+length][y].setShootable(false);}
             }
             else{
                 for(int i=0; i<length;i++){
                     this.tiles[x][y+i].set2MiddleShip(true);
-                    if(x!=1){this.tiles[x-1][y+i].set2Water();}
-                    if(x!=10){this.tiles[x+1][y+i].set2Water();}
+                    if(x!=1){this.tiles[x-1][y+i].set2Water(); this.tiles[x-1][y+i].setShootable(false);}
+                    if(x!=10){this.tiles[x+1][y+i].set2Water(); this.tiles[x+1][y+i].setShootable(false);}
                 }
                 this.tiles[x][y].set2EndShip(ShipEndType.upper);
                 this.tiles[x][y+length-1].set2EndShip(ShipEndType.lower);
 
-                if(y!=1){this.tiles[x][y-1].set2Water();}
-                if(y+length<11){this.tiles[x][y+length].set2Water();}
+                if(y!=1){this.tiles[x][y-1].set2Water(); this.tiles[x][y-1].setShootable(false);}
+                if(y+length<11){this.tiles[x][y+length].set2Water(); this.tiles[x][y+length].setShootable(false);}
             }
         }
     }

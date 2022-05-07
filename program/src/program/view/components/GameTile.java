@@ -18,6 +18,8 @@ public class GameTile extends Tile{
     private boolean isShootable; // is true if tile is on enemy's field and player can shoot this tile
     private boolean isToDelete; // is true if user wants to delete a ship
     public Field myField;
+    private boolean isSingleShip;
+
     public GameTile(int xPosition, int yPosition, Field field){
         super(xPosition, yPosition);
         this.type = tileType.unknown;
@@ -26,7 +28,16 @@ public class GameTile extends Tile{
         this.setEditable(false);
         this.setHitable(false);
         this.setShootable(false);
+        this.setSingleShip(false);
         this.myField = field;
+    }
+
+    public boolean isSingleShip() {
+        return isSingleShip;
+    }
+
+    public void setSingleShip(boolean isSingleShip) {
+        this.isSingleShip = isSingleShip;
     }
 
     public boolean isHit() {
@@ -82,7 +93,9 @@ public class GameTile extends Tile{
                 this.setEditable(false);
             }
             if(this.isShootable()){
+                System.out.print("shoot! \n");
                 myField.shoot(this.x, this.y);
+                this.setShootable(false);
                 // tileType enemyType = myField.shoot(this.x, this.y);
                 // switch(enemyType){
                 //     case water:
@@ -168,6 +181,7 @@ public class GameTile extends Tile{
         // this.setBackground(Color.BLUE);
         this.setIcon(new ImageIcon("pics/water.png"));
         this.type = tileType.water;
+        this.setSingleShip(false);
     }
 
     public void set2MiddleShip(boolean vertically){
@@ -181,6 +195,7 @@ public class GameTile extends Tile{
         else{ 
             this.setIcon(new ImageIcon("pics/ship_middle_horizontal.png"));
         }
+        this.setSingleShip(false);
     }
 
     public void set2EndShip(ShipEndType type){
@@ -202,12 +217,15 @@ public class GameTile extends Tile{
            this.setIcon(new ImageIcon("pics/ship_right_end.png"));
            break;
        }
+       this.setSingleShip(false);
        
     }
 
     public void set2SingleShip(){
         this.type = tileType.ship;
         this.setIcon(new ImageIcon("pics/single_ship.png"));
+        this.setSingleShip(true);
+        System.out.print("game tile (" + String.valueOf(this.x) + ", " + String.valueOf(this.y) + ") set to: " + String.valueOf(this.isSingleShip()) + "\n");
     }
 
     public void gotHit(){

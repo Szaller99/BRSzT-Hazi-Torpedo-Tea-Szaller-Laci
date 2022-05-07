@@ -121,9 +121,13 @@ public class GameFrame extends Frame {
     }
 
     public int[][] deleteShip(int x, int y){
-        this.turnSign.ShipSetup();
+        int[][] ship = this.myGame.deleteShip(x, y);
+        if(ship!=null){
+            this.turnSign.ShipSetup();
+            this.myShips.showShip(ship.length);
+        }
         // todo: show again the ship
-        return this.myGame.deleteShip(x, y);     
+        return ship;   
     }
 
     public void ready2Play(){
@@ -142,6 +146,7 @@ public class GameFrame extends Frame {
 
         boolean isSuccess = this.myGame.placeShip(len, xStart, yStart, xEnd, yEnd);
         this.myShips.hideShip(len);
+        this.turnSign.ShipSetup();
         return isSuccess;
     }
 

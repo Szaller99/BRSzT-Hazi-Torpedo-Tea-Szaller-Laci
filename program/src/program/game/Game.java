@@ -58,7 +58,7 @@ public class Game {
         Orient or = Orient.VERTICAL;
         if (xStart == xEnd){
             xPos = xStart;
-            or = Orient.HORIZONTAL;
+            or = Orient.VERTICAL;
             if(yStart<yEnd){
                 yPos = yStart;
             }
@@ -68,7 +68,7 @@ public class Game {
         }
         else if(yStart == yEnd){
             yPos = yStart;
-            or = Orient.VERTICAL;
+            or = Orient.HORIZONTAL;
             if(xStart<xEnd){
                 xPos=xStart;
             }
@@ -124,8 +124,9 @@ public class Game {
             int[][] tiles = this.hostships[s].getTileIDs();
             for(int t = 0; t < this.hostships[s].getlength(); t++)
             {
-                if(tiles[t][0] == x && tiles[t][1] == y)
+                if((tiles != null) && (tiles[t][0] == x && tiles[t][1] == y))
                 {
+                    this.hostships[s].deleteShip();
                     return tiles;
                 }
             }

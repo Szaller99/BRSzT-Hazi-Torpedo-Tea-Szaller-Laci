@@ -137,7 +137,7 @@ public class ShipsInfo extends JComponent {
         }
     }
 
-    public void showShip(int length, int number){
+    public void showShip(int length){
         switch(length){
             case 5:
             this.ship_5.setVisible(true);
@@ -172,13 +172,13 @@ public class ShipsInfo extends JComponent {
     }
 
     public void showAllShips(){
-        this.showShip(5,1);
-        this.showShip(4,1);
-        this.showShip(3,1);
-        this.showShip(2,1);
-        this.showShip(2,2);
-        this.showShip(1,1);
-        this.showShip(1,2);
+        this.showShip(5);
+        this.showShip(4);
+        this.showShip(3);
+        this.showShip(2);
+        this.showShip(2);
+        this.showShip(1);
+        this.showShip(1);
     }
 
 }

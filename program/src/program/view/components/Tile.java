@@ -104,4 +104,8 @@ public class Tile extends JButton implements MouseListener{
         return tileType.unknown;
     }
 
+    public boolean isSingleShip() {
+        return false;
+    }
+
 }
