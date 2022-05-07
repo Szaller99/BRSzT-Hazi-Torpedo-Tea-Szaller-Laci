@@ -25,9 +25,6 @@ public class Game {
         this.clientPlayer = new Player();
         this.hostships = createShips();
         this.clientships = createShips();
-        this.clientships[4].placeShip(3, 2, 2, Orient.VERTICAL); // for testing
-        // Battleship/placeShip comment folyt.: szóvel pl itt ha megadnám hogy legyen ez a hajó egy 4-es akkor az megváltoztatja a hosszát és 2 4-es hajó lesz de 0 3-as... 
-        this.clientships[5].placeShip(4, 1, 6, Orient.HORIZONTAL); // for testing
         this.gameState = new GameState();
         // this.communication.init();
         this.startGame();
