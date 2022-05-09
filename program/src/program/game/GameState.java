@@ -23,4 +23,8 @@ public class GameState {
         this.sm.endGame();
     }
 
+    public GameSM getState(){
+        return this.sm;
+    }
+
 }

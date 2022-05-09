@@ -363,7 +363,15 @@ public class Field extends JComponent {
     public void set2ShipSetup(){
         for (int i = 1; i <= 10; i++) {
             for (int j = 1; j <= 10; j++) {
-                tiles[i][j].setEditable(true); // for testing
+                tiles[i][j].setEditable(true);
+            }
+        }
+    }
+
+    public void setMyTurn(boolean isMyTurn){
+        for (int i = 1; i <= 10; i++) {
+            for (int j = 1; j <= 10; j++) {
+                tiles[i][j].setMyTurn(isMyTurn);
             }
         }
     }
@@ -371,7 +379,7 @@ public class Field extends JComponent {
     public void set2Hitable(){
         for (int i = 1; i <= 10; i++) {
             for (int j = 1; j <= 10; j++) {
-                tiles[i][j].setHitable(true); // for testing
+                tiles[i][j].setHitable(true);
             }
         }
     }
@@ -379,7 +387,7 @@ public class Field extends JComponent {
     public void set2Shootable(){
         for (int i = 1; i <= 10; i++) {
             for (int j = 1; j <= 10; j++) {
-                tiles[i][j].setShootable(true); // for testing
+                tiles[i][j].setShootable(true);
             }
         }
     }
