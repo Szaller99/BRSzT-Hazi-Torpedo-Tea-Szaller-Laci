@@ -185,6 +185,8 @@ public class GameFrame extends Frame {
     }
 
     public void set2ready(){
+        this.myField.clearAllStatus();
+        this.enemyField.clearAllStatus();
         this.myField.setMyTurn(false);
         this.enemyField.setMyTurn(false);
         this.enemyField.set2Shootable();
@@ -193,14 +195,14 @@ public class GameFrame extends Frame {
     }
 
     public void set2myTurn(){
-        this.enemyField.setMyTurn(false);
-        this.myField.setMyTurn(true);
+        this.enemyField.setMyTurn(true);
+        this.myField.setMyTurn(false);
         this.turnSign.YourTurn();
     }
 
     public void set2enemyTurn(){
-        this.enemyField.setMyTurn(true);
-        this.myField.setMyTurn(false);
+        this.enemyField.setMyTurn(false);
+        this.myField.setMyTurn(true);
         this.turnSign.EnemysTurn();
     }
 }

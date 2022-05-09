@@ -50,6 +50,7 @@ public class Game {
         // TODO setup scipts
         this.hostPlayer = new Player(true);
         this.clientPlayer = new Player();
+        this.clientPlayer.ready(); // for testing
         // TODO set both Player.setMe() false or true
         this.myShips = createShips();
         this.enemyShips = createShips();
@@ -64,10 +65,34 @@ public class Game {
 
     }
 
+    private void sendShoot(int x, int y){
+        // TODO send message to other player about shooting tile (x,y)
+
+        // TODO: if handshake:
+            this.updateSM();
+            System.out.print("Status should be ClientTurn, is " + this.gameState.getState().get() + " \n");
+            this.frame.set2enemyTurn();
+
+        // wait for enemy to shoot
+    }
+
+    public void receiveEnemysShooot(int x, int y){
+
+        // TODO call this function when other player sends where he shoots
+
+        this.frame.gotHit(x, y);
+        this.updateSM();
+        System.out.print("Status should be host, is " + this.gameState.getState().get() + " \n");
+        this.frame.set2myTurn();
+
+    }
+
     private void setStatusReady(){
         this.updateSM(); // sets State Machine to Ready state
         System.out.print("Status should be Ready, is " + this.gameState.getState().get() + " \n");
         this.frame.set2ready();
+        
+        // TODO send ready message to other player
 
         this.startGame();
     }
@@ -136,6 +161,7 @@ public class Game {
 
     public tileType shootEnemy(int x, int y){
         // todo: got the type of enemy's tile in x,y
+        this.sendShoot(x, y);
         for(int i = 0; i < 7; i++)
         {
             if(this.enemyShips[i].isMe(x, y) == true)
