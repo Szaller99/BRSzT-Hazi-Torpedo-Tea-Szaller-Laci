@@ -25,10 +25,10 @@ public class Game {
 
         this.setupGame();
         while (this.gameState.sm != GameSM.Ready) {
-            this.updateSM();
-            // delete ^ after implementing comms
+            this.startGame(); 
+            // TODO edit after implementing comms
         }
-        this.startGame(); 
+        
     }
 
     private Battleship[] createShips() {
@@ -53,6 +53,8 @@ public class Game {
         this.clientships = createShips();
         this.clientships[4].placeShip(2, 2, Orient.VERTICAL);
         this.clientships[5].placeShip(1, 6, Orient.HORIZONTAL);
+
+        this.frame = new GameFrame(this.app, this);
         
         // ...
         // TODO communication handshakes, so both apps are ready
@@ -62,8 +64,7 @@ public class Game {
     }
 
     private void startGame() {
-        this.frame = new GameFrame(this.app, this);
-        
+        this.updateSM();
     }
 
     private void updateSM() {
