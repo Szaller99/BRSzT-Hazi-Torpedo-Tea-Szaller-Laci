@@ -108,7 +108,7 @@ public class Game {
         System.out.print("Status should be Ready, is " + this.gameState.getState().get() + " \n");
         this.frame.set2ready();
         
-        // TODO send ready message to other player
+        this.sendReady();
 
         this.startGame();
     }
