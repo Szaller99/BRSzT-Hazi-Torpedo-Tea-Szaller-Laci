@@ -23,12 +23,7 @@ public class Game {
     public Game(Controller app) {
         // this.communication.init();
 
-        this.setupGame();
-        // while (this.gameState.sm != GameSM.Ready) {
-        //     this.startGame(); 
-        //     // TODO edit after implementing comms
-        // }
-        
+        this.setupGame();        
     }
 
     private Battleship[] createShips() {
