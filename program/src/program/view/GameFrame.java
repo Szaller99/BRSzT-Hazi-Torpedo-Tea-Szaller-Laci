@@ -6,7 +6,7 @@ import program.view.components.*;
 import program.game.*;
 
 import java.awt.GridBagConstraints;  
-import java.awt.GridBagLayout;  
+import java.awt.GridBagLayout;
 
 import javax.swing.*;
 import java.awt.*;

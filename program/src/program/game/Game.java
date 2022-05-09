@@ -25,7 +25,8 @@ public class Game {
 
         this.setupGame();
         while (this.gameState.sm != GameSM.Ready) {
-            
+            this.updateSM();
+            // delete ^ after implementing comms
         }
         this.startGame(); 
     }
@@ -44,7 +45,7 @@ public class Game {
     }
 
     private void setupGame() {
-        this.gameState.sm = GameSM.Setup;
+        this.gameState = new GameState();
         // TODO setup scipts
         this.hostPlayer = new Player(true);
         this.clientPlayer = new Player();
@@ -52,10 +53,12 @@ public class Game {
         this.clientships = createShips();
         this.clientships[4].placeShip(2, 2, Orient.VERTICAL);
         this.clientships[5].placeShip(1, 6, Orient.HORIZONTAL);
-        this.gameState = new GameState();
+        
         // ...
         // TODO communication handshakes, so both apps are ready
-        this.gameState.sm.nextState(); // sets SM to Ready
+
+        this.updateSM(); // sets State Machine to Ready state
+
     }
 
     private void startGame() {
@@ -63,6 +66,11 @@ public class Game {
         
     }
 
+    private void updateSM() {
+        // ..
+        this.gameState.updateSM();
+    }
+ 
 
 
     public boolean placeShip(int len, int xStart, int yStart, int xEnd, int yEnd) {

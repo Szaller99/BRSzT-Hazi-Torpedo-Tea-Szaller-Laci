@@ -10,6 +10,10 @@ public class GameState {
         this.sm = GameSM.Setup;
     }
 
+    public void updateSM() {
+        this.sm = this.sm.nextState();
+    }
+
 
     public void updateSM(Game game){
         this.sm.nextState();

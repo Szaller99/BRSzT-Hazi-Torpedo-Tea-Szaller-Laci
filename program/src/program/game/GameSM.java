@@ -8,7 +8,7 @@ public enum GameSM {
         }
 
         @Override
-        public String getState() {
+        public String get() {
             return "Setup";
         }
 
@@ -25,7 +25,7 @@ public enum GameSM {
         }
 
         @Override
-        public String getState() {
+        public String get() {
             return "Ready";
         }
 
@@ -42,7 +42,7 @@ public enum GameSM {
         }
 
         @Override
-        public String getState() {
+        public String get() {
             return "HostTurn";
         }
 
@@ -58,7 +58,7 @@ public enum GameSM {
         }
 
         @Override
-        public String getState() {
+        public String get() {
             return "ClientTurn";
         }
 
@@ -75,7 +75,7 @@ public enum GameSM {
         }
 
         @Override
-        public String getState() {
+        public String get() {
             return "Ended";
         }
 
@@ -87,5 +87,5 @@ public enum GameSM {
 
     public abstract GameSM nextState(); 
     public abstract GameSM endGame(); 
-    public abstract String getState();
+    public abstract String get();
 }
