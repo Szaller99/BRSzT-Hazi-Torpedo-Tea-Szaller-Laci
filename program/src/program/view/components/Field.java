@@ -225,16 +225,17 @@ public class Field extends JComponent {
             // }
         }
         else{
-            // todo: set ship fields to water
             for(int i=0; i<this.thisShipLength; i++){
-                tiles[this.shipX[i]][this.shipY[i]].set2Water();
-                tiles[this.shipX[i]][this.shipY[i]].setEditable(true);
+                this.tiles[this.shipX[i]][this.shipY[i]].set2Water();
+                System.out.print("tile type: " + String.valueOf(this.tiles[this.shipX[i]][this.shipY[i]].getType()) + "\n");
+                this.tiles[this.shipX[i]][this.shipY[i]].setEditable(true);
+                this.paintComponents(this.getGraphics());
             }
         }
     }
 
     public void gotHit(int x, int y){
-        tiles[x][y].gotHit();
+        this.tiles[x][y].gotHit();
     }
 
     public void shoot(int x, int y){
@@ -245,16 +246,16 @@ public class Field extends JComponent {
             switch(enemyType){
                 case water:
                 this.tiles[x][y].set2Water();
-                if(tiles[x-1][y].getType() == tileType.ship){
+                if(this.tiles[x-1][y].getType() == tileType.ship){
                     if (this.tiles[x-2][y].getType() == tileType.ship) { this.tiles[x-1][y].set2EndShip(ShipEndType.right); }
                 }
-                if(tiles[x+1][y].getType() == tileType.ship){
+                if(this.tiles[x+1][y].getType() == tileType.ship){
                     if (this.tiles[x+2][y].getType() == tileType.ship) { this.tiles[x+1][y].set2EndShip(ShipEndType.left); }
                 }
-                if(tiles[x][y-1].getType() == tileType.ship){
+                if(this.tiles[x][y-1].getType() == tileType.ship){
                     if (this.tiles[x][y-2].getType() == tileType.ship) { this.tiles[x][y-1].set2EndShip(ShipEndType.lower); }
                 }
-                if(tiles[x][y+1].getType() == tileType.ship){
+                if(this.tiles[x][y+1].getType() == tileType.ship){
                     if (this.tiles[x][y+2].getType() == tileType.ship) { this.tiles[x][y+1].set2EndShip(ShipEndType.upper); }
                 }
                 break;
@@ -262,7 +263,7 @@ public class Field extends JComponent {
                 case ship:
                 this.tiles[x][y].set2SingleShip();
 
-                if(tiles[x-1][y].getType() == tileType.ship){
+                if(this.tiles[x-1][y].getType() == tileType.ship){
                     if(x==1){
                         this.tiles[x][y].set2EndShip(ShipEndType.right);
                     }
@@ -281,7 +282,7 @@ public class Field extends JComponent {
                         }
                     }
                 }
-                if(tiles[x+1][y].getType() == tileType.ship){
+                if(this.tiles[x+1][y].getType() == tileType.ship){
                     if(x==1){
                         this.tiles[x][y].set2EndShip(ShipEndType.left);
                     }
@@ -300,7 +301,7 @@ public class Field extends JComponent {
                         }
                     }
                 }
-                if(tiles[x][y-1].getType() == tileType.ship){
+                if(this.tiles[x][y-1].getType() == tileType.ship){
                     if(y==1){
                         this.tiles[x][y].set2EndShip(ShipEndType.upper);
                     }
@@ -319,7 +320,7 @@ public class Field extends JComponent {
                         }
                     }
                 }
-                if(tiles[x][y+1].getType() == tileType.ship){
+                if(this.tiles[x][y+1].getType() == tileType.ship){
                     if(y==1){
                         this.tiles[x][y].set2EndShip(ShipEndType.lower);
                     }

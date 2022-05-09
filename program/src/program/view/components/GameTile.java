@@ -152,24 +152,7 @@ public class GameTile extends Tile{
             if(!this.isToDelete()){
                 if (this.isEditable()){
                     this.setEditable(false);
-                    myField.endShip();
-                    
-                }
-                if(this.isShootable()){
-                    // myField.shoot(this.x, this.y);
-                    // tileType enemyType = myField.shoot(this.x, this.y);
-                    // switch(enemyType){
-                    //     case water:
-                    //     this.set2Water();
-                    //     break;
-                        
-                    //     case ship:
-                    //     this.set2SingleShip();
-                    //     break;
-                        
-                    //     default:
-                    //         break;
-                    // }
+                    myField.endShip();   
                 }
             }
         }
@@ -201,6 +184,7 @@ public class GameTile extends Tile{
         this.setIcon(new ImageIcon("pics/water.png"));
         this.type = tileType.water;
         this.setSingleShip(false);
+        System.out.print("game tile (" + String.valueOf(this.x) + ", " + String.valueOf(this.y) + ") set to: " + String.valueOf(this.isSingleShip()) + "\n");
     }
 
     public void set2MiddleShip(boolean vertically){
