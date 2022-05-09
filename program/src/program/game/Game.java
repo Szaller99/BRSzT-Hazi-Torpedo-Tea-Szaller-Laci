@@ -71,6 +71,11 @@ public class Game {
         // ..
         this.gameState.updateSM();
     }
+
+    private void endGame() {
+        // ..
+        this.gameState.sm = this.gameState.sm.endGame();
+    }
  
 
 
