@@ -87,6 +87,13 @@ public class Game {
 
     }
 
+    public void receiveEnemyReady(){
+
+        // TODO call this function when other player sends he is ready
+
+        this.startGame();
+    }
+
     private void setStatusReady(){
         this.updateSM(); // sets State Machine to Ready state
         System.out.print("Status should be Ready, is " + this.gameState.getState().get() + " \n");
