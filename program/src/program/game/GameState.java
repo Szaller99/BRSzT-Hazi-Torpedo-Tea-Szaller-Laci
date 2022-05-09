@@ -2,22 +2,21 @@ package program.game;
 
 
 public class GameState {
-    enum State {
-        start,
-        hostTurn,
-        clientTurn,
-        end
-    }
-    public State gameStage;
+    
+    public GameSM sm;
 
 
     public GameState() {
-        this.gameStage = State.start;
+        this.sm = GameSM.Setup;
     }
 
 
-    public void update(Game game){
+    public void updateSM(Game game){
+        this.sm.nextState();
+    }
 
+    public void endGameSM() {
+        this.sm.endGame();
     }
 
 }

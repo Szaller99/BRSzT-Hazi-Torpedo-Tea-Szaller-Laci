@@ -21,15 +21,13 @@ public class Game {
     public GameState gameState;
 
     public Game(Controller app) {
-        this.hostPlayer = new Player(true);
-        this.clientPlayer = new Player();
-        this.hostships = createShips();
-        this.clientships = createShips();
-        this.clientships[4].placeShip(2, 2, Orient.VERTICAL);
-        this.clientships[5].placeShip(1, 6, Orient.HORIZONTAL);
-        this.gameState = new GameState();
         // this.communication.init();
-        this.startGame();
+
+        this.setupGame();
+        while (this.gameState.sm != GameSM.Ready) {
+            
+        }
+        this.startGame(); 
     }
 
     private Battleship[] createShips() {
@@ -45,9 +43,24 @@ public class Game {
         return ships;
     }
 
+    private void setupGame() {
+        this.gameState.sm = GameSM.Setup;
+        // TODO setup scipts
+        this.hostPlayer = new Player(true);
+        this.clientPlayer = new Player();
+        this.hostships = createShips();
+        this.clientships = createShips();
+        this.clientships[4].placeShip(2, 2, Orient.VERTICAL);
+        this.clientships[5].placeShip(1, 6, Orient.HORIZONTAL);
+        this.gameState = new GameState();
+        // ...
+        // TODO communication handshakes, so both apps are ready
+        this.gameState.sm.nextState(); // sets SM to Ready
+    }
+
     private void startGame() {
         this.frame = new GameFrame(this.app, this);
-        this.gameState.update(this);
+        
     }
 
 
