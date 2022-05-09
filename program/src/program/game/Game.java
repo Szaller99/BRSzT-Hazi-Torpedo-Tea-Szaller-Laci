@@ -147,7 +147,6 @@ public class Game {
             }
         }
         
-        // todo -> corrected
         for(int i = 0; i < 7; i++)
         {
             if(this.myShips[i].getlength() == len && this.myShips[i].isPlaced() == false)
@@ -160,7 +159,6 @@ public class Game {
     }
 
     public tileType shootEnemy(int x, int y){
-        // todo: got the type of enemy's tile in x,y
         this.sendShoot(x, y);
         for(int i = 0; i < 7; i++)
         {
@@ -187,9 +185,6 @@ public class Game {
     }
 
     public int[][] deleteShip(int x, int y){
-
-        // todo: delete ship on (x,y) tile, return tiles where the ship was (it will desappear already from field I hope)
-        // note: (x,y) tile is not the start of the ship, it could be any tile which is part of the ship!!! -> Done
         for(int s = 0; s < 7; s++)
         {
             int[][] tiles = this.myShips[s].getTileIDs();
@@ -206,11 +201,6 @@ public class Game {
     }
 
     public boolean ready2Play(){
-        // todo:
-        // check if all the ships are placed
-        // if yes, set the status to ready to play
-        // if no then don't do anything and return false
-
         for(int i = 0; i < 7; i++)
         {
             if(this.myShips[i].isPlaced() == false)
@@ -228,10 +218,5 @@ public class Game {
 
         this.setStatusReady();
         return true;
-    }
-
-    public void gotHit(int x, int y){
-        // todo: call this function when get tile ID where enemy shoots from communication
-        this.frame.gotHit(x, y);
     }
 }
