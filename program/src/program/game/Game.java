@@ -49,8 +49,8 @@ public class Game {
         // TODO set both Player.setMe() false or true
         this.myShips = createShips();
         this.enemyShips = createShips();
-        this.enemyShips[4].placeShip(2, 2, Orient.VERTICAL);
-        this.enemyShips[5].placeShip(1, 6, Orient.HORIZONTAL);
+        // this.enemyShips[4].placeShip(2, 2, Orient.VERTICAL); // for testing
+        // this.enemyShips[5].placeShip(1, 6, Orient.HORIZONTAL); // for testing
 
         this.frame = new GameFrame(this.app, this);
         this.frame.set2setup();
@@ -82,9 +82,16 @@ public class Game {
 
     }
 
-    public void receiveEnemyReady(){
+    public void sendReady(){
+        // TODO
+        // communication.send(this.myShips)
+    }
+
+    public void receiveEnemyReady(Battleship[] ships){
 
         // TODO call this function when other player sends he is ready
+
+        this.enemyShips = ships;
 
         if(this.clientPlayer.isMe()){
             this.hostPlayer.ready();
