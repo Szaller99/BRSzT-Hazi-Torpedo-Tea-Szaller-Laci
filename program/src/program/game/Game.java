@@ -71,7 +71,7 @@ public class Game {
         // wait for enemy to shoot
     }
 
-    public void receiveEnemysShooot(int x, int y){
+    public void receiveEnemysShoot(int x, int y){
 
         // TODO call this function when other player sends where he shoots
 
@@ -85,6 +85,13 @@ public class Game {
     public void receiveEnemyReady(){
 
         // TODO call this function when other player sends he is ready
+
+        if(this.clientPlayer.isMe()){
+            this.hostPlayer.ready();
+        }
+        else{
+            this.clientPlayer.ready();
+        }
 
         this.startGame();
     }
