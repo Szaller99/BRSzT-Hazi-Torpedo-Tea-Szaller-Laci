@@ -214,21 +214,21 @@ public class Field extends JComponent {
             }
             if(this.startX == this.prevX){
                 this.tiles[this.startX][this.startY-1].setEditable(false);
-                this.tiles[this.startX][this.startY+1].setEditable(false);
+                if(this.startY != 10){ this.tiles[this.startX][this.startY+1].setEditable(false); }
                 this.tiles[this.prevX][this.prevY-1].setEditable(false);
-                this.tiles[this.prevX][this.prevY+1].setEditable(false);
+                if(this.prevY != 10){ this.tiles[this.prevX][this.prevY+1].setEditable(false); }
                 for(int i=0; i<this.thisShipLength; i++){
-                    this.tiles[this.shipX[i]+1][this.shipY[i]].setEditable(false);
+                    if(this.shipX[i] != 10){ this.tiles[this.shipX[i]+1][this.shipY[i]].setEditable(false); }
                     this.tiles[this.shipX[i]-1][this.shipY[i]].setEditable(false);
                 }
             }
             else if(this.startY == this.prevY){
                 this.tiles[this.startX-1][this.startY].setEditable(false);
-                this.tiles[this.startX+1][this.startY].setEditable(false);
+                if(this.startX != 10){ this.tiles[this.startX+1][this.startY].setEditable(false); }
                 this.tiles[this.prevX-1][this.prevY].setEditable(false);
-                this.tiles[this.prevX+1][this.prevY].setEditable(false);
+                if(this.prevX != 10){ this.tiles[this.prevX+1][this.prevY].setEditable(false); }
                 for(int i=0; i<this.thisShipLength; i++){
-                    this.tiles[this.shipX[i]][this.shipY[i]+1].setEditable(false);
+                    if(this.shipY[i] != 10){ this.tiles[this.shipX[i]][this.shipY[i]+1].setEditable(false); }
                     this.tiles[this.shipX[i]][this.shipY[i]-1].setEditable(false);
                 }
             }
@@ -431,26 +431,30 @@ public class Field extends JComponent {
                 boolean set2false;
 
                 set2false=true;
-                if(this.tiles[ship[i][0]+2][ship[i][1]].getType() == tileType.ship) { set2false = false; }
-                if(this.tiles[ship[i][0]+1][ship[i][1]+1].getType() == tileType.ship) { set2false = false; }
-                if(this.tiles[ship[i][0]+1][ship[i][1]-1].getType() == tileType.ship) { set2false = false; }
-                if(set2false){ this.tiles[ship[i][0]+1][ship[i][1]].setEditable(true); }
+                if(ship[i][0] != 10){ 
+                    if(ship[i][0]+1 != 10){ if(this.tiles[ship[i][0]+2][ship[i][1]].getType() == tileType.ship) { set2false = false; } }
+                    if (ship[i][1] != 10){ if(this.tiles[ship[i][0]+1][ship[i][1]+1].getType() == tileType.ship) { set2false = false; } }
+                    if(this.tiles[ship[i][0]+1][ship[i][1]-1].getType() == tileType.ship) { set2false = false; }
+                    if(set2false){ this.tiles[ship[i][0]+1][ship[i][1]].setEditable(true); }
+                }
 
                 set2false=true;
                 if(this.tiles[ship[i][0]-2][ship[i][1]].getType() == tileType.ship) { set2false = false; }
-                if(this.tiles[ship[i][0]-1][ship[i][1]+1].getType() == tileType.ship) { set2false = false; }
+                if(ship[i][1] != 10){ if(this.tiles[ship[i][0]-1][ship[i][1]+1].getType() == tileType.ship) { set2false = false; } }
                 if(this.tiles[ship[i][0]-1][ship[i][1]-1].getType() == tileType.ship) { set2false = false; }
                 if(set2false){ this.tiles[ship[i][0]-1][ship[i][1]].setEditable(true); }
 
                 set2false=true;
-                if(this.tiles[ship[i][0]][ship[i][1]+2].getType() == tileType.ship) { set2false = false; }
-                if(this.tiles[ship[i][0]+1][ship[i][1]+1].getType() == tileType.ship) { set2false = false; }
-                if(this.tiles[ship[i][0]-1][ship[i][1]+1].getType() == tileType.ship) { set2false = false; }
-                if(set2false){ this.tiles[ship[i][0]][ship[i][1]+1].setEditable(true); }
+                if(ship[i][1] != 10){ 
+                    if(ship[i][1]+1 != 10){ if(this.tiles[ship[i][0]][ship[i][1]+2].getType() == tileType.ship) { set2false = false; } }
+                    if (ship[i][0] != 10){ if(this.tiles[ship[i][0]+1][ship[i][1]+1].getType() == tileType.ship) { set2false = false; } }
+                    if(this.tiles[ship[i][0]-1][ship[i][1]+1].getType() == tileType.ship) { set2false = false; }
+                    if(set2false){ this.tiles[ship[i][0]][ship[i][1]+1].setEditable(true); }
+                }
 
                 set2false=true;
                 if(this.tiles[ship[i][0]][ship[i][1]-2].getType() == tileType.ship) { set2false = false; }
-                if(this.tiles[ship[i][0]+1][ship[i][1]-1].getType() == tileType.ship) { set2false = false; }
+                if(ship[i][0] != 10){ if(this.tiles[ship[i][0]+1][ship[i][1]-1].getType() == tileType.ship) { set2false = false; } }
                 if(this.tiles[ship[i][0]-1][ship[i][1]-1].getType() == tileType.ship) { set2false = false; }
                 if(set2false){ this.tiles[ship[i][0]][ship[i][1]-1].setEditable(true); }
             }
