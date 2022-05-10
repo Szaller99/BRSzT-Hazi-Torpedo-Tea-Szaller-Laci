@@ -11,6 +11,7 @@ public class Communication {
     protected int port = 4999;
     protected InetAddress myIpAddress;
     protected InetAddress serverIpAddress;
+    public String serverIpAddressString;
     public boolean clientAccepted = false;
 
     public Communication(boolean isHost){
