@@ -162,7 +162,7 @@ public class GameFrame extends Frame {
         this.myField.gotHit(x, y);
     }
 
-    public boolean EnemyIsHit(int x, int y){
+    public boolean isHit(int x, int y){
         return this.enemyField.isHit(x, y);
     }
 

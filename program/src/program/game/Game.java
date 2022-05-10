@@ -76,6 +76,26 @@ public class Game {
         // TODO call this function when other player sends where he shoots
 
         this.frame.gotHit(x, y);
+
+        // TODO test this:
+        for(int i = 0; i < 7; i++){
+            if(this.myShips[i].isMe(x, y) == true){
+                this.frame.setHit(x, y);
+                int[][] ShipIDs = this.myShips[i].getTileIDs();
+                int length = this.myShips[i].getlength();
+                boolean gotDestroyed = true;
+                for (int j=0;j<length;j++){
+                    if (!this.frame.isHit(ShipIDs[j][0], ShipIDs[j][1])){
+                        gotDestroyed = false;
+                    }
+                }
+                if (gotDestroyed){
+                    this.myShips[i].destroy();
+                    this.frame.myShips.hideShip(length);
+                }
+            }
+        }
+
         this.updateSM();
         System.out.print("Status should be host, is " + this.gameState.getState().get() + " \n");
         this.frame.set2myTurn();
@@ -186,7 +206,7 @@ public class Game {
                 int length = this.enemyShips[i].getlength();
                 boolean gotDestroyed = true;
                 for (int j=0;j<length;j++){
-                    if (!this.frame.EnemyIsHit(ShipIDs[j][0], ShipIDs[j][1])){
+                    if (!this.frame.isHit(ShipIDs[j][0], ShipIDs[j][1])){
                         gotDestroyed = false;
                     }
                 }
