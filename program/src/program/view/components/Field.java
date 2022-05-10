@@ -232,7 +232,7 @@ public class Field extends JComponent {
             for(int i=0; i<this.thisShipLength; i++){
                 this.tiles[this.shipX[i]][this.shipY[i]].set2Water();
                 System.out.print("tile type: " + String.valueOf(this.tiles[this.shipX[i]][this.shipY[i]].getType()) + "\n");
-                // this.tiles[this.shipX[i]][this.shipY[i]].setEditable(true);
+                this.tiles[this.shipX[i]][this.shipY[i]].setEditable(true);
                 this.paintComponents(this.getGraphics());
                 
             }
