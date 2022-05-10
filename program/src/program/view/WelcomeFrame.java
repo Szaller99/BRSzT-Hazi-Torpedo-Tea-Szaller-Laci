@@ -46,7 +46,7 @@ public class WelcomeFrame extends Frame {
 
     public void createGame(){
         this.app.create();
-        String ip = "42"; // TODO get game's IP
+        String ip = this.app.comm.getMyIpAddressString(); 
         this.ipSign.setSign2IP(ip);
     }
 

@@ -13,9 +13,9 @@ public class Client extends Communication {
         
     }
 
-    private boolean connect() {
+    public boolean connect() {
 		try {
-		    clientSocket = new Socket(this.myIpAddress,  this.port);
+		    clientSocket = new Socket(this.serverIpAddress,  this.port);
             this.dos = new DataOutputStream(clientSocket.   getOutputStream());
 		    this.dis = new DataInputStream(clientSocket.    getInputStream());
 		    this.clientAccepted = true;
