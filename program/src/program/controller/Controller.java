@@ -13,7 +13,7 @@ public class Controller {
     public Controller()
     {
         // this.welcomeFrame = new WelcomeFrame(this);
-        System.out.println("my address is:" + this.comm.getMyIpAddress());
+        System.out.println("my address is:" + this.comm.getMyIpAddressString());
 
         this.game = new Game(this);
         this.gameFrame = this.game.frame;
