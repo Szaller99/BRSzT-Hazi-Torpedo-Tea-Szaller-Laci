@@ -106,4 +106,7 @@ public class Tile extends JButton implements MouseListener{
         return false;
     }
 
+    public void setMyTurn(boolean isMyTurn){
+    }
+
 }

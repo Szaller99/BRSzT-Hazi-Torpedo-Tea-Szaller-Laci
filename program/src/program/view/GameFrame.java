@@ -55,7 +55,6 @@ public class GameFrame extends Frame {
         this.myShips = new ShipsInfo(false);
         this.enemyShips = new ShipsInfo(true);
         this.turnSign = new TurnSign();
-        this.turnSign.ShipSetup(); // for testing
 
         this.readyButton = new ReadyButton(this);
         this.deleteButton = new DeleteButton(myField, this.turnSign);
@@ -135,9 +134,9 @@ public class GameFrame extends Frame {
     public void ready2Play(){
         boolean canBeReady = this.myGame.ready2Play();
         if (canBeReady){
-            this.myField.clearAllStatus();
-            this.enemyField.clearAllStatus();
-            this.turnSign.Done();
+            // this.myField.clearAllStatus();
+            // this.enemyField.clearAllStatus();
+            // this.turnSign.Done();
             this.readyButton.setVisible(false);
             this.deleteButton.setVisible(false);
         }
@@ -176,5 +175,34 @@ public class GameFrame extends Frame {
         this.enemyField.set2Shootable();
         this.myField.set2Hitable();
         this.myShips.showAllShips();
+    }
+
+    public void set2setup(){
+        this.enemyField.clearAllStatus();
+        this.myField.set2ShipSetup();
+        this.myField.setMyTurn(true);
+        this.turnSign.ShipSetup();
+    }
+
+    public void set2ready(){
+        this.myField.clearAllStatus();
+        this.enemyField.clearAllStatus();
+        this.myField.setMyTurn(false);
+        this.enemyField.setMyTurn(false);
+        this.enemyField.set2Shootable();
+        this.myField.set2Hitable();
+        this.turnSign.Done();
+    }
+
+    public void set2myTurn(){
+        this.enemyField.setMyTurn(true);
+        this.myField.setMyTurn(false);
+        this.turnSign.YourTurn();
+    }
+
+    public void set2enemyTurn(){
+        this.enemyField.setMyTurn(false);
+        this.myField.setMyTurn(true);
+        this.turnSign.EnemysTurn();
     }
 }

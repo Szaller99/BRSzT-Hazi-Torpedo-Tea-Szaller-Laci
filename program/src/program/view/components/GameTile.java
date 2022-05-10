@@ -17,6 +17,7 @@ public class GameTile extends Tile{
     private boolean isHitable; // is true if tile is on my field and enemy can shoot this tile
     private boolean isShootable; // is true if tile is on enemy's field and player can shoot this tile
     private boolean isToDelete; // is true if user wants to delete a ship
+    private boolean isMyTurn;
     public Field myField;
     private boolean isSingleShip;
 
@@ -29,6 +30,7 @@ public class GameTile extends Tile{
         this.setHitable(false);
         this.setShootable(false);
         this.setSingleShip(false);
+        this.setMyTurn(false);
         this.myField = field;
     }
 
@@ -80,98 +82,98 @@ public class GameTile extends Tile{
         this.isToDelete = isToDelete;
     }
 
+    public void setMyTurn(boolean isMyTurn){
+        this.isMyTurn = isMyTurn;
+    }
+
+    public boolean isMyTurn() {
+        return isMyTurn;
+    }
+
     public void mouseClicked(MouseEvent e){
         // System.out.print("game tile " + this.tileName + " was clicked \n");
-
-        if(this.isToDelete()){
-            this.myField.deleteShip(this.x, this.y);
-        }
-        else{
-        
-            if(this.isEditable()){
-                this.set2SingleShip();
-                this.setEditable(false);
+        if(this.isMyTurn()){
+            if(this.isToDelete()){
+                this.myField.deleteShip(this.x, this.y);
             }
-            if(this.isShootable()){
-                System.out.print("shoot! \n");
-                myField.shoot(this.x, this.y);
-                this.setShootable(false);
-                // tileType enemyType = myField.shoot(this.x, this.y);
-                // switch(enemyType){
-                //     case water:
-                //     this.set2Water();
-                //     break;
-                    
-                //     case ship:
-                //     this.set2SingleShip(); // todo
-                //     break;
-                    
-                //     default:
-                //         break;
-                // }
+            else{
+            
+                if(this.isEditable()){
+                    this.set2SingleShip();
+                    this.setEditable(false);
+                }
+                if(this.isShootable()){
+                    System.out.print("shoot! \n");
+                    myField.shoot(this.x, this.y);
+                    this.setShootable(false);
+                    // tileType enemyType = myField.shoot(this.x, this.y);
+                    // switch(enemyType){
+                    //     case water:
+                    //     this.set2Water();
+                    //     break;
+                        
+                    //     case ship:
+                    //     this.set2SingleShip(); // todo
+                    //     break;
+                        
+                    //     default:
+                    //         break;
+                    // }
+                }
             }
-        }
 
-        // if(this.getEditable()){
-        //     // this.setBackground(Color.RED);
+            // if(this.getEditable()){
+            //     // this.setBackground(Color.RED);
 
+            
+            // this.set2SingleShip();
         
-        // this.set2SingleShip();
-       
-        // }
+            // }
 
-        // myField.testMessage();
-        // System.out.print(this.getParent());
+            // myField.testMessage();
+            // System.out.print(this.getParent());
+        }
 
         
     }
     public void mousePressed(MouseEvent e){
         // System.out.print("game tile " + this.tileName + " was pressed \n");
-        if(!this.isToDelete()){
-            if (this.isEditable()){
-                myField.startShip(this.x,this.y);
+        if(this.isMyTurn()){
+            if(!this.isToDelete()){
+                if (this.isEditable()){
+                    myField.startShip(this.x,this.y);
+                }
             }
         }
     }
     
     public void mouseReleased(MouseEvent e){
-        if(!this.isToDelete()){
-            if (this.isEditable()){
-                this.setEditable(false);
-                myField.endShip();
-                
-            }
-            if(this.isShootable()){
-                // myField.shoot(this.x, this.y);
-                // tileType enemyType = myField.shoot(this.x, this.y);
-                // switch(enemyType){
-                //     case water:
-                //     this.set2Water();
-                //     break;
-                    
-                //     case ship:
-                //     this.set2SingleShip();
-                //     break;
-                    
-                //     default:
-                //         break;
-                // }
+        if(this.isMyTurn()){
+            if(!this.isToDelete()){
+                if (this.isEditable()){
+                    this.setEditable(false);
+                    myField.endShip();   
+                }
             }
         }
     }
     public void mouseEntered(MouseEvent e){
-        if(!this.isToDelete()){
-            if(e.getModifiersEx()!=0 && this.isEditable()){
-                myField.continueShip(this.x,this.y);
-                
+        if(this.isMyTurn()){
+            if(!this.isToDelete()){
+                if(e.getModifiersEx()!=0 && this.isEditable()){
+                    myField.continueShip(this.x,this.y);
+                    
+                }
             }
         }
     }
     public void mouseExited(MouseEvent e){
-        if(!this.isToDelete()){
-            // this.gotHit();
-            if(e.getModifiersEx()!=0){
-                // this.setEditable(false);
+        if(this.isMyTurn()){
+            if(!this.isToDelete()){
+                // this.gotHit();
+                if(e.getModifiersEx()!=0){
+                    // this.setEditable(false);
+                }
             }
         }
     }
@@ -182,6 +184,7 @@ public class GameTile extends Tile{
         this.setIcon(new ImageIcon("pics/water.png"));
         this.type = tileType.water;
         this.setSingleShip(false);
+        System.out.print("game tile (" + String.valueOf(this.x) + ", " + String.valueOf(this.y) + ") set to: " + String.valueOf(this.isSingleShip()) + "\n");
     }
 
     public void set2MiddleShip(boolean vertically){
@@ -229,15 +232,17 @@ public class GameTile extends Tile{
     }
 
     public void gotHit(){
-        if(this.isHitable()){
-            this.setHit(true);
-            if (this.type == tileType.ship){
-                this.setIcon(new ImageIcon("pics/ship_hit.png"));
+        if(this.isMyTurn()){
+            if(this.isHitable()){
+                this.setHit(true);
+                if (this.type == tileType.ship){
+                    this.setIcon(new ImageIcon("pics/ship_hit.png"));
+                }
+                else if (this.type == tileType.water){
+                    this.setIcon(new ImageIcon("pics/water_hit2.png"));
+                }
+                this.setHitable(false);
             }
-            else if (this.type == tileType.water){
-                this.setIcon(new ImageIcon("pics/water_hit2.png"));
-            }
-            this.setHitable(false);
         }
           
     }

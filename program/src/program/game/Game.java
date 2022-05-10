@@ -11,8 +11,8 @@ public class Game {
     private Player hostPlayer;
     private Player clientPlayer;
     
-    private Battleship[] hostships;
-    private Battleship[] clientships;
+    private Battleship[] myShips;
+    private Battleship[] enemyShips;
 
     public GameFrame frame;
 
@@ -20,12 +20,7 @@ public class Game {
 
     public Game(Controller app) {
 
-        this.setupGame();
-        while (this.gameState.sm != GameSM.Ready) {
-            this.startGame(); 
-            // TODO edit after implementing comms
-        }
-        
+        this.setupGame();        
     }
 
     private Battleship[] createShips() {
@@ -42,36 +37,102 @@ public class Game {
     }
 
     private void setupGame() {
-        this.gameState = new GameState();
+        this.gameState = new GameState(); // -> game state is setup
+        System.out.print("Status should be Setup, is " + this.gameState.getState().get() + " \n");
         // TODO setup scipts
         this.hostPlayer = new Player(true);
         this.clientPlayer = new Player();
-        this.hostships = createShips();
-        this.clientships = createShips();
-        this.clientships[4].placeShip(2, 2, Orient.VERTICAL);
-        this.clientships[5].placeShip(1, 6, Orient.HORIZONTAL);
+        this.clientPlayer.ready(); // for testing
+        // TODO set both Player.setMe() false or true
+        this.myShips = createShips();
+        this.enemyShips = createShips();
+        // this.enemyShips[4].placeShip(2, 2, Orient.VERTICAL); // for testing
+        // this.enemyShips[5].placeShip(1, 6, Orient.HORIZONTAL); // for testing
 
         this.frame = new GameFrame(this.app, this);
+        this.frame.set2setup();
         
         // ...
         // TODO communication handshakes, so both apps are ready
 
-        this.updateSM(); // sets State Machine to Ready state
+    }
 
+    private void sendShoot(int x, int y){
+        // TODO send message to other player about shooting tile (x,y)
+
+        // TODO: if handshake:
+            this.updateSM();
+            System.out.print("Status should be ClientTurn, is " + this.gameState.getState().get() + " \n");
+            this.frame.set2enemyTurn();
+
+        // wait for enemy to shoot
+    }
+
+    public void receiveEnemysShoot(int x, int y){
+
+        // TODO call this function when other player sends where he shoots
+
+        this.frame.gotHit(x, y);
+        this.updateSM();
+        System.out.print("Status should be host, is " + this.gameState.getState().get() + " \n");
+        this.frame.set2myTurn();
+
+    }
+
+    public void sendReady(){
+        // TODO
+        // communication.send(this.myShips)
+    }
+
+    public void receiveEnemyReady(Battleship[] ships){
+
+        // TODO call this function when other player sends he is ready
+
+        this.enemyShips = ships;
+
+        if(this.clientPlayer.isMe()){
+            this.hostPlayer.ready();
+        }
+        else{
+            this.clientPlayer.ready();
+        }
+
+        this.startGame();
+    }
+
+    private void setStatusReady(){
+        this.updateSM(); // sets State Machine to Ready state
+        System.out.print("Status should be Ready, is " + this.gameState.getState().get() + " \n");
+        this.frame.set2ready();
+        
+        this.sendReady();
+
+        this.startGame();
     }
 
     private void startGame() {
-        this.updateSM();
+    
+        if(this.hostPlayer.getReady() && this.clientPlayer.getReady()){
+            this.updateSM();
+            System.out.print("Status should be Host Turn, is " + this.gameState.getState().get() + " \n");
+            if(this.gameState.getState() == GameSM.HostTurn && this.hostPlayer.isMe()){
+                this.frame.set2myTurn();
+            }
+            else if (this.gameState.getState() == GameSM.ClientTurn && this.hostPlayer.isMe()){
+                this.frame.set2enemyTurn();
+            }
+        }
 
-    }
-    private void endGame() {
-        // ..
-        this.gameState.sm = this.gameState.sm.endGame();
-    }
+        }
 
     private void updateSM() {
         // ..
         this.gameState.updateSM();
+    }
+
+    private void endGame() {
+        // ..
+        this.gameState.sm = this.gameState.sm.endGame();
     }
  
 
@@ -101,12 +162,11 @@ public class Game {
             }
         }
         
-        // todo -> corrected
         for(int i = 0; i < 7; i++)
         {
-            if(this.hostships[i].getlength() == len && this.hostships[i].isPlaced() == false)
+            if(this.myShips[i].getlength() == len && this.myShips[i].isPlaced() == false)
             {
-                this.hostships[i].placeShip(xPos, yPos, or);
+                this.myShips[i].placeShip(xPos, yPos, or);
                 return true;
             }
         }
@@ -114,14 +174,14 @@ public class Game {
     }
 
     public tileType shootEnemy(int x, int y){
-        // todo: got the type of enemy's tile in x,y
+        this.sendShoot(x, y);
         for(int i = 0; i < 7; i++)
         {
-            if(this.clientships[i].isMe(x, y) == true)
+            if(this.enemyShips[i].isMe(x, y) == true)
             {
                 this.frame.setHit(x, y);
-                int[][] ShipIDs = this.clientships[i].getTileIDs();
-                int length = this.clientships[i].getlength();
+                int[][] ShipIDs = this.enemyShips[i].getTileIDs();
+                int length = this.enemyShips[i].getlength();
                 boolean gotDestroyed = true;
                 for (int j=0;j<length;j++){
                     if (!this.frame.EnemyIsHit(ShipIDs[j][0], ShipIDs[j][1])){
@@ -129,9 +189,9 @@ public class Game {
                     }
                 }
                 if (gotDestroyed){
-                    this.clientships[i].destroy();
+                    this.enemyShips[i].destroy();
                     this.frame.enemyShips.hideShip(length);
-                    this.frame.endEnemyShip(this.clientships[i].getX(), this.clientships[i].getY(), length, this.clientships[i].getOrient());
+                    this.frame.endEnemyShip(this.enemyShips[i].getX(), this.enemyShips[i].getY(), length, this.enemyShips[i].getOrient());
                 }
                 return tileType.ship;
             }
@@ -140,17 +200,14 @@ public class Game {
     }
 
     public int[][] deleteShip(int x, int y){
-
-        // todo: delete ship on (x,y) tile, return tiles where the ship was (it will desappear already from field I hope)
-        // note: (x,y) tile is not the start of the ship, it could be any tile which is part of the ship!!! -> Done
         for(int s = 0; s < 7; s++)
         {
-            int[][] tiles = this.hostships[s].getTileIDs();
-            for(int t = 0; t < this.hostships[s].getlength(); t++)
+            int[][] tiles = this.myShips[s].getTileIDs();
+            for(int t = 0; t < this.myShips[s].getlength(); t++)
             {
                 if((tiles != null) && (tiles[t][0] == x && tiles[t][1] == y))
                 {
-                    this.hostships[s].deleteShip();
+                    this.myShips[s].deleteShip();
                     return tiles;
                 }
             }
@@ -159,24 +216,22 @@ public class Game {
     }
 
     public boolean ready2Play(){
-        // todo:
-        // check if all the ships are placed
-        // if yes, set the status to ready to play
-        // if no then don't do anything and return false
-
         for(int i = 0; i < 7; i++)
         {
-            if(this.hostships[i].isPlaced() == false)
+            if(this.myShips[i].isPlaced() == false)
             {
                 return false;
             }
         }
-        //this.hostPlayer.ready();
-        return true;
-    }
+        
+        if(this.clientPlayer.isMe()){
+            this.clientPlayer.ready();
+        }
+        else{
+            this.hostPlayer.ready();
+        }
 
-    public void gotHit(int x, int y){
-        // todo: call this function when get tile ID where enemy shoots from communication
-        this.frame.gotHit(x, y);
+        this.setStatusReady();
+        return true;
     }
 }

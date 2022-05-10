@@ -168,19 +168,20 @@ public class Field extends JComponent {
         if((prevY==startY) && (prevX==startX)){
             tiles[prevX][prevY].set2SingleShip();
         }
-        else if (prevY==startY){
+        else 
+        if (prevY==startY){
             if(prevX>startX){
                 tiles[startX][startY].set2EndShip(ShipEndType.left);
                 tiles[prevX][prevY].set2EndShip(ShipEndType.right);
                 for(int i=startX;i<=prevX;i++){
-                    tiles[i][startY].setEditable(false);
+                    // tiles[i][startY].setEditable(false);
                 }
             }
             else{
                 tiles[startX][startY].set2EndShip(ShipEndType.right);
                 tiles[prevX][prevY].set2EndShip(ShipEndType.left);
                 for(int i=prevX;i<=startX;i++){
-                    tiles[i][startY].setEditable(false);
+                    // tiles[i][startY].setEditable(false);
                 }
             }
         }
@@ -189,14 +190,14 @@ public class Field extends JComponent {
                 tiles[startX][startY].set2EndShip(ShipEndType.upper);
                 tiles[prevX][prevY].set2EndShip(ShipEndType.lower);
                 for(int i=startY;i<=prevY;i++){
-                    tiles[startX][i].setEditable(false);
+                    // tiles[startX][i].setEditable(false);
                 }
             }
             else{
                 tiles[startX][startY].set2EndShip(ShipEndType.lower);
                 tiles[prevX][prevY].set2EndShip(ShipEndType.upper);
                 for(int i=startY;i<=prevY;i++){
-                    tiles[startX][i].setEditable(false);
+                    // tiles[startX][i].setEditable(false);
                 }
             }
         }
@@ -208,6 +209,9 @@ public class Field extends JComponent {
         boolean isSuccess = this.myFrame.placeShip(this.thisShipLength, this.startX, this.startY, this.prevX, this.prevY);
 
         if (isSuccess){
+            for(int i=0; i<this.thisShipLength; i++){
+                this.tiles[this.shipX[i]][this.shipY[i]].setEditable(false);
+            }
             // todo: set fields around to not editable
             // if(this.startX == this.prevX){
             //     for(int i=0; i<this.thisShipLength; i++){
@@ -225,16 +229,18 @@ public class Field extends JComponent {
             // }
         }
         else{
-            // todo: set ship fields to water
             for(int i=0; i<this.thisShipLength; i++){
-                tiles[this.shipX[i]][this.shipY[i]].set2Water();
-                tiles[this.shipX[i]][this.shipY[i]].setEditable(true);
+                this.tiles[this.shipX[i]][this.shipY[i]].set2Water();
+                System.out.print("tile type: " + String.valueOf(this.tiles[this.shipX[i]][this.shipY[i]].getType()) + "\n");
+                // this.tiles[this.shipX[i]][this.shipY[i]].setEditable(true);
+                this.paintComponents(this.getGraphics());
+                
             }
         }
     }
 
     public void gotHit(int x, int y){
-        tiles[x][y].gotHit();
+        this.tiles[x][y].gotHit();
     }
 
     public void shoot(int x, int y){
@@ -245,16 +251,16 @@ public class Field extends JComponent {
             switch(enemyType){
                 case water:
                 this.tiles[x][y].set2Water();
-                if(tiles[x-1][y].getType() == tileType.ship){
+                if(this.tiles[x-1][y].getType() == tileType.ship){
                     if (this.tiles[x-2][y].getType() == tileType.ship) { this.tiles[x-1][y].set2EndShip(ShipEndType.right); }
                 }
-                if(tiles[x+1][y].getType() == tileType.ship){
+                if(this.tiles[x+1][y].getType() == tileType.ship){
                     if (this.tiles[x+2][y].getType() == tileType.ship) { this.tiles[x+1][y].set2EndShip(ShipEndType.left); }
                 }
-                if(tiles[x][y-1].getType() == tileType.ship){
+                if(this.tiles[x][y-1].getType() == tileType.ship){
                     if (this.tiles[x][y-2].getType() == tileType.ship) { this.tiles[x][y-1].set2EndShip(ShipEndType.lower); }
                 }
-                if(tiles[x][y+1].getType() == tileType.ship){
+                if(this.tiles[x][y+1].getType() == tileType.ship){
                     if (this.tiles[x][y+2].getType() == tileType.ship) { this.tiles[x][y+1].set2EndShip(ShipEndType.upper); }
                 }
                 break;
@@ -262,7 +268,7 @@ public class Field extends JComponent {
                 case ship:
                 this.tiles[x][y].set2SingleShip();
 
-                if(tiles[x-1][y].getType() == tileType.ship){
+                if(this.tiles[x-1][y].getType() == tileType.ship){
                     if(x==1){
                         this.tiles[x][y].set2EndShip(ShipEndType.right);
                     }
@@ -281,7 +287,7 @@ public class Field extends JComponent {
                         }
                     }
                 }
-                if(tiles[x+1][y].getType() == tileType.ship){
+                if(this.tiles[x+1][y].getType() == tileType.ship){
                     if(x==1){
                         this.tiles[x][y].set2EndShip(ShipEndType.left);
                     }
@@ -300,7 +306,7 @@ public class Field extends JComponent {
                         }
                     }
                 }
-                if(tiles[x][y-1].getType() == tileType.ship){
+                if(this.tiles[x][y-1].getType() == tileType.ship){
                     if(y==1){
                         this.tiles[x][y].set2EndShip(ShipEndType.upper);
                     }
@@ -319,7 +325,7 @@ public class Field extends JComponent {
                         }
                     }
                 }
-                if(tiles[x][y+1].getType() == tileType.ship){
+                if(this.tiles[x][y+1].getType() == tileType.ship){
                     if(y==1){
                         this.tiles[x][y].set2EndShip(ShipEndType.lower);
                     }
@@ -363,7 +369,15 @@ public class Field extends JComponent {
     public void set2ShipSetup(){
         for (int i = 1; i <= 10; i++) {
             for (int j = 1; j <= 10; j++) {
-                tiles[i][j].setEditable(true); // for testing
+                tiles[i][j].setEditable(true);
+            }
+        }
+    }
+
+    public void setMyTurn(boolean isMyTurn){
+        for (int i = 1; i <= 10; i++) {
+            for (int j = 1; j <= 10; j++) {
+                tiles[i][j].setMyTurn(isMyTurn);
             }
         }
     }
@@ -371,7 +385,7 @@ public class Field extends JComponent {
     public void set2Hitable(){
         for (int i = 1; i <= 10; i++) {
             for (int j = 1; j <= 10; j++) {
-                tiles[i][j].setHitable(true); // for testing
+                tiles[i][j].setHitable(true);
             }
         }
     }
@@ -379,7 +393,7 @@ public class Field extends JComponent {
     public void set2Shootable(){
         for (int i = 1; i <= 10; i++) {
             for (int j = 1; j <= 10; j++) {
-                tiles[i][j].setShootable(true); // for testing
+                tiles[i][j].setShootable(true);
             }
         }
     }
