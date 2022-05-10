@@ -120,9 +120,6 @@ public class Field extends JComponent {
         this.shipY[0] = y;
     }
 
-
-    // todo: ship exeptions
-
     public void continueShip(int x, int y){
         if (y==startY){
             if(x>startX){
