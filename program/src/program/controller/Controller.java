@@ -53,7 +53,7 @@ public class Controller {
 
         try {
             client = new Client();
-            System.out.print("Client socket created.. \n");
+            System.out.print("Client instance created.. \n");
         } catch (Exception e) {
             //TODO: handle exception
             System.out.println(e.getMessage());
@@ -64,12 +64,11 @@ public class Controller {
             System.out.print("Client sould be connected! \n");
         } catch (Exception e) {
             //TODO: handle exception
-            System.out.println(e.getMessage());
+            System.out.println("error here");
         }
         this.game = new Game(this);
         this.gameFrame = this.game.frame;
         this.gameFrame.setVisible(false);
-        
        
         // TODO find and join game
 
