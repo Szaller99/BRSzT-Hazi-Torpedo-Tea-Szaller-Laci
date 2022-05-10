@@ -1,6 +1,5 @@
 package program.game;
 
-import program.communication.Communication;
 import program.controller.Controller;
 import program.view.components.*;
 import program.view.GameFrame;
@@ -17,11 +16,9 @@ public class Game {
 
     public GameFrame frame;
 
-    public Communication communication;
     public GameState gameState;
 
     public Game(Controller app) {
-        // this.communication.init();
 
         this.setupGame();
         while (this.gameState.sm != GameSM.Ready) {
@@ -65,6 +62,11 @@ public class Game {
 
     private void startGame() {
         this.updateSM();
+
+    }
+    private void endGame() {
+        // ..
+        this.gameState.sm = this.gameState.sm.endGame();
     }
 
     private void updateSM() {
