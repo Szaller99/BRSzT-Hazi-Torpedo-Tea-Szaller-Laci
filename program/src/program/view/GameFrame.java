@@ -29,6 +29,7 @@ public class GameFrame extends Frame {
         super(app);
         this.app = app;
         this.myGame = myGame;
+        this.setVisible(false);
         setupGameFrame();
     }
 
