@@ -120,10 +120,11 @@ public class Game {
             if(this.gameState.getState() == GameSM.HostTurn && this.hostPlayer.isMe()){
                 this.frame.set2myTurn();
             }
-            else if (this.gameState.getState() == GameSM.ClientTurn && this.hostPlayer.isMe()){
+            else if (this.gameState.getState() == GameSM.ClientTurn && this.clientPlayer.isMe()){
                 this.frame.set2enemyTurn();
             }
         }
+        this.frame.startFight();
     }
 
     private void updateSM() {
