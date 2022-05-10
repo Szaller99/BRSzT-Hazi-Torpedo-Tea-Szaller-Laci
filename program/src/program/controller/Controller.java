@@ -47,9 +47,11 @@ public class Controller {
     }
 
     public void join(String ip){
+        this.game = new Game(this);
+        this.gameFrame = this.game.frame;
+        this.gameFrame.setVisible(false);
         this.isHost = false;
-        System.out.print("Join Game in app with ip: " + ip + " \n");
-        this.client.serverIpAddressString = ip;
+        
 
         try {
             client = new Client();
@@ -58,6 +60,9 @@ public class Controller {
             //TODO: handle exception
             System.out.println(e.getMessage());
         }
+        
+        this.client.serverIpAddressString = ip;
+        System.out.print("Join Game in app with ip: " + this.client.serverIpAddressString + " \n");
 
         try {
             client.connect();
@@ -66,9 +71,7 @@ public class Controller {
             //TODO: handle exception
             System.out.println("error here");
         }
-        this.game = new Game(this);
-        this.gameFrame = this.game.frame;
-        this.gameFrame.setVisible(false);
+        
        
         // TODO find and join game
 
