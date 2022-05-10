@@ -212,21 +212,26 @@ public class Field extends JComponent {
             for(int i=0; i<this.thisShipLength; i++){
                 this.tiles[this.shipX[i]][this.shipY[i]].setEditable(false);
             }
-            // todo: set fields around to not editable
-            // if(this.startX == this.prevX){
-            //     for(int i=0; i<this.thisShipLength; i++){
-            //         tiles[this.shipX[i]][this.shipY[i]].setEditable(true);
-            //         tiles[this.shipX[i]+1][this.shipY[i]].setEditable(true);
-            //         tiles[this.shipX[i]-1][this.shipY[i]].setEditable(true);
-            //     }
-            // }
-            // else if(this.startY == this.prevY){
-            //     for(int i=0; i<this.thisShipLength; i++){
-            //         tiles[this.shipX[i]][this.shipY[i]].setEditable(true);
-            //         tiles[this.shipX[i]][this.shipY[i]+1].setEditable(true);
-            //         tiles[this.shipX[i]][this.shipY[i]-1].setEditable(true);
-            //     }
-            // }
+            if(this.startX == this.prevX){
+                this.tiles[this.startX][this.startY-1].setEditable(false);
+                this.tiles[this.startX][this.startY+1].setEditable(false);
+                this.tiles[this.prevX][this.prevY-1].setEditable(false);
+                this.tiles[this.prevX][this.prevY+1].setEditable(false);
+                for(int i=0; i<this.thisShipLength; i++){
+                    this.tiles[this.shipX[i]+1][this.shipY[i]].setEditable(false);
+                    this.tiles[this.shipX[i]-1][this.shipY[i]].setEditable(false);
+                }
+            }
+            else if(this.startY == this.prevY){
+                this.tiles[this.startX-1][this.startY].setEditable(false);
+                this.tiles[this.startX+1][this.startY].setEditable(false);
+                this.tiles[this.prevX-1][this.prevY].setEditable(false);
+                this.tiles[this.prevX+1][this.prevY].setEditable(false);
+                for(int i=0; i<this.thisShipLength; i++){
+                    this.tiles[this.shipX[i]][this.shipY[i]+1].setEditable(false);
+                    this.tiles[this.shipX[i]][this.shipY[i]-1].setEditable(false);
+                }
+            }
         }
         else{
             for(int i=0; i<this.thisShipLength; i++){
@@ -422,6 +427,32 @@ public class Field extends JComponent {
             for(int i = 0; i<length; i++){
                 this.tiles[ship[i][0]][ship[i][1]].set2Water();
                 this.tiles[ship[i][0]][ship[i][1]].setEditable(true);
+
+                boolean set2false;
+
+                set2false=true;
+                if(this.tiles[ship[i][0]+2][ship[i][1]].getType() == tileType.ship) { set2false = false; }
+                if(this.tiles[ship[i][0]+1][ship[i][1]+1].getType() == tileType.ship) { set2false = false; }
+                if(this.tiles[ship[i][0]+1][ship[i][1]-1].getType() == tileType.ship) { set2false = false; }
+                if(set2false){ this.tiles[ship[i][0]+1][ship[i][1]].setEditable(true); }
+
+                set2false=true;
+                if(this.tiles[ship[i][0]-2][ship[i][1]].getType() == tileType.ship) { set2false = false; }
+                if(this.tiles[ship[i][0]-1][ship[i][1]+1].getType() == tileType.ship) { set2false = false; }
+                if(this.tiles[ship[i][0]-1][ship[i][1]-1].getType() == tileType.ship) { set2false = false; }
+                if(set2false){ this.tiles[ship[i][0]-1][ship[i][1]].setEditable(true); }
+
+                set2false=true;
+                if(this.tiles[ship[i][0]][ship[i][1]+2].getType() == tileType.ship) { set2false = false; }
+                if(this.tiles[ship[i][0]+1][ship[i][1]+1].getType() == tileType.ship) { set2false = false; }
+                if(this.tiles[ship[i][0]-1][ship[i][1]+1].getType() == tileType.ship) { set2false = false; }
+                if(set2false){ this.tiles[ship[i][0]][ship[i][1]+1].setEditable(true); }
+
+                set2false=true;
+                if(this.tiles[ship[i][0]][ship[i][1]-2].getType() == tileType.ship) { set2false = false; }
+                if(this.tiles[ship[i][0]+1][ship[i][1]-1].getType() == tileType.ship) { set2false = false; }
+                if(this.tiles[ship[i][0]-1][ship[i][1]-1].getType() == tileType.ship) { set2false = false; }
+                if(set2false){ this.tiles[ship[i][0]][ship[i][1]-1].setEditable(true); }
             }
 
             this.clear2Delete();
