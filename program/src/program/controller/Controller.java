@@ -12,6 +12,7 @@ public class Controller {
 
     private WelcomeFrame welcomeFrame;
     private GameFrame gameFrame;
+    private EndFrame endFrame;
     private Game game;
     private boolean isHost;
     public Communication comm;
@@ -24,6 +25,7 @@ public class Controller {
         // this.welcomeFrame = new WelcomeFrame(this);
         System.out.println("my address is:" + Communication.getMyIpAddressString());
         this.thread = new Thread();
+        //this.endFrame = new EndFrame(this, "You are the looser"); //for testing
         this.welcomeFrame = new WelcomeFrame(this);
         
     }
@@ -83,5 +85,11 @@ public class Controller {
         this.isHost = true;
         this.welcomeFrame.setVisible(false);
         this.gameFrame.setVisible(true);
+    }
+
+    public void end(String winner)
+    {
+        this.gameFrame.setVisible(false);
+        this.endFrame = new EndFrame(this, winner);
     }
 }
