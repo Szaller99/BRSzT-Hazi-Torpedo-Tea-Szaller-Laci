@@ -4,8 +4,6 @@ import program.controller.Controller;
 import program.view.components.*;
 import program.view.GameFrame;
 
-import java.awt.*;
-
 public class Game {
     private Controller app;
     public Player hostPlayer;
@@ -25,7 +23,6 @@ public class Game {
 
     private Battleship[] createShips() {
         Battleship[] ships = new Battleship[7];
-        Dimension defaultPoint = new Dimension(0,0);
         ships[0]=(new Battleship(1));
         ships[1]=(new Battleship(1));
         ships[2]=(new Battleship(2));

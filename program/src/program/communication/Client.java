@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.net.Socket;
 
 import program.controller.Controller;
-import program.game.Battleship;
 
 public class Client extends Communication {
     private Socket clientSocket;

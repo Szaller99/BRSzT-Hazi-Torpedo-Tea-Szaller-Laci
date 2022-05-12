@@ -1,15 +1,11 @@
 package program.view.components;
 
-import program.controller.Controller;
 import program.view.*;
-import program.view.components.Frame;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 
-import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class CreateGameButton extends JButton implements MouseInputListener{
     private WelcomeFrame myFrame;

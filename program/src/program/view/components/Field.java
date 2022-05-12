@@ -1,14 +1,11 @@
 package program.view.components;
 
 import javax.swing.*;
-import javax.swing.event.MouseInputAdapter;
 
 import program.view.GameFrame;
 import program.game.*;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class Field extends JComponent {
     private boolean isUpper;

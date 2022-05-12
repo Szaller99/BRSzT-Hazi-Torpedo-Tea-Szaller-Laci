@@ -1,16 +1,12 @@
 package program.view.components;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.event.MouseInputListener;
-import javax.swing.plaf.basic.BasicBorders;
 
 import program.view.GameFrame;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class ReadyButton extends JButton implements MouseInputListener {
     GameFrame myFrame;

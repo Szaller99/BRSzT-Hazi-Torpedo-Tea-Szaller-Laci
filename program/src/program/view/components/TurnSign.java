@@ -1,11 +1,8 @@
 package program.view.components;
 
 import javax.swing.*;
-import javax.swing.event.MouseInputAdapter;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class TurnSign extends JComponent {
     JLabel FieldSign;
