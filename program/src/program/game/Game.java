@@ -126,7 +126,7 @@ public class Game {
         this.frame.set2ready();
         
         this.sendReady();
-        System.out.println(app.server.prepareAllBattleshipData(this.myShips));
+        System.out.println(app.server.prepareAllBattleshipToSend(this.myShips));
 
         this.startGame();
     }
