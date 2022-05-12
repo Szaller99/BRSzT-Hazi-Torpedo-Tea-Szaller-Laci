@@ -20,6 +20,7 @@ public class Battleship {
         this.yPosition = yPos;
         this.Orientation = or;
     }
+
     public Battleship(int len) {
         this.isPlaced = false;
         this.isDestroyed = false;

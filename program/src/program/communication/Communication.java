@@ -50,7 +50,7 @@ public class Communication extends Thread {
         String data = "";
         data += ship.getX();
         data += ",";
-        data += ship.getX();
+        data += ship.getY();
         data += ",";
         data += ship.getIntOrient();
         data += ",";
@@ -78,9 +78,9 @@ public class Communication extends Thread {
         for (String ship : stringShips) {
             String[] stringData = ship.split(",");
             posX = Integer.parseInt(stringData[0]);
-            posY = Integer.parseInt(stringData[0]);
-            len = Integer.parseInt(stringData[0]);
-            orient =(Integer.parseInt(stringData[0]) == 0) ? Orient.VERTICAL : Orient.HORIZONTAL;
+            posY = Integer.parseInt(stringData[1]);
+            orient =(Integer.parseInt(stringData[2]) == 0) ? Orient.VERTICAL : Orient.HORIZONTAL;
+            len = Integer.parseInt(stringData[3]);
             battleships[i] = new Battleship(posX, posY, len, orient);
         }
 

@@ -40,10 +40,14 @@ public class Game {
         this.gameState = new GameState(); // -> game state is setup
         System.out.print("Status should be Setup, is " + this.gameState.getState().get() + " \n");
         // TODO setup scipts
-        this.hostPlayer = new Player(true);
-        this.clientPlayer = new Player();
+        if(this.app.isHost) {
+            this.hostPlayer = new Player(true);
+            this.clientPlayer = new Player();
+        } else {
+            this.hostPlayer = new Player();
+            this.clientPlayer = new Player(true);
+        }
         this.clientPlayer.ready(); // for testing
-        // TODO set both Player.setMe() false or true
         this.myShips = createShips();
         this.enemyShips = createShips();
         // this.enemyShips[4].placeShip(2, 2, Orient.VERTICAL); // for testing
@@ -126,7 +130,15 @@ public class Game {
         this.frame.set2ready();
         
         this.sendReady();
-        System.out.println(app.server.prepareAllBattleshipToSend(this.myShips));
+        System.out.println("I'm host: " + this.hostPlayer.isMe());
+        System.out.println("I'm client: " + this.clientPlayer.isMe());
+        if(this.hostPlayer.isMe()) {
+            System.out.println("host ships to send: " + app.server.prepareAllBattleshipToSend(this.myShips));
+        }
+        if(this.clientPlayer.isMe()) {
+            System.out.println("client ships to send: " +app.client.prepareAllBattleshipToSend(this.myShips));
+        }
+        
 
         this.startGame();
     }

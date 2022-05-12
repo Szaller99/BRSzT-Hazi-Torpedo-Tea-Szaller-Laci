@@ -11,7 +11,7 @@ public class Controller {
     private WelcomeFrame welcomeFrame;
     private GameFrame gameFrame;
     private Game game;
-    private boolean isHost;
+    public boolean isHost;
     public Communication comm;
     public Client client;
     public Server server;
@@ -78,7 +78,6 @@ public class Controller {
 
     public void start()
     {
-        this.isHost = true;
         this.welcomeFrame.setVisible(false);
         this.gameFrame.setVisible(true);
     }

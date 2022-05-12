@@ -8,6 +8,7 @@ import java.net.Socket;
 public class Client extends Communication {
     private Socket clientSocket;
 
+
     public Client() throws IOException{
         super(false);
         
