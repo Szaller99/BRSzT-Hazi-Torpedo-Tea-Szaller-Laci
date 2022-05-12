@@ -91,6 +91,7 @@ public class Communication extends Thread {
             orient =(Integer.parseInt(stringData[2]) == 0) ? Orient.VERTICAL : Orient.HORIZONTAL;
             len = Integer.parseInt(stringData[3]);
             battleships[i] = new Battleship(posX, posY, len, orient);
+            i++;
         }
 
         return battleships;
