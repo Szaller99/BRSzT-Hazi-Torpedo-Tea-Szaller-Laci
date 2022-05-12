@@ -82,7 +82,7 @@ public class Server extends Communication{
     public boolean isClientReady() throws IOException {
         String str = (String)dis.readUTF(); 
         System.out.println("[server] got message: " + str);
-        return (str == this.readyMessage);
+        return (str == Communication.readyMessage);
     }
     
 }

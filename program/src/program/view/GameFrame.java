@@ -10,11 +10,6 @@ import java.awt.GridBagLayout;
 
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.border.Border;
-import javax.swing.plaf.basic.BasicBorders;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 public class GameFrame extends Frame {
     private Controller app;
     private Game myGame;

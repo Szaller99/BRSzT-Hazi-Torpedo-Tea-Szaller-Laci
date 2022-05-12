@@ -1,18 +1,14 @@
 package program.view;
 
+import program.communication.Communication;
 import program.controller.Controller;
 import program.view.components.*;
 import program.view.components.Frame;
 
 import javax.swing.*;
-import javax.swing.event.MouseInputListener;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
 
-import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class WelcomeFrame extends Frame {
     private Controller app;
@@ -45,7 +41,7 @@ public class WelcomeFrame extends Frame {
     }
 
     public void createGame(){
-        String ip = this.app.comm.getMyIpAddressString(); 
+        String ip = Communication.getMyIpAddressString(); 
         this.ipSign.setSign2IP(ip);
         this.paintComponents(this.getGraphics());
         this.app.create(); // beware, this blocks the code

@@ -20,6 +20,6 @@ public class Frame extends JFrame{
         this.setResizable(isResizable);
         this.setTitle(title);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setDefaultLookAndFeelDecorated(true);
+        Frame.setDefaultLookAndFeelDecorated(true);
     }
 }

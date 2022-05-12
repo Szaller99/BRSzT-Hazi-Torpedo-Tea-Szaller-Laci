@@ -1,17 +1,12 @@
 package program.view.components;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.event.MouseInputAdapter;
-import javax.swing.plaf.basic.BasicBorders;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+
 
 public class ShipsInfo extends JComponent {
     private boolean isUpper;
-    private boolean isLower;
 
     private Ship ship_5;
     private Ship ship_4;
@@ -24,7 +19,6 @@ public class ShipsInfo extends JComponent {
     public ShipsInfo(boolean isUpper){
         super();
         this.isUpper = isUpper;
-        this.isLower = !isUpper;
         this.setup();
        
     }

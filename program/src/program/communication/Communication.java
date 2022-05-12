@@ -43,6 +43,7 @@ public class Communication extends Thread {
             return "";
         }
     }
+   
     public void getMyIpAddress() {
         try(final DatagramSocket socket = new DatagramSocket()){
             socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
@@ -116,7 +117,7 @@ public class Communication extends Thread {
     public void sendOkMessage() {
 		// System.out.println("[client] trying to send ready message..");
 		try {
-			this.dos.writeUTF(this.okMessage);  
+			this.dos.writeUTF(Communication.okMessage);  
 			this.dos.flush();
 		} catch (Exception e) {
 			//TODO: handle exception
@@ -126,7 +127,7 @@ public class Communication extends Thread {
     public void sendReadyMessage() {
 		// System.out.println("[client] trying to send ready message..");
 		try {
-			this.dos.writeUTF(this.readyMessage);  
+			this.dos.writeUTF(Communication.readyMessage);  
 			this.dos.flush();
 		} catch (Exception e) {
 			//TODO: handle exception

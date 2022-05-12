@@ -1,15 +1,10 @@
 package program.view.components;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.event.MouseInputListener;
-import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-import program.view.components.*;
 
 public class DeleteButton extends JButton implements MouseInputListener {
     Field myField;

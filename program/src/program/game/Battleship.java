@@ -1,7 +1,5 @@
 package program.game;
 
-import program.game.*;
-
 public class Battleship {
     
     private boolean isDestroyed;
