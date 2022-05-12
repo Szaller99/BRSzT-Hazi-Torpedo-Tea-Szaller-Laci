@@ -41,9 +41,9 @@ public class Server extends Communication{
             while(this.keepServerThreadAlive) { // waiting for tasks
                 if(this.waitForClientReady) {
                     System.out.println("[server] setwaitForClientReady was set to true");
-                    if(this.isClientReady()) {
-                        this.app.game.clientPlayer.setReady();
-                    }         
+                    while (this.isClientReady()) { }         
+                    System.out.println("beep");
+                     this.app.game.clientPlayer.setReady();
                     this.setwaitForClientReady(false);
                 }
                 if(this.waitForClientShips) {
