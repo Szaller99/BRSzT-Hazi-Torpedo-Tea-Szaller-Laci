@@ -51,7 +51,7 @@ public class Server extends Communication{
                     Battleship[] clientShips = this.parseShips(receiveEnemyShips());
                     this.app.game.enemyShips = clientShips;
 
-                    while(this.app.game.gameState.sm  != GameSM.Ready) {}
+                    while(this.app.game.gameState.sm  != GameSM.Ready) { Thread.sleep(10); }
                     this.sendShips(this.app.game.myShips);
 
                     this.setwaitForClientShips(false);

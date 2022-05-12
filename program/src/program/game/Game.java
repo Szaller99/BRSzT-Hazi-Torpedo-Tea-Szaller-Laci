@@ -47,7 +47,6 @@ public class Game {
             this.hostPlayer = new Player();
             this.clientPlayer = new Player(true);
         }
-        this.clientPlayer.setReady(); // for testing
 
         this.myShips = createShips();
         this.enemyShips = createShips();
@@ -64,7 +63,7 @@ public class Game {
         // TODO send message to other player about shooting tile (x,y)
 
         // TODO: if handshake:
-            this.updateSM();
+            this.updateSM(); // sets SM to ClientTurn
             System.out.print("Status should be ClientTurn, is " + this.gameState.getState().get() + " \n");
             this.frame.set2enemyTurn();
 
@@ -96,7 +95,7 @@ public class Game {
             }
         }
 
-        this.updateSM();
+        this.updateSM(); // sets SM to HostTurn
         System.out.print("Status should be host, is " + this.gameState.getState().get() + " \n");
         this.frame.set2myTurn();
 
@@ -121,7 +120,6 @@ public class Game {
             this.clientPlayer.setReady();
         }
 
-        this.startGame();
     }
 
     private void setStatusReady(){
@@ -141,14 +139,12 @@ public class Game {
         //     System.out.println("client ships to send: " +app.client.prepareAllBattleshipToSend(this.myShips));
         // }
         
-
-        this.startGame();
     }
 
     public void startGame() {
     
         if(this.hostPlayer.getReady() && this.clientPlayer.getReady()){
-            this.updateSM();
+            this.updateSM(); // sets state to HostTurn
             System.out.print("Status should be Host Turn, is " + this.gameState.getState().get() + " \n");
             if(this.gameState.getState() == GameSM.HostTurn && this.hostPlayer.isMe()){
                 this.frame.set2myTurn();
@@ -156,8 +152,8 @@ public class Game {
             else if (this.gameState.getState() == GameSM.ClientTurn && this.clientPlayer.isMe()){
                 this.frame.set2enemyTurn();
             }
+            this.frame.startFight();
         }
-        this.frame.startFight();
     }
 
     public void updateSM() {

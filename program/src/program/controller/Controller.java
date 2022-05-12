@@ -37,9 +37,10 @@ public class Controller {
             }
             
             System.out.println("#2");
-            while(this.game.gameState.sm != GameSM.HostTurn) {
+            while(this.game.gameState.sm == GameSM.Setup || this.game.gameState.sm == GameSM.Ready) {
                 Thread.sleep(10);
                 if(this.game.clientPlayer.getReady() && this.game.hostPlayer.getReady()){
+                    System.out.println("beep");
                     this.game.startGame();
                 }
             };
