@@ -98,10 +98,10 @@ public class GameTile extends Tile{
             }
             else{
             
-                if(this.isEditable()){
-                    this.set2SingleShip();
-                    this.setEditable(false);
-                }
+                // if(this.isEditable()){
+                //     this.set2SingleShip();
+                //     this.setEditable(false);
+                // }
                 if(this.isShootable()){
                     System.out.print("shoot! \n");
                     myField.shoot(this.x, this.y);

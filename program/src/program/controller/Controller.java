@@ -1,8 +1,6 @@
 package program.controller;
 import program.view.*;
 
-import java.net.InetAddress;
-
 import program.communication.Client;
 import program.communication.Server;
 import program.communication.Communication;
@@ -34,8 +32,8 @@ public class Controller {
         System.out.print("Create Game in app \n");
         
         try {
+            System.out.print("Server socket waiting for client.. \n");
             this.server = new Server();
-            System.out.print("Server socket should listen.. \n");
 
         } catch (Exception e) {
             //TODO: handle exception

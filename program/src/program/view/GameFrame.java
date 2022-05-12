@@ -162,7 +162,7 @@ public class GameFrame extends Frame {
         this.myField.gotHit(x, y);
     }
 
-    public boolean EnemyIsHit(int x, int y){
+    public boolean isHit(int x, int y){
         return this.enemyField.isHit(x, y);
     }
 
@@ -172,7 +172,6 @@ public class GameFrame extends Frame {
     }
 
     public void startFight(){
-        //todo: call this function when the actual game begins
         this.enemyField.set2Shootable();
         this.myField.set2Hitable();
         this.myShips.showAllShips();
