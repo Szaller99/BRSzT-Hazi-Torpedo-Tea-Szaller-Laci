@@ -42,8 +42,7 @@ public class Server extends Communication{
                 if(this.waitForClientReady) {
                     System.out.println("[server] setwaitForClientReady was set to true");
                     while (this.isClientReady()) { }         
-                    System.out.println("beep");
-                     this.app.game.clientPlayer.setReady();
+                    this.app.game.clientPlayer.setReady();
                     this.setwaitForClientReady(false);
                 }
                 if(this.waitForClientShips) {
@@ -63,7 +62,7 @@ public class Server extends Communication{
                 }
             }
         } catch (Exception e) {
-            //TODO: handle exception
+            System.out.println(e);
         }
     }
 
