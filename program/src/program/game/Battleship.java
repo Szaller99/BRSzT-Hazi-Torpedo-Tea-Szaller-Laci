@@ -87,7 +87,7 @@ public class Battleship {
         return this.isPlaced;
     }
 
-    public int getlength() {
+    public int getLength() {
         return this.length;
     }
 
@@ -135,5 +135,9 @@ public class Battleship {
 
     public Orient getOrient(){
         return this.Orientation;
+    }
+
+    public int getIntOrient(){
+        return (this.Orientation == Orient.VERTICAL) ? 0 : 1;
     }
 }

@@ -9,6 +9,7 @@ public class Server extends Communication{
     public ServerSocket serverSocket;
     public Socket clientSocket;
     
+    
     public Server() throws IOException{
         super(true);
         this.serverSocket = new ServerSocket(this.port, 8, this.myIpAddress);
@@ -20,7 +21,7 @@ public class Server extends Communication{
         System.out.println("client connected");
     }
 
-    private void listenForServerRequest() {
+    public void listenForServerRequest() {
 		Socket socket = null;
 		try {
 			socket = serverSocket.accept();

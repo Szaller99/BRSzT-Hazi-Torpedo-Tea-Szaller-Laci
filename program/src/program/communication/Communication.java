@@ -5,7 +5,10 @@ import java.io.DataOutputStream;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
-public class Communication {
+import program.game.Battleship;
+import program.game.Orient;
+
+public class Communication extends Thread {
     protected DataInputStream dis;
     protected DataOutputStream dos;
     protected int port = 4999;
@@ -15,7 +18,7 @@ public class Communication {
     public boolean clientAccepted = false;
 
     public Communication(boolean isHost){
-
+        
     }
 
     public Communication(InetAddress serverIp){
@@ -41,6 +44,65 @@ public class Communication {
             e.printStackTrace();
             
         }
+    }
+
+    public String prepareBattleshiToSend(Battleship ship) {
+        String data = "";
+        data += ship.getX();
+        data += ",";
+        data += ship.getX();
+        data += ",";
+        data += ship.getIntOrient();
+        data += ",";
+        data += ship.getLength();
+        data += ";";
+    
+        return data;
+    }
+
+    public String prepareAllBattleshipToSend(Battleship[] ships) {
+        String data = "";
+        int k = ships.length;
+        for (int i = 0; i < k; i++) {
+            data += this.prepareBattleshiToSend(ships[i]);
+        }
+        return data;
+    }
+
+    public Battleship[] parseShips(String dataFromCommunication) {
+        Battleship[] battleships = new Battleship[7];
+        int posX, posY, len;
+        Orient orient;
+        String[] stringShips = dataFromCommunication.split(";");
+        int i = 0;
+        for (String ship : stringShips) {
+            String[] stringData = ship.split(",");
+            posX = Integer.parseInt(stringData[0]);
+            posY = Integer.parseInt(stringData[0]);
+            len = Integer.parseInt(stringData[0]);
+            orient =(Integer.parseInt(stringData[0]) == 0) ? Orient.VERTICAL : Orient.HORIZONTAL;
+            battleships[i] = new Battleship(posX, posY, len, orient);
+        }
+
+        return battleships;
+    }
+
+    public String prepareShotToSend(int x, int y){
+        String data = "";
+        data += String.valueOf(x);
+        data += ",";
+        data += String.valueOf(x);
+        return data;
+    }
+
+    public int parseShotX(String shot){
+        String[] coordinates = shot.split(",");
+        return Integer.parseInt(coordinates[0]);
+    }
+
+    public int parseShotY(String shot){
+        String[] coordinates = shot.split(",");
+        return Integer.parseInt(coordinates[1]);
     }
 
 

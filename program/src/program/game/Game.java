@@ -19,7 +19,7 @@ public class Game {
     public GameState gameState;
 
     public Game(Controller app) {
-
+        this.app = app;
         this.setupGame();        
     }
 
@@ -79,7 +79,7 @@ public class Game {
             if(this.myShips[i].isMe(x, y) == true){
                 this.frame.setHit(x, y);
                 int[][] ShipIDs = this.myShips[i].getTileIDs();
-                int length = this.myShips[i].getlength();
+                int length = this.myShips[i].getLength();
                 boolean gotDestroyed = true;
                 for (int j=0;j<length;j++){
                     if (!this.frame.isHit(ShipIDs[j][0], ShipIDs[j][1])){
@@ -126,6 +126,7 @@ public class Game {
         this.frame.set2ready();
         
         this.sendReady();
+        System.out.println(app.server.prepareAllBattleshipData(this.myShips));
 
         this.startGame();
     }
@@ -184,7 +185,7 @@ public class Game {
         
         for(int i = 0; i < 7; i++)
         {
-            if(this.myShips[i].getlength() == len && this.myShips[i].isPlaced() == false)
+            if(this.myShips[i].getLength() == len && this.myShips[i].isPlaced() == false)
             {
                 this.myShips[i].placeShip(xPos, yPos, or);
                 return true;
@@ -201,7 +202,7 @@ public class Game {
             {
                 this.frame.setHit(x, y);
                 int[][] ShipIDs = this.enemyShips[i].getTileIDs();
-                int length = this.enemyShips[i].getlength();
+                int length = this.enemyShips[i].getLength();
                 boolean gotDestroyed = true;
                 for (int j=0;j<length;j++){
                     if (!this.frame.isHit(ShipIDs[j][0], ShipIDs[j][1])){
@@ -223,7 +224,7 @@ public class Game {
         for(int s = 0; s < 7; s++)
         {
             int[][] tiles = this.myShips[s].getTileIDs();
-            for(int t = 0; t < this.myShips[s].getlength(); t++)
+            for(int t = 0; t < this.myShips[s].getLength(); t++)
             {
                 if((tiles != null) && (tiles[t][0] == x && tiles[t][1] == y))
                 {

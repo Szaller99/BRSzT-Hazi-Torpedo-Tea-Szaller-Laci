@@ -21,14 +21,12 @@ public class Controller {
     {
         // this.welcomeFrame = new WelcomeFrame(this);
         System.out.println("my address is:" + Communication.getMyIpAddressString());
-        this.thread = new Thread();
         this.welcomeFrame = new WelcomeFrame(this);
         
     }
 
     public void create(){
         this.isHost = true;
-        thread.start();
         System.out.print("Create Game in app \n");
         
         try {
@@ -42,6 +40,8 @@ public class Controller {
         this.game = new Game(this);
         this.gameFrame = this.game.frame;
         this.gameFrame.setVisible(false);
+
+        this.start();
     }
 
     public void join(String ip){
