@@ -55,7 +55,7 @@ public class Communication extends Thread {
         }
     }
 
-    public String prepareBattleshiToSend(Battleship ship) {
+    public String prepareBattleshipToSend(Battleship ship) {
         String data = "";
         data += ship.getX();
         data += ",";
@@ -73,7 +73,7 @@ public class Communication extends Thread {
         String data = "";
         int k = ships.length;
         for (int i = 0; i < k; i++) {
-            data += this.prepareBattleshiToSend(ships[i]);
+            data += this.prepareBattleshipToSend(ships[i]);
         }
         return data;
     }
@@ -91,6 +91,7 @@ public class Communication extends Thread {
             orient =(Integer.parseInt(stringData[2]) == 0) ? Orient.VERTICAL : Orient.HORIZONTAL;
             len = Integer.parseInt(stringData[3]);
             battleships[i] = new Battleship(posX, posY, len, orient);
+            i++;
         }
 
         return battleships;
