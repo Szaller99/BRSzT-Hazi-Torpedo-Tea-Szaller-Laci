@@ -47,8 +47,7 @@ public class Server extends Communication{
                 }
                 if(this.waitForClientShips) {
                     System.out.println("[server] setwaitForClientShips was set to true");
-                    Battleship[] clientShips = this.parseShips(receiveEnemyShips());
-                    this.app.game.enemyShips = clientShips;
+                    this.app.game.enemyShips = this.parseShips(receiveEnemyShips());
 
                     while(this.app.game.gameState.sm  != GameSM.Ready) { Thread.sleep(10); }
                     this.sendShips(this.app.game.myShips);
@@ -56,9 +55,9 @@ public class Server extends Communication{
                     this.setwaitForClientShips(false);
                 }
                 if(this.waitForShot) {
-                    // TODO implement
-                    System.out.println("[server] setwaitForShot was set to true");
-                    this.setwaitForShot(false);
+					System.out.println("[client] waitForShot was set to true");
+                    this.handleEnemyShot();
+            	    this.setwaitForShot(false);
                 }
             }
         } catch (Exception e) {

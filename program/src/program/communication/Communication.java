@@ -151,5 +151,17 @@ public class Communication extends Thread {
         System.out.println("got message: " + str);
         return str;
     }
+
+    public String receiveEnemyShot() throws IOException {
+        String str = (String)dis.readUTF(); 
+        System.out.println("got message: " + str);
+        return str;
+    }
+
+    public void handleEnemyShot() throws IOException {
+        String shot = this.receiveEnemyShot();
+		this.app.game.receiveEnemysShoot(this.parseShotX(shot), this.parseShotY(shot));
+		System.out.println("[client] waitForShot was set to true");
+    }
 }
 

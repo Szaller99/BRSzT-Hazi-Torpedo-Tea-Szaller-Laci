@@ -39,15 +39,15 @@ public class Client extends Communication {
         while(this.keepClientThreadAlive) { // waiting for tasks
 			try {		
             	if(this.waitForHostShips) {
-					System.out.println("[client] waitForHosrShips was set to true");
+					System.out.println("[client] waitForHostShips was set to true");
 
 					this.app.game.enemyShips = this.parseShips(this.receiveEnemyShips());
 					this.app.game.hostPlayer.setReady();
             	    this.setwaitForHostShips(false);
 				}
             	if(this.waitForShot) {
-					// TODO implement
 					System.out.println("[client] waitForShot was set to true");
+					this.handleEnemyShot();
             	    this.setwaitForShot(false);
 				}
 			} catch (Exception e) {
