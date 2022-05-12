@@ -9,11 +9,15 @@ import program.game.Battleship;
 import program.game.Orient;
 
 public class Communication extends Thread {
+    // private Controller app;
+    protected static final String okMessage = "OK";
+    protected final String readyMessage = "READY";
     protected DataInputStream dis;
     protected DataOutputStream dos;
     protected int port = 4999;
     protected InetAddress myIpAddress;
     protected InetAddress serverIpAddress;
+    protected boolean waitForShot = false;
     public String serverIpAddressString;
     public boolean clientAccepted = false;
 
@@ -105,7 +109,8 @@ public class Communication extends Thread {
         return Integer.parseInt(coordinates[1]);
     }
 
-
+    public void sendOkMessage() {};
+    public void sendReadyMessage() {};
     
 }
 

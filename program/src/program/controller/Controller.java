@@ -20,7 +20,7 @@ public class Controller {
     public Controller()
     {
         // this.welcomeFrame = new WelcomeFrame(this);
-        System.out.println("my address is:" + Communication.getMyIpAddressString());
+        // System.out.println("my address is:" + Communication.getMyIpAddressString());
         this.welcomeFrame = new WelcomeFrame(this);
         
     }
@@ -29,10 +29,9 @@ public class Controller {
         this.isHost = true;
         System.out.print("Create Game in app \n");
         
-        try {
-            System.out.print("Server socket waiting for client.. \n");
-            this.server = new Server();
-
+        try {            
+            this.server = new Server(); // beware, this blocks the code
+            this.server.start(); // starting new thread for communications
         } catch (Exception e) {
             //TODO: handle exception
             System.out.println(e.getMessage());
@@ -52,22 +51,20 @@ public class Controller {
         
 
         try {
-            client = new Client();
-            System.out.print("Client instance created.. \n");
+            this.client = new Client();
+            this.client.start(); // starting new thread for communications
         } catch (Exception e) {
             //TODO: handle exception
             System.out.println(e.getMessage());
         }
         
         this.client.serverIpAddressString = ip;
-        System.out.print("Join Game in app with ip: " + this.client.serverIpAddressString + " \n");
-
+        
         try {
             client.connect();
-            System.out.print("Client sould be connected! \n");
         } catch (Exception e) {
             //TODO: handle exception
-            System.out.println("error here");
+            System.out.println(e);
         }
         
        

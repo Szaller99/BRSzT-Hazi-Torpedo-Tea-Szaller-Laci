@@ -45,9 +45,10 @@ public class WelcomeFrame extends Frame {
     }
 
     public void createGame(){
-        this.app.create();
         String ip = this.app.comm.getMyIpAddressString(); 
         this.ipSign.setSign2IP(ip);
+        this.paintComponents(this.getGraphics());
+        this.app.create(); // beware, this blocks the code
     }
 
     public void joinGame(){

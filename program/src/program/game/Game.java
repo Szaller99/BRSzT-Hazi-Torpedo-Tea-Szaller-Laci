@@ -48,10 +48,9 @@ public class Game {
             this.clientPlayer = new Player(true);
         }
         this.clientPlayer.ready(); // for testing
+        
         this.myShips = createShips();
         this.enemyShips = createShips();
-        // this.enemyShips[4].placeShip(2, 2, Orient.VERTICAL); // for testing
-        // this.enemyShips[5].placeShip(1, 6, Orient.HORIZONTAL); // for testing
 
         this.frame = new GameFrame(this.app, this);
         this.frame.set2setup();
