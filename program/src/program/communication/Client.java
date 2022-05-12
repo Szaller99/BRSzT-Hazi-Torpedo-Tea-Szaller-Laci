@@ -5,45 +5,54 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+import program.controller.Controller;
+import program.game.Battleship;
+
 public class Client extends Communication {
     private Socket clientSocket;
 	private boolean keepClientThreadAlive = true;
 	private boolean waitForHostShips = false;
 
 
-    public Client() throws IOException{
-        super(false);
+    public Client(Controller app) throws IOException{
+        super(app, false);
         
     }
 
     public boolean connect() {
 		try {
-			System.out.println("connecting to " + this.serverIpAddressString + " on port " +  this.port);
+			System.out.println("[client] connecting to " + this.serverIpAddressString + " on port " +  this.port);
 		    clientSocket = new Socket(this.serverIpAddressString,  this.port);
             this.dos = new DataOutputStream(clientSocket.   getOutputStream());
 		    this.dis = new DataInputStream(clientSocket.    getInputStream());
 		    this.clientAccepted = true;
 			
 		} catch (IOException e) {
-			System.out.println("Unable to connect to the address: " + this.myIpAddress + ":" + this.port + " | Starting a server");
+			System.out.println("[client] Unable to connect to the address: " + this.myIpAddress + ":" + this.port + " | Starting a server");
 			return false;
 		}
-		System.out.println("Client connected to the server.");
+		System.out.println("[client] Client connected to the server.");
 		return true;
 	}
 
 	@Override
     public void run(){
         while(this.keepClientThreadAlive) { // waiting for tasks
-            if(this.waitForHostShips) {
-				// TODO implement
-				System.out.println("waitForHosrShips was set to true");
-                this.setwaitForHostShips(false);
-			}
-            if(this.waitForShot) {
-				// TODO implement
-				System.out.println("waitForShot was set to true");
-                this.setwaitForShot(false);
+			try {		
+            	if(this.waitForHostShips) {
+					System.out.println("[client] waitForHosrShips was set to true");
+
+					this.app.game.enemyShips = this.parseShips(this.receiveEnemyShips());
+					this.app.game.hostPlayer.setReady();
+            	    this.setwaitForHostShips(false);
+				}
+            	if(this.waitForShot) {
+					// TODO implement
+					System.out.println("[client] waitForShot was set to true");
+            	    this.setwaitForShot(false);
+				}
+			} catch (Exception e) {
+				//TODO: handle exception
 			}
         }
     }
@@ -57,5 +66,9 @@ public class Client extends Communication {
     public void setwaitForShot(boolean value) {
         this.waitForShot = value;
     }
+
+	
+
+
     
 }

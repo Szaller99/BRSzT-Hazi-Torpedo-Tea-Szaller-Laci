@@ -8,11 +8,11 @@ import java.awt.*;
 
 public class Game {
     private Controller app;
-    private Player hostPlayer;
-    private Player clientPlayer;
+    public Player hostPlayer;
+    public Player clientPlayer;
     
-    private Battleship[] myShips;
-    private Battleship[] enemyShips;
+    public Battleship[] myShips;
+    public Battleship[] enemyShips;
 
     public GameFrame frame;
 
@@ -47,8 +47,8 @@ public class Game {
             this.hostPlayer = new Player();
             this.clientPlayer = new Player(true);
         }
-        this.clientPlayer.ready(); // for testing
-        
+        this.clientPlayer.setReady(); // for testing
+
         this.myShips = createShips();
         this.enemyShips = createShips();
 
@@ -102,9 +102,10 @@ public class Game {
 
     }
 
-    public void sendReady(){
-        // TODO
-        // communication.send(this.myShips)
+    public void sendClientReady(){
+        this.app.client.sendReadyMessage();
+        this.app.client.sendShips((this.app.isHost) ? this.enemyShips : this.myShips);
+        
     }
 
     public void receiveEnemyReady(Battleship[] ships){
@@ -114,10 +115,10 @@ public class Game {
         this.enemyShips = ships;
 
         if(this.clientPlayer.isMe()){
-            this.hostPlayer.ready();
+            this.hostPlayer.setReady();
         }
         else{
-            this.clientPlayer.ready();
+            this.clientPlayer.setReady();
         }
 
         this.startGame();
@@ -127,22 +128,24 @@ public class Game {
         this.updateSM(); // sets State Machine to Ready state
         System.out.print("Status should be Ready, is " + this.gameState.getState().get() + " \n");
         this.frame.set2ready();
+
+        if (this.clientPlayer.isMe()) this.sendClientReady(); // csak a kliens küldi ezt át a hálózaton
         
-        this.sendReady();
-        System.out.println("I'm host: " + this.hostPlayer.isMe());
-        System.out.println("I'm client: " + this.clientPlayer.isMe());
-        if(this.hostPlayer.isMe()) {
-            System.out.println("host ships to send: " + app.server.prepareAllBattleshipToSend(this.myShips));
-        }
-        if(this.clientPlayer.isMe()) {
-            System.out.println("client ships to send: " +app.client.prepareAllBattleshipToSend(this.myShips));
-        }
+        // System.out.println("I'm host: " + this.hostPlayer.isMe());
+        // System.out.println("I'm client: " + this.clientPlayer.isMe());
+
+        // if(this.hostPlayer.isMe()) {
+        //     System.out.println("host ships to send: " + app.server.prepareAllBattleshipToSend(this.myShips));
+        // }
+        // if(this.clientPlayer.isMe()) {
+        //     System.out.println("client ships to send: " +app.client.prepareAllBattleshipToSend(this.myShips));
+        // }
         
 
         this.startGame();
     }
 
-    private void startGame() {
+    public void startGame() {
     
         if(this.hostPlayer.getReady() && this.clientPlayer.getReady()){
             this.updateSM();
@@ -157,7 +160,7 @@ public class Game {
         this.frame.startFight();
     }
 
-    private void updateSM() {
+    public void updateSM() {
         // ..
         this.gameState.updateSM();
     }
@@ -257,10 +260,10 @@ public class Game {
         }
         
         if(this.clientPlayer.isMe()){
-            this.clientPlayer.ready();
+            this.clientPlayer.setReady();
         }
         else{
-            this.hostPlayer.ready();
+            this.hostPlayer.setReady();
         }
 
         this.setStatusReady();

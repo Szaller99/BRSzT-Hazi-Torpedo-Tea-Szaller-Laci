@@ -12,7 +12,7 @@ public class Player {
 
     public Player(boolean isMe) { this.isMe = isMe; }
 
-    public void ready(){
+    public void setReady(){
         this.isReady = true;
     }
 

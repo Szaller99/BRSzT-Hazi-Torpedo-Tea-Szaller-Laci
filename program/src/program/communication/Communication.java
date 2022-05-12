@@ -2,16 +2,19 @@ package program.communication;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 import program.game.Battleship;
 import program.game.Orient;
+import program.controller.Controller;
 
 public class Communication extends Thread {
     // private Controller app;
+    protected Controller app;
     protected static final String okMessage = "OK";
-    protected final String readyMessage = "READY";
+    protected static final String readyMessage = "READY";
     protected DataInputStream dis;
     protected DataOutputStream dos;
     protected int port = 4999;
@@ -21,11 +24,12 @@ public class Communication extends Thread {
     public String serverIpAddressString;
     public boolean clientAccepted = false;
 
-    public Communication(boolean isHost){
-        
+    public Communication(Controller app, boolean isHost){
+        this.app = app;
     }
 
-    public Communication(InetAddress serverIp){
+    public Communication(Controller app, InetAddress serverIp){
+        this.app = app;
         this.serverIpAddress = serverIp;
     }
 
@@ -109,8 +113,41 @@ public class Communication extends Thread {
         return Integer.parseInt(coordinates[1]);
     }
 
-    public void sendOkMessage() {};
-    public void sendReadyMessage() {};
+    public void sendOkMessage() {
+		// System.out.println("[client] trying to send ready message..");
+		try {
+			this.dos.writeUTF(this.okMessage);  
+			this.dos.flush();
+		} catch (Exception e) {
+			//TODO: handle exception
+		}
+	}
+
+    public void sendReadyMessage() {
+		// System.out.println("[client] trying to send ready message..");
+		try {
+			this.dos.writeUTF(this.readyMessage);  
+			this.dos.flush();
+		} catch (Exception e) {
+			//TODO: handle exception
+		}
+	}
     
+    public void sendShips(Battleship[] ships) {
+		// System.out.println("[client] trying to send ready message..");
+		String dataToSend = this.prepareAllBattleshipToSend(ships);
+		try {
+			this.dos.writeUTF(dataToSend);  
+			this.dos.flush();
+		} catch (Exception e) {
+			//TODO: handle exception
+		}
+	}
+ 
+    public String receiveEnemyShips() throws IOException {
+        String str = (String)dis.readUTF(); 
+        System.out.println("got message: " + str);
+        return str;
+    }
 }
 

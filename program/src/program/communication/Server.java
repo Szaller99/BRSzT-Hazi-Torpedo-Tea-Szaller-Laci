@@ -5,6 +5,10 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*;
 
+import program.controller.Controller;
+import program.game.Battleship;
+import program.game.GameSM;
+
 public class Server extends Communication{
     public ServerSocket serverSocket;
     public Socket clientSocket;
@@ -12,55 +16,55 @@ public class Server extends Communication{
     private boolean waitForClientReady = false;
     private boolean waitForClientShips = false;
 
+
     
-    public Server() throws IOException{
-        super(true);
-        System.out.print("Creating server socket \n");
+    public Server(Controller app) throws IOException{
+        super(app, true);
+        System.out.print("[server] Creating server socket \n");
         this.serverSocket = new ServerSocket(this.port, 8, this.myIpAddress);
-        System.out.print("Server socket created \n");
-        System.out.print("Server socket waiting for client.. \n");
+        System.out.print("[server] Server socket created \n");
+        System.out.print("[server] Server socket waiting for client.. \n");
         listen(); // beware, this blocks the code
-        System.out.print("Client connected to server! \n");
+        System.out.print("[server] Client connected to server! \n");
     }
 
     private void listen() throws IOException{
         this.clientSocket = this.serverSocket.accept(); // waits for client connection; beware, this blocks the code
-        System.out.println("client connected");
+        System.out.println("[server] client connected");
+        this.dos = new DataOutputStream(clientSocket.getOutputStream());
+		this.dis = new DataInputStream(clientSocket.getInputStream());
     }
-
-    public void listenForServerRequest() {
-		Socket socket = null;
-		try {
-			socket = serverSocket.accept();
-			this.dos = new DataOutputStream(socket.getOutputStream());
-			this.dis = new DataInputStream(socket.getInputStream());
-			this.clientAccepted = true;
-			System.out.println("CLIENT HAS REQUESTED TO JOIN, AND WE HAVE ACCEPTED");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
     @Override
     public void run(){
-        while(this.keepServerThreadAlive) { // waiting for tasks
-            if(this.waitForClientReady) {
-                // TODO implement
-                System.out.println("setwaitForClientReady was set to true");
-                this.setwaitForClientReady(false);
+        try { 
+            while(this.keepServerThreadAlive) { // waiting for tasks
+                if(this.waitForClientReady) {
+                    System.out.println("[server] setwaitForClientReady was set to true");
+                    if(this.isClientReady()) {
+                        this.app.game.clientPlayer.setReady();
+                    }         
+                    this.setwaitForClientReady(false);
+                }
+                if(this.waitForClientShips) {
+                    System.out.println("[server] setwaitForClientShips was set to true");
+                    Battleship[] clientShips = this.parseShips(receiveEnemyShips());
+                    this.app.game.enemyShips = clientShips;
+
+                    while(this.app.game.gameState.sm  != GameSM.Ready) {}
+                    this.sendShips(this.app.game.myShips);
+
+                    this.setwaitForClientShips(false);
+                }
+                if(this.waitForShot) {
+                    // TODO implement
+                    System.out.println("[server] setwaitForShot was set to true");
+                    this.setwaitForShot(false);
+                }
             }
-            if(this.waitForClientShips) {
-                // TODO implement
-                System.out.println("setwaitForClientShips was set to true");
-                this.setwaitForClientShips(false);
-            }
-            if(this.waitForShot) {
-                // TODO implement
-                System.out.println("setwaitForShot was set to true");
-                this.setwaitForShot(false);
-            }
+        } catch (Exception e) {
+            //TODO: handle exception
         }
-        
     }
 
     public void setkeepServerThreadAlive(boolean value) {
@@ -74,6 +78,12 @@ public class Server extends Communication{
     }
     public void setwaitForShot(boolean value) {
         this.waitForShot = value;
+    }
+
+    public boolean isClientReady() throws IOException {
+        String str = (String)dis.readUTF(); 
+        System.out.println("[server] got message: " + str);
+        return (str == this.readyMessage);
     }
     
 }

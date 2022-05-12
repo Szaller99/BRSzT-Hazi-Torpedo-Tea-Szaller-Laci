@@ -202,7 +202,7 @@ public class Field extends JComponent {
         // this.thisShipLength ++;
         // this.addTile2Ship(this.thisShipTiles, tiles[prevX][prevY]);
 
-        System.out.print("ship length: " + String.valueOf(this.thisShipLength) + "\n");
+        // System.out.print("ship length: " + String.valueOf(this.thisShipLength) + "\n");
         boolean isSuccess = this.myFrame.placeShip(this.thisShipLength, this.startX, this.startY, this.prevX, this.prevY);
 
         if (isSuccess){
@@ -233,7 +233,7 @@ public class Field extends JComponent {
         else{
             for(int i=0; i<this.thisShipLength; i++){
                 this.tiles[this.shipX[i]][this.shipY[i]].set2Water();
-                System.out.print("tile type: " + String.valueOf(this.tiles[this.shipX[i]][this.shipY[i]].getType()) + "\n");
+                // System.out.print("tile type: " + String.valueOf(this.tiles[this.shipX[i]][this.shipY[i]].getType()) + "\n");
                 this.tiles[this.shipX[i]][this.shipY[i]].setEditable(true);
                 this.paintComponents(this.getGraphics());
                 
@@ -358,12 +358,12 @@ public class Field extends JComponent {
         int[] newShip = new int[n+1];
         for (int i = 0; i<n;i++){
             newShip[i]=ship[i];
-            System.out.print(String.valueOf(newShip[i]) + "\n");
+            // System.out.print(String.valueOf(newShip[i]) + "\n");
         }
         newShip[n]=tile;
-        System.out.print(String.valueOf(newShip[n]) + "\n");
+        // System.out.print(String.valueOf(newShip[n]) + "\n");
         // System.out.print("added tile (" + String.valueOf(tile.x) + "," + String.valueOf(tile.y) + ") to the ship \n");
-        System.out.print("length is " + String.valueOf(n+1) + "\n");
+        // System.out.print("length is " + String.valueOf(n+1) + "\n");
         
         return newShip;
     }

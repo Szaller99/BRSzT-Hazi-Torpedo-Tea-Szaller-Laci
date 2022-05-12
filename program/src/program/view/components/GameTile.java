@@ -184,7 +184,7 @@ public class GameTile extends Tile{
         this.setIcon(new ImageIcon("pics/water.png"));
         this.type = tileType.water;
         this.setSingleShip(false);
-        System.out.print("game tile (" + String.valueOf(this.x) + ", " + String.valueOf(this.y) + ") set to: " + String.valueOf(this.isSingleShip()) + "\n");
+        // System.out.print("game tile (" + String.valueOf(this.x) + ", " + String.valueOf(this.y) + ") set to: " + String.valueOf(this.isSingleShip()) + "\n");
     }
 
     public void set2MiddleShip(boolean vertically){
@@ -228,7 +228,7 @@ public class GameTile extends Tile{
         this.type = tileType.ship;
         this.setIcon(new ImageIcon("pics/single_ship.png"));
         this.setSingleShip(true);
-        System.out.print("game tile (" + String.valueOf(this.x) + ", " + String.valueOf(this.y) + ") set to: " + String.valueOf(this.isSingleShip()) + "\n");
+        // System.out.print("game tile (" + String.valueOf(this.x) + ", " + String.valueOf(this.y) + ") set to: " + String.valueOf(this.isSingleShip()) + "\n");
     }
 
     public void gotHit(){

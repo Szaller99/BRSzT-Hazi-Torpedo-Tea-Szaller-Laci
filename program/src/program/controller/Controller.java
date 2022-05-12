@@ -11,7 +11,7 @@ public class Controller {
 
     private WelcomeFrame welcomeFrame;
     private GameFrame gameFrame;
-    private Game game;
+    public Game game;
     private boolean gameCreated = false;
     public boolean isHost;
     public Communication comm;
@@ -21,13 +21,13 @@ public class Controller {
 
     public Controller()
     {
-            try {
+        try {
                    
             // starting the app by creating welcome frame
             this.welcomeFrame = new WelcomeFrame(this);
                 
             System.out.println("#1");
-            while(!this.gameCreated) {Thread.sleep(10);} // waiting for game creation
+            while(!this.gameCreated) { Thread.sleep(10);} // waiting for game creation
                
             if(this.isHost) {
                 this.server.setwaitForClientReady(true);   
@@ -37,28 +37,38 @@ public class Controller {
             }
             
             System.out.println("#2");
-            while(this.game.gameState.sm != GameSM.Ready) {};
+            while(this.game.gameState.sm != GameSM.HostTurn) {
+                Thread.sleep(10);
+                if(this.game.clientPlayer.getReady() && this.game.hostPlayer.getReady()){
+                    this.game.startGame();
+                }
+            };
                 
             System.out.println("#3");
             while(this.game.gameState.sm != GameSM.Ended) {
+                Thread.sleep(10);
                 if(this.game.gameState.sm == GameSM.HostTurn) {
-                    this.client.setwaitForShot(true);
-                    System.out.println("#4.1");
-                    while(this.game.gameState.sm == GameSM.HostTurn) {}
-                    System.out.println("#4.2");
+                    if(!this.isHost) {
+                        this.client.setwaitForShot(true);
+                        System.out.println("#4.1");
+                        while(this.game.gameState.sm == GameSM.HostTurn) { Thread.sleep(10); }
+                        System.out.println("#4.2");
+                    }
                 }
              
                 if(this.game.gameState.sm == GameSM.ClientTurn) {
-                    this.server.setwaitForShot(true);
-                    System.out.println("#5.1");
-                    while(this.game.gameState.sm == GameSM.ClientTurn) {}
-                    System.out.println("#5.2");
+                    if(this.isHost) {
+                        this.server.setwaitForShot(true);
+                        System.out.println("#5.1");
+                        while(this.game.gameState.sm == GameSM.ClientTurn) { Thread.sleep(10); }
+                        System.out.println("#5.2");
+                    }
                 }
             }
             System.out.println("#6");
             handleEnding();
         } catch (Exception e) {
-
+            System.out.println(e);
         }
     }
 
@@ -67,7 +77,7 @@ public class Controller {
         System.out.print("Create Game in app \n");
         
         try {            
-            this.server = new Server(); // beware, this blocks the code
+            this.server = new Server(this); // beware, this blocks the code
             this.server.start(); // starting new thread for communications
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -87,7 +97,7 @@ public class Controller {
         
 
         try {
-            this.client = new Client();
+            this.client = new Client(this);
             this.client.start(); // starting new thread for communications
         } catch (Exception e) {
             System.out.println(e.getMessage());
