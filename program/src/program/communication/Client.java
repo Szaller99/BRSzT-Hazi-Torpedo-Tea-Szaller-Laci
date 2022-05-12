@@ -37,12 +37,12 @@ public class Client extends Communication {
         while(this.keepClientThreadAlive) { // waiting for tasks
             if(this.waitForHostShips) {
 				// TODO implement
-
+				System.out.println("waitForHosrShips was set to true");
                 this.setwaitForHostShips(false);
 			}
             if(this.waitForShot) {
 				// TODO implement
-
+				System.out.println("waitForShot was set to true");
                 this.setwaitForShot(false);
 			}
         }

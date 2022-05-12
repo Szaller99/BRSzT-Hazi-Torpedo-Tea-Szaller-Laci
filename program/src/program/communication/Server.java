@@ -46,15 +46,17 @@ public class Server extends Communication{
         while(this.keepServerThreadAlive) { // waiting for tasks
             if(this.waitForClientReady) {
                 // TODO implement
-
+                System.out.println("setwaitForClientReady was set to true");
                 this.setwaitForClientReady(false);
             }
             if(this.waitForClientShips) {
                 // TODO implement
+                System.out.println("setwaitForClientShips was set to true");
                 this.setwaitForClientShips(false);
             }
             if(this.waitForShot) {
                 // TODO implement
+                System.out.println("setwaitForShot was set to true");
                 this.setwaitForShot(false);
             }
         }
