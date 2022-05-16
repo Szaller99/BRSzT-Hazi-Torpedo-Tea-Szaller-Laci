@@ -98,7 +98,7 @@ public class Game {
 
     }
 
-    public void sendClientReady(){
+    public void sendClientReadyAndShips(){
         this.app.client.sendReadyMessage();
         this.app.client.sendShips((this.app.isHost) ? this.enemyShips : this.myShips);
         
@@ -124,7 +124,10 @@ public class Game {
         System.out.print("Status should be Ready, is " + this.gameState.getState().get() + " \n");
         this.frame.set2ready();
 
-        if (this.clientPlayer.isMe()) this.sendClientReady(); // csak a kliens küldi ezt át a hálózaton
+        if (this.clientPlayer.isMe())
+        {
+            this.sendClientReadyAndShips(); // csak a kliens küldi ezt át a hálózaton
+        }
         
         // System.out.println("I'm host: " + this.hostPlayer.isMe());
         // System.out.println("I'm client: " + this.clientPlayer.isMe());
@@ -150,6 +153,7 @@ public class Game {
                 this.frame.set2enemyTurn();
             }
             this.frame.startFight();
+            this.app.gameStarted = true;
         }
     }
 

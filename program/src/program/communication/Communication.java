@@ -148,13 +148,13 @@ public class Communication extends Thread {
  
     public String receiveEnemyShips() throws IOException {
         String str = (String)dis.readUTF(); 
-        System.out.println("got message: " + str);
+        System.out.println("got shops: " + str);
         return str;
     }
 
     public String receiveEnemyShot() throws IOException {
         String str = (String)dis.readUTF(); 
-        System.out.println("got message: " + str);
+        System.out.println("got shot: " + str);
         return str;
     }
 

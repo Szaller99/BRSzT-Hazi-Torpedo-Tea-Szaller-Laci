@@ -43,6 +43,7 @@ public class Client extends Communication {
 
 					this.app.game.enemyShips = this.parseShips(this.receiveEnemyShips());
 					this.app.game.hostPlayer.setReady();
+					while (!this.app.gameStarted) { Thread.sleep(1); } // waiting for main thread to act
             	    this.setwaitForHostShips(false);
 				}
             	if(this.waitForShot) {

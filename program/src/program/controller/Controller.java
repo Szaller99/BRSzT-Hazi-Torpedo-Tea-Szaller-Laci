@@ -13,6 +13,7 @@ public class Controller {
     private GameFrame gameFrame;
     public Game game;
     private boolean gameCreated = false;
+    public boolean gameStarted = false;
     public boolean isHost;
     public Communication comm;
     public Client client;
@@ -27,26 +28,29 @@ public class Controller {
             this.welcomeFrame = new WelcomeFrame(this);
                 
             System.out.println("#1");
-            while(!this.gameCreated) { Thread.sleep(10);} // waiting for game creation
+            while(!this.gameCreated) { Thread.sleep(1); } // waiting for game creation
                
+            // System.out.println("#1 - ishost:" + this.isHost);
             if(this.isHost) {
-                this.server.setwaitForClientReady(true);   
-                this.server.setwaitForClientShips(true);
+                this.server.setwaitForClientReady(true);  
+                // System.out.println("[server] setwaitForClientReady was set to true"); 
             } else if(!this.isHost) {
+                // System.out.println("[client] waitForHostShips was set to true");
                 this.client.setwaitForHostShips(true);
             }
             
             System.out.println("#2");
             while(this.game.gameState.sm == GameSM.Setup || this.game.gameState.sm == GameSM.Ready) {
-                Thread.sleep(10);
+                Thread.sleep(1);
                 if(this.game.clientPlayer.getReady() && this.game.hostPlayer.getReady()){
+
                     this.game.startGame();
                 }
             };
                 
             System.out.println("#3");
             while(this.game.gameState.sm != GameSM.Ended) {
-                Thread.sleep(10);
+                Thread.sleep(1);
                 if(this.game.gameState.sm == GameSM.HostTurn) {
                     if(!this.isHost) {
                         this.client.setwaitForShot(true);

@@ -14,7 +14,6 @@ public class Server extends Communication{
     public Socket clientSocket;
     private boolean keepServerThreadAlive = true;
     private boolean waitForClientReady = false;
-    private boolean waitForClientShips = false;
 
 
     
@@ -41,18 +40,16 @@ public class Server extends Communication{
             while(this.keepServerThreadAlive) { // waiting for tasks
                 if(this.waitForClientReady) {
                     System.out.println("[server] setwaitForClientReady was set to true");
-                    while (this.isClientReady()) { }         
-                    this.app.game.clientPlayer.setReady();
-                    this.setwaitForClientReady(false);
-                }
-                if(this.waitForClientShips) {
-                    System.out.println("[server] setwaitForClientShips was set to true");
-                    this.app.game.enemyShips = this.parseShips(receiveEnemyShips());
+                    while (this.isClientReady()) { Thread.sleep(1); }         
+                    this.app.game.clientPlayer.setReady();  // getting client ready 
+                    this.app.game.enemyShips = this.parseShips(receiveEnemyShips());  // getting ships
 
-                    while(this.app.game.gameState.sm  != GameSM.Ready) { Thread.sleep(10); }
+                    while(this.app.game.gameState.sm  != GameSM.Ready) { Thread.sleep(1); } // waiting for main thread to act
+                    System.out.println("[server] sending ships...");
                     this.sendShips(this.app.game.myShips);
 
-                    this.setwaitForClientShips(false);
+                    while (!this.app.gameStarted) { } // waiting for main thread to act
+                    this.setwaitForClientReady(false);
                 }
                 if(this.waitForShot) {
 					System.out.println("[client] waitForShot was set to true");
@@ -71,16 +68,13 @@ public class Server extends Communication{
     public void setwaitForClientReady(boolean value) {
         this.waitForClientReady = value;
     }
-    public void setwaitForClientShips(boolean value) {
-        this.waitForClientShips = value;
-    }
     public void setwaitForShot(boolean value) {
         this.waitForShot = value;
     }
 
     public boolean isClientReady() throws IOException {
         String str = (String)dis.readUTF(); 
-        System.out.println("[server] got message: " + str);
+        System.out.println("[server] got client ready: " + str);
         return (str == Communication.readyMessage);
     }
     
