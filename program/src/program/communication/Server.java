@@ -4,11 +4,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*;
-import java.nio.file.WatchKey;
 
 import program.controller.Controller;
-import program.game.Battleship;
-import program.game.GameSM;
 
 public class Server extends Communication{
     public ServerSocket serverSocket;
