@@ -3,27 +3,32 @@ package program.view;
 import program.communication.Communication;
 import program.controller.Controller;
 import program.model.*;
-import program.model.Frame;
 
 import javax.swing.*;
 
 import java.awt.*;
 
 
-public class WelcomeFrame extends Frame {
+public class WelcomeFrame extends JFrame{
     private Controller app;
     private CreateGameButton createGame;
     private JoinGameButton joinGame;
     private JTextField IP;
     private IPSign ipSign;
     public WelcomeFrame(Controller app) {
-        super(app);
+        super();
         this.app = app;
         this.setupWelcomeFrame();
     }
 
     private void setupWelcomeFrame() {
-        this.setupFrame(new Dimension(600,600),"Welcome",false,true);
+
+        this.setVisible(true);
+        this.setSize(600, 600);
+        this.setResizable(false);
+        this.setTitle("Welcome");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         Container welcomeFrameContainer = this.getContentPane();
         welcomeFrameContainer.setBackground(new Color(60,70,60));
 

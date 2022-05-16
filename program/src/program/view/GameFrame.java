@@ -3,12 +3,11 @@ package program.view;
 import program.controller.Controller;
 import program.game.Game;
 import program.game.Orient;
-import program.model.Frame;
 import program.model.*;
 
 import javax.swing.*;
 import java.awt.*;
-public class GameFrame extends Frame {
+public class GameFrame extends JFrame {
     private Controller app;
     private Game myGame;
     public TurnSign turnSign;
@@ -19,7 +18,7 @@ public class GameFrame extends Frame {
     private ReadyButton readyButton;
     private DeleteButton deleteButton;
     public GameFrame(Controller app, Game myGame) {
-        super(app);
+        super();
         this.app = app;
         this.myGame = myGame;
         this.setVisible(false);
@@ -27,11 +26,13 @@ public class GameFrame extends Frame {
     }
 
     private void setupGameFrame(){
-        this.setupFrame(
-                new Dimension(600, 600),
-                "Battleships Game",
-                false,
-                true );
+        
+        this.setVisible(true);
+        this.setSize(600, 600);
+        this.setResizable(false);
+        this.setTitle("Battleships Game");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         Container gameFrameContainer = this.getContentPane();
         gameFrameContainer.setBackground(new Color(00,00,00));
 
