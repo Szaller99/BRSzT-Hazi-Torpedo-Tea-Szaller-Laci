@@ -84,6 +84,7 @@ public class Game {
                     this.myShips[i].destroy();
                     this.frame.myShips.hideShip(length);
                 }
+                this.isEnded();
             }
         }
 
@@ -220,6 +221,8 @@ public class Game {
                     this.frame.enemyShips.hideShip(length);
                     this.frame.endEnemyShip(this.enemyShips[i].getX(), this.enemyShips[i].getY(), length, this.enemyShips[i].getOrient());
                 }
+                this.isEnded();
+                this.app.end("You are the winner"); //for testing
                 return tileType.ship;
             }
         }
@@ -253,5 +256,29 @@ public class Game {
 
         this.setStatusReady();
         return true;
+    }
+
+    public void isEnded(){
+        boolean winner = true;
+        boolean loser = true;
+        for(int i = 0; i < 7; i++) {
+            if(this.myShips[i].isDestroyed() == false) {
+                loser = false;
+            }
+            if(this.enemyShips[i].isDestroyed() == false) {
+                winner = false;
+            }
+        }
+        if(loser == false && winner == false) {
+            return;
+        }
+        if(winner) {
+            this.endGameSM();
+            this.app.end("You are the winner");
+        } else {
+            this.endGameSM();
+            this.app.end("You lost");
+        }
+        return;
     }
 }

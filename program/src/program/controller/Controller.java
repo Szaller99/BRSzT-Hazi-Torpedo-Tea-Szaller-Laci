@@ -134,7 +134,7 @@ public class Controller {
 
     public void end(String winner)
     {
-        this.gameFrame.setVisible(false);
+        //this.gameFrame.setVisible(false);
         this.endFrame = new EndFrame(this, winner);
     }
 }

@@ -6,25 +6,27 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 
-
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 import program.controller.Controller;
-import program.view.components.Frame;
 
 import java.awt.*;
 
-public class EndFrame extends Frame {
+public class EndFrame extends JFrame {
     private Controller app;
     private JLabel title;
     private JLabel text;
     
     public EndFrame(Controller app, String winner) {
-        super(app);
+        super();
         this.app = app;
 
-        this.setupFrame(new Dimension(600,300),"Game ended",false,true);
+        this.setVisible(true);
+        this.setSize(600, 300);
+        this.setResizable(false);
+        this.setTitle("Game ended");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         Container endFrameContainer = this.getContentPane();
         endFrameContainer.setBackground(new Color(60,70,60));
 
