@@ -101,7 +101,7 @@ public class Communication extends Thread {
         String data = "";
         data += String.valueOf(x);
         data += ",";
-        data += String.valueOf(x);
+        data += String.valueOf(y);
         return data;
     }
 
@@ -145,6 +145,17 @@ public class Communication extends Thread {
 			//TODO: handle exception
 		}
 	}
+
+    public void sendShot(int x, int y) {
+		// System.out.println("[client] trying to send ready message..");
+		String dataToSend = this.prepareShotToSend(x, y);
+		try {
+			this.dos.writeUTF(dataToSend);  
+			this.dos.flush();
+		} catch (Exception e) {
+			//TODO: handle exception
+		}
+	}
  
     public String receiveEnemyShips() throws IOException {
         String str = (String)dis.readUTF(); 
@@ -161,7 +172,6 @@ public class Communication extends Thread {
     public void handleEnemyShot() throws IOException {
         String shot = this.receiveEnemyShot();
 		this.app.game.receiveEnemysShoot(this.parseShotX(shot), this.parseShotY(shot));
-		System.out.println("[client] waitForShot was set to true");
     }
 }
 

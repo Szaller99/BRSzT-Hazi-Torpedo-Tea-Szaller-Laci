@@ -60,6 +60,11 @@ public class Game {
 
     private void sendShoot(int x, int y){
         // TODO send message to other player about shooting tile (x,y)
+        if (this.app.isHost) {
+            this.app.server.sendShot(x,y);
+        } else {
+            this.app.client.sendShot(x,y);
+        }
 
         // TODO: if handshake:
             this.updateSM(); // sets SM to ClientTurn
@@ -147,7 +152,7 @@ public class Game {
         else{
             this.hostPlayer.setReady();
         }
-        
+
         System.out.print("Status should be Ready, is " + this.gameState.getState().get() + " \n");
         
         // System.out.println("I'm host: " + this.hostPlayer.isMe());
