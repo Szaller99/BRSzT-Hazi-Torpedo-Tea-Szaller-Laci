@@ -1,7 +1,5 @@
 package program.game;
 
-import java.io.IOException;
-
 import program.controller.Controller;
 import program.view.components.*;
 import program.view.GameFrame;
@@ -38,6 +36,7 @@ public class Game {
     private void setupGame() {
         this.gameState = new GameState(); // -> game state is setup
         System.out.print("Status should be Setup, is " + this.gameState.getState().get() + " \n");
+
         // TODO setup scipts
         if(this.app.isHost) {
             this.hostPlayer = new Player(true);
@@ -53,31 +52,21 @@ public class Game {
         this.frame = new GameFrame(this.app, this);
         this.frame.set2setup();
         
-        // ...
-        // TODO communication handshakes, so both apps are ready
 
     }
 
     private void sendShoot(int x, int y){
-        // TODO send message to other player about shooting tile (x,y)
         if (this.app.isHost) {
             this.app.server.sendShot(x,y);
         } else {
             this.app.client.sendShot(x,y);
         }
-
-        // TODO: if handshake:
-            this.updateSM(); // sets SM to ClientTurn
-            System.out.print("Status should be ClientTurn, is " + this.gameState.getState().get() + " \n");
-            this.frame.set2enemyTurn();
-
-        // wait for enemy to shoot
+        this.updateSM(); // sets SM to ClientTurn
+        System.out.print("Status should be ClientTurn, is " + this.gameState.getState().get() + " \n");
+        this.frame.set2enemyTurn();
     }
 
     public void receiveEnemysShoot(int x, int y){
-
-        // TODO call this function when other player sends where he shoots
-
         this.frame.gotHit(x, y);
 
         // TODO test this:
@@ -99,9 +88,11 @@ public class Game {
             }
         }
 
+        System.out.print("Status is " + this.gameState.getState().get() + ";");
         this.updateSM(); // sets SM to HostTurn
-        System.out.print("Status should be host, is " + this.gameState.getState().get() + " \n");
+        System.out.print("Should be updated, is " + this.gameState.getState().get() + " \n");
         this.frame.set2myTurn();
+
 
     }
 
@@ -122,31 +113,16 @@ public class Game {
         this.updateSM();
     }
 
-    public void receiveEnemyReady(Battleship[] ships){
-
-        // TODO call this function when other player sends he is ready
-
-        this.enemyShips = ships;
-
-        if(this.clientPlayer.isMe()){
-            this.hostPlayer.setReady();
-        }
-        else{
-            this.clientPlayer.setReady();
-        }
-
-    }
-
     private void setStatusReady(){
         this.frame.set2ready();
-        if (this.clientPlayer.isMe())
+        if (this.clientPlayer.isMe()) // adatok átküldése
         {
             this.sendClientReadyAndShips(); // csak a kliens küldi ezt át a hálózaton
         } else {
             this.sendHostShipsAndSetReady(); // szerver kezelheti az adatok komminkálását
         }
 
-        if(this.clientPlayer.isMe()){
+        if(this.clientPlayer.isMe()){ // saját ready-k beállítása
             this.clientPlayer.setReady();
         }
         else{
@@ -155,15 +131,6 @@ public class Game {
 
         System.out.print("Status should be Ready, is " + this.gameState.getState().get() + " \n");
         
-        // System.out.println("I'm host: " + this.hostPlayer.isMe());
-        // System.out.println("I'm client: " + this.clientPlayer.isMe());
-
-        // if(this.hostPlayer.isMe()) {
-        //     System.out.println("host ships to send: " + app.server.prepareAllBattleshipToSend(this.myShips));
-        // }
-        // if(this.clientPlayer.isMe()) {
-        //     System.out.println("client ships to send: " +app.client.prepareAllBattleshipToSend(this.myShips));
-        // }
         
     }
 
@@ -189,7 +156,7 @@ public class Game {
     }
 
     private void endGame() {
-        // ..
+        // TODO ...
         this.gameState.sm = this.gameState.sm.endGame();
     }
  
