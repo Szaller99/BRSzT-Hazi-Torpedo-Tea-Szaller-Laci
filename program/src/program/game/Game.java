@@ -1,5 +1,7 @@
 package program.game;
 
+import java.io.IOException;
+
 import program.controller.Controller;
 import program.view.components.*;
 import program.view.GameFrame;
@@ -58,6 +60,11 @@ public class Game {
 
     private void sendShoot(int x, int y){
         // TODO send message to other player about shooting tile (x,y)
+        if (this.app.isHost) {
+            this.app.server.sendShot(x,y);
+        } else {
+            this.app.client.sendShot(x,y);
+        }
 
         // TODO: if handshake:
             this.updateSM(); // sets SM to ClientTurn
@@ -98,10 +105,21 @@ public class Game {
 
     }
 
-    public void sendClientReady(){
+    public void sendClientReadyAndShips(){
         this.app.client.sendReadyMessage();
-        this.app.client.sendShips((this.app.isHost) ? this.enemyShips : this.myShips);
+        this.app.client.sendShips(this.myShips);
+        this.updateSM(); // sets State Machine to Ready state
         
+    }
+
+    public void sendHostShipsAndSetReady() {
+        this.app.server.readyToSendShips = true;
+        while(!this.app.server.readyToUpdateSM) { 
+            try {
+                Thread.sleep(1); 
+            } catch (Exception e) { }   
+        } // waiting for main thread to act
+        this.updateSM();
     }
 
     public void receiveEnemyReady(Battleship[] ships){
@@ -120,11 +138,22 @@ public class Game {
     }
 
     private void setStatusReady(){
-        this.updateSM(); // sets State Machine to Ready state
-        System.out.print("Status should be Ready, is " + this.gameState.getState().get() + " \n");
         this.frame.set2ready();
+        if (this.clientPlayer.isMe())
+        {
+            this.sendClientReadyAndShips(); // csak a kliens küldi ezt át a hálózaton
+        } else {
+            this.sendHostShipsAndSetReady(); // szerver kezelheti az adatok komminkálását
+        }
 
-        if (this.clientPlayer.isMe()) this.sendClientReady(); // csak a kliens küldi ezt át a hálózaton
+        if(this.clientPlayer.isMe()){
+            this.clientPlayer.setReady();
+        }
+        else{
+            this.hostPlayer.setReady();
+        }
+
+        System.out.print("Status should be Ready, is " + this.gameState.getState().get() + " \n");
         
         // System.out.println("I'm host: " + this.hostPlayer.isMe());
         // System.out.println("I'm client: " + this.clientPlayer.isMe());
@@ -150,6 +179,7 @@ public class Game {
                 this.frame.set2enemyTurn();
             }
             this.frame.startFight();
+            this.app.gameStarted = true;
         }
     }
 
@@ -250,13 +280,6 @@ public class Game {
             {
                 return false;
             }
-        }
-        
-        if(this.clientPlayer.isMe()){
-            this.clientPlayer.setReady();
-        }
-        else{
-            this.hostPlayer.setReady();
         }
 
         this.setStatusReady();

@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*;
+import java.nio.file.WatchKey;
 
 import program.controller.Controller;
 import program.game.Battleship;
@@ -14,7 +15,8 @@ public class Server extends Communication{
     public Socket clientSocket;
     private boolean keepServerThreadAlive = true;
     private boolean waitForClientReady = false;
-    private boolean waitForClientShips = false;
+    public boolean readyToSendShips = false;
+    public boolean readyToUpdateSM = false;
 
 
     
@@ -38,32 +40,30 @@ public class Server extends Communication{
     @Override
     public void run(){
         try { 
+            while(!this.app.gameCreated) { Thread.sleep(1);}
             while(this.keepServerThreadAlive) { // waiting for tasks
                 if(this.waitForClientReady) {
                     System.out.println("[server] setwaitForClientReady was set to true");
-                    while (this.isClientReady()) { }         
-                    System.out.println("beep");
-                     this.app.game.clientPlayer.setReady();
+                    while (this.isClientReady()) { Thread.sleep(1); }         
+                    this.app.game.clientPlayer.setReady();  // getting client ready 
+                    this.app.game.enemyShips = this.parseShips(receiveEnemyShips());  // getting ships
+
+                    while(!this.readyToSendShips) { Thread.sleep(1); } // waiting for main thread to act
+                    System.out.println("[server] sending ships...");
+                    this.sendShips(this.app.game.myShips);
+                    this.readyToUpdateSM = true;
+
+                    while (!this.app.gameStarted) { } // waiting for main thread to act
                     this.setwaitForClientReady(false);
                 }
-                if(this.waitForClientShips) {
-                    System.out.println("[server] setwaitForClientShips was set to true");
-                    Battleship[] clientShips = this.parseShips(receiveEnemyShips());
-                    this.app.game.enemyShips = clientShips;
-
-                    while(this.app.game.gameState.sm  != GameSM.Ready) { Thread.sleep(10); }
-                    this.sendShips(this.app.game.myShips);
-
-                    this.setwaitForClientShips(false);
-                }
                 if(this.waitForShot) {
-                    // TODO implement
-                    System.out.println("[server] setwaitForShot was set to true");
-                    this.setwaitForShot(false);
+					System.out.println("[client] waitForShot was set to true");
+                    this.handleEnemyShot();
+            	    this.setwaitForShot(false);
                 }
             }
         } catch (Exception e) {
-            //TODO: handle exception
+            System.out.println(e);
         }
     }
 
@@ -73,16 +73,13 @@ public class Server extends Communication{
     public void setwaitForClientReady(boolean value) {
         this.waitForClientReady = value;
     }
-    public void setwaitForClientShips(boolean value) {
-        this.waitForClientShips = value;
-    }
     public void setwaitForShot(boolean value) {
         this.waitForShot = value;
     }
 
     public boolean isClientReady() throws IOException {
         String str = (String)dis.readUTF(); 
-        System.out.println("[server] got message: " + str);
+        System.out.println("[server] got client ready: " + str);
         return (str == Communication.readyMessage);
     }
     
