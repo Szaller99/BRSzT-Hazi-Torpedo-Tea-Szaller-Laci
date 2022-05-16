@@ -14,6 +14,8 @@ public class Server extends Communication{
     public Socket clientSocket;
     private boolean keepServerThreadAlive = true;
     private boolean waitForClientReady = false;
+    public boolean readyToSendShips = false;
+    public boolean readyToUpdateSM = false;
 
 
     
@@ -44,9 +46,10 @@ public class Server extends Communication{
                     this.app.game.clientPlayer.setReady();  // getting client ready 
                     this.app.game.enemyShips = this.parseShips(receiveEnemyShips());  // getting ships
 
-                    while(this.app.game.gameState.sm  != GameSM.Ready) { Thread.sleep(1); } // waiting for main thread to act
+                    while(!this.readyToSendShips) { Thread.sleep(1); } // waiting for main thread to act
                     System.out.println("[server] sending ships...");
                     this.sendShips(this.app.game.myShips);
+                    this.readyToUpdateSM = true;
 
                     while (!this.app.gameStarted) { } // waiting for main thread to act
                     this.setwaitForClientReady(false);

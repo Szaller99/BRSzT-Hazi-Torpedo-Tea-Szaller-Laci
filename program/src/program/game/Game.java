@@ -1,5 +1,7 @@
 package program.game;
 
+import java.io.IOException;
+
 import program.controller.Controller;
 import program.view.components.*;
 import program.view.GameFrame;
@@ -100,8 +102,19 @@ public class Game {
 
     public void sendClientReadyAndShips(){
         this.app.client.sendReadyMessage();
-        this.app.client.sendShips((this.app.isHost) ? this.enemyShips : this.myShips);
+        this.app.client.sendShips(this.myShips);
+        this.updateSM(); // sets State Machine to Ready state
         
+    }
+
+    public void sendHostShipsAndSetReady() {
+        this.app.server.readyToSendShips = true;
+        while(!this.app.server.readyToUpdateSM) { 
+            try {
+                Thread.sleep(1); 
+            } catch (Exception e) { }   
+        } // waiting for main thread to act
+        this.updateSM();
     }
 
     public void receiveEnemyReady(Battleship[] ships){
@@ -120,13 +133,14 @@ public class Game {
     }
 
     private void setStatusReady(){
-        this.updateSM(); // sets State Machine to Ready state
         System.out.print("Status should be Ready, is " + this.gameState.getState().get() + " \n");
         this.frame.set2ready();
 
         if (this.clientPlayer.isMe())
         {
             this.sendClientReadyAndShips(); // csak a kliens küldi ezt át a hálózaton
+        } else {
+            this.sendHostShipsAndSetReady();
         }
         
         // System.out.println("I'm host: " + this.hostPlayer.isMe());
