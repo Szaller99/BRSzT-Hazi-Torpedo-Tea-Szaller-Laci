@@ -133,15 +133,14 @@ public class Game {
     }
 
     private void setStatusReady(){
-        System.out.print("Status should be Ready, is " + this.gameState.getState().get() + " \n");
         this.frame.set2ready();
-
         if (this.clientPlayer.isMe())
         {
             this.sendClientReadyAndShips(); // csak a kliens küldi ezt át a hálózaton
         } else {
-            this.sendHostShipsAndSetReady();
+            this.sendHostShipsAndSetReady(); // szerver kezelheti az adatok komminkálását
         }
+        System.out.print("Status should be Ready, is " + this.gameState.getState().get() + " \n");
         
         // System.out.println("I'm host: " + this.hostPlayer.isMe());
         // System.out.println("I'm client: " + this.clientPlayer.isMe());

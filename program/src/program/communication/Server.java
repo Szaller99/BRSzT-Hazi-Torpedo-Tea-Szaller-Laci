@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*;
+import java.nio.file.WatchKey;
 
 import program.controller.Controller;
 import program.game.Battleship;
@@ -39,6 +40,7 @@ public class Server extends Communication{
     @Override
     public void run(){
         try { 
+            while(!this.app.gameCreated) {}
             while(this.keepServerThreadAlive) { // waiting for tasks
                 if(this.waitForClientReady) {
                     System.out.println("[server] setwaitForClientReady was set to true");

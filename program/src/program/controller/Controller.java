@@ -12,7 +12,7 @@ public class Controller {
     private WelcomeFrame welcomeFrame;
     private GameFrame gameFrame;
     public Game game;
-    private boolean gameCreated = false;
+    public boolean gameCreated = false;
     public boolean gameStarted = false;
     public boolean isHost;
     public Communication comm;

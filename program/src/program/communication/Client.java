@@ -36,6 +36,7 @@ public class Client extends Communication {
 
 	@Override
     public void run(){
+		while(!this.app.gameCreated) {}
         while(this.keepClientThreadAlive) { // waiting for tasks
 			try {		
             	if(this.waitForHostShips) {
