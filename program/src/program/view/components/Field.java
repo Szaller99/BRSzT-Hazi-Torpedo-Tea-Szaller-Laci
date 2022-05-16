@@ -254,13 +254,13 @@ public class Field extends JComponent {
                     if (this.tiles[x-2][y].getType() == tileType.ship) { this.tiles[x-1][y].set2EndShip(ShipEndType.right); }
                 }
                 if(this.tiles[x+1][y].getType() == tileType.ship){
-                    if (this.tiles[x+2][y].getType() == tileType.ship) { this.tiles[x+1][y].set2EndShip(ShipEndType.left); }
+                    if ((this.tiles[x+2][y].getType() == tileType.ship) && (x!=10)) { this.tiles[x+1][y].set2EndShip(ShipEndType.left); }
                 }
                 if(this.tiles[x][y-1].getType() == tileType.ship){
                     if (this.tiles[x][y-2].getType() == tileType.ship) { this.tiles[x][y-1].set2EndShip(ShipEndType.lower); }
                 }
                 if(this.tiles[x][y+1].getType() == tileType.ship){
-                    if (this.tiles[x][y+2].getType() == tileType.ship) { this.tiles[x][y+1].set2EndShip(ShipEndType.upper); }
+                    if ((this.tiles[x][y+2].getType() == tileType.ship) && (x!=10)) { this.tiles[x][y+1].set2EndShip(ShipEndType.upper); }
                 }
                 break;
                     
