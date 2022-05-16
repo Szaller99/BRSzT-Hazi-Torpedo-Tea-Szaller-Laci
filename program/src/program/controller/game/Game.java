@@ -1,4 +1,4 @@
-package program.game;
+package program.controller.game;
 
 import program.controller.Controller;
 import program.model.*;

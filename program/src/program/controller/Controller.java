@@ -1,11 +1,11 @@
 package program.controller;
 import program.view.*;
 
-import program.communication.Client;
-import program.communication.Server;
-import program.communication.Communication;
-import program.game.Game;
-import program.game.GameSM;
+import program.controller.communication.Client;
+import program.controller.communication.Server;
+import program.controller.communication.Communication;
+import program.controller.game.Game;
+import program.controller.game.GameSM;
 
 public class Controller {
 

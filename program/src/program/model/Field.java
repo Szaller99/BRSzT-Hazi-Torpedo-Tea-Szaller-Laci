@@ -3,7 +3,7 @@ package program.model;
 import javax.swing.*;
 
 import program.view.GameFrame;
-import program.game.*;
+import program.controller.game.*;
 
 import java.awt.*;
 

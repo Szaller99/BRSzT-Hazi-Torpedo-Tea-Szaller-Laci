@@ -1,6 +1,6 @@
 package program.view;
 
-import program.communication.Communication;
+import program.controller.communication.Communication;
 import program.controller.Controller;
 import program.model.*;
 

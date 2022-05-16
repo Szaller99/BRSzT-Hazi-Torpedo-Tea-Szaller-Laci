@@ -1,4 +1,4 @@
-package program.communication;
+package program.controller.communication;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

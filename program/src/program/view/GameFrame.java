@@ -1,8 +1,8 @@
 package program.view;
 
 import program.controller.Controller;
-import program.game.Game;
-import program.game.Orient;
+import program.controller.game.Game;
+import program.controller.game.Orient;
 import program.model.*;
 
 import javax.swing.*;

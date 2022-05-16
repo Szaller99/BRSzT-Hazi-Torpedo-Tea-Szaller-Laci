@@ -1,4 +1,4 @@
-package program.game;
+package program.controller.game;
 
 public enum Orient {
     VERTICAL,

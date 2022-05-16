@@ -1,4 +1,4 @@
-package program.game;
+package program.controller.game;
 
 public class Player {
     public String name;

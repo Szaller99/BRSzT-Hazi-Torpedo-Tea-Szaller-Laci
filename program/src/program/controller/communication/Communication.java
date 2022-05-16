@@ -1,14 +1,14 @@
-package program.communication;
+package program.controller.communication;
+
+import program.controller.Controller;
+import program.controller.game.Battleship;
+import program.controller.game.Orient;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-
-import program.game.Battleship;
-import program.game.Orient;
-import program.controller.Controller;
 
 public class Communication extends Thread {
     // private Controller app;
