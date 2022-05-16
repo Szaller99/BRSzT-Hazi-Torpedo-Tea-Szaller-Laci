@@ -40,7 +40,7 @@ public class Server extends Communication{
     @Override
     public void run(){
         try { 
-            while(!this.app.gameCreated) {}
+            while(!this.app.gameCreated) { Thread.sleep(1);}
             while(this.keepServerThreadAlive) { // waiting for tasks
                 if(this.waitForClientReady) {
                     System.out.println("[server] setwaitForClientReady was set to true");

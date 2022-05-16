@@ -36,9 +36,10 @@ public class Client extends Communication {
 
 	@Override
     public void run(){
-		while(!this.app.gameCreated) {}
+		try {	
+		while(!this.app.gameCreated) { Thread.sleep(1);}
         while(this.keepClientThreadAlive) { // waiting for tasks
-			try {		
+				
             	if(this.waitForHostShips) {
 					System.out.println("[client] waitForHostShips was set to true");
 
@@ -52,10 +53,10 @@ public class Client extends Communication {
 					this.handleEnemyShot();
             	    this.setwaitForShot(false);
 				}
-			} catch (Exception e) {
-				//TODO: handle exception
 			}
-        }
+		} catch (Exception e) {
+			System.out.println(e);
+		}
     }
 
     public void setkeepClientThreadAlive(boolean value) {
