@@ -140,6 +140,14 @@ public class Game {
         } else {
             this.sendHostShipsAndSetReady(); // szerver kezelheti az adatok komminkálását
         }
+
+        if(this.clientPlayer.isMe()){
+            this.clientPlayer.setReady();
+        }
+        else{
+            this.hostPlayer.setReady();
+        }
+        
         System.out.print("Status should be Ready, is " + this.gameState.getState().get() + " \n");
         
         // System.out.println("I'm host: " + this.hostPlayer.isMe());
@@ -267,13 +275,6 @@ public class Game {
             {
                 return false;
             }
-        }
-        
-        if(this.clientPlayer.isMe()){
-            this.clientPlayer.setReady();
-        }
-        else{
-            this.hostPlayer.setReady();
         }
 
         this.setStatusReady();
