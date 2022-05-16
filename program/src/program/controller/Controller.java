@@ -11,6 +11,7 @@ public class Controller {
 
     private WelcomeFrame welcomeFrame;
     private GameFrame gameFrame;
+    private EndFrame endFrame;
     public Game game;
     public boolean gameCreated = false;
     public boolean gameStarted = false;
@@ -129,5 +130,11 @@ public class Controller {
 
     public void handleEnding() {
 
+    }
+
+    public void end(String winner)
+    {
+        this.gameFrame.setVisible(false);
+        this.endFrame = new EndFrame(this, winner);
     }
 }
