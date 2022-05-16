@@ -1,4 +1,4 @@
-package program.view.components;
+package program.model;
 
 import javax.swing.JFrame;
 import program.controller.Controller;

@@ -1,4 +1,4 @@
-package program.view.components;
+package program.model;
 
 import program.view.*;
 
@@ -7,10 +7,10 @@ import javax.swing.event.MouseInputListener;
 
 import java.awt.event.MouseEvent;
 
-public class JoinGameButton extends JButton implements MouseInputListener{
-    public WelcomeFrame myFrame;
-    public JoinGameButton(WelcomeFrame myFrame){
-        this.setText("Join Game");
+public class CreateGameButton extends JButton implements MouseInputListener{
+    private WelcomeFrame myFrame;
+    public CreateGameButton(WelcomeFrame myFrame){
+        this.setText("Create Game");
         this.myFrame = myFrame;
         this.addMouseListener(this);
         this.setFocusable(true);
@@ -18,7 +18,8 @@ public class JoinGameButton extends JButton implements MouseInputListener{
     }
 
     public void mouseClicked(MouseEvent e) {
-        myFrame.joinGame();
+        // System.out.print("Create Game in button \n");
+        this.myFrame.createGame();
     }
 
     public void mousePressed(MouseEvent e) {

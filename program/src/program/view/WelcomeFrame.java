@@ -2,8 +2,8 @@ package program.view;
 
 import program.communication.Communication;
 import program.controller.Controller;
-import program.view.components.*;
-import program.view.components.Frame;
+import program.model.*;
+import program.model.Frame;
 
 import javax.swing.*;
 

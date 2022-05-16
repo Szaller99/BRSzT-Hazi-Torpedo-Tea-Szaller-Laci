@@ -1,12 +1,10 @@
 package program.view;
 
 import program.controller.Controller;
-import program.view.components.Frame;
-import program.view.components.*;
-import program.game.*;
-
-import java.awt.GridBagConstraints;  
-import java.awt.GridBagLayout;
+import program.game.Game;
+import program.game.Orient;
+import program.model.Frame;
+import program.model.*;
 
 import javax.swing.*;
 import java.awt.*;

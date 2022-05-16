@@ -1,7 +1,7 @@
 package program.game;
 
 import program.controller.Controller;
-import program.view.components.*;
+import program.model.*;
 import program.view.GameFrame;
 
 public class Game {
@@ -13,8 +13,7 @@ public class Game {
     public Battleship[] enemyShips;
 
     public GameFrame frame;
-
-    public GameState gameState;
+    public GameSM sm;
 
     public Game(Controller app) {
         this.app = app;
@@ -34,8 +33,8 @@ public class Game {
     }
 
     private void setupGame() {
-        this.gameState = new GameState(); // -> game state is setup
-        System.out.print("Status should be Setup, is " + this.gameState.getState().get() + " \n");
+        this.sm = GameSM.Setup;
+        System.out.print("Status should be Setup, is " + this.sm.get() + " \n");
 
         // TODO setup scipts
         if(this.app.isHost) {
@@ -62,7 +61,7 @@ public class Game {
             this.app.client.sendShot(x,y);
         }
         this.updateSM(); // sets SM to ClientTurn
-        System.out.print("Status should be ClientTurn, is " + this.gameState.getState().get() + " \n");
+        System.out.print("Status should be ClientTurn, is " + this.sm.get() + " \n");
         this.frame.set2enemyTurn();
     }
 
@@ -88,9 +87,9 @@ public class Game {
             }
         }
 
-        System.out.print("Status is " + this.gameState.getState().get() + ";");
+        System.out.print("Status is " + this.sm.get() + ";");
         this.updateSM(); // sets SM to HostTurn
-        System.out.print("Should be updated, is " + this.gameState.getState().get() + " \n");
+        System.out.print("Should be updated, is " + this.sm.get() + " \n");
         this.frame.set2myTurn();
 
 
@@ -129,7 +128,7 @@ public class Game {
             this.hostPlayer.setReady();
         }
 
-        System.out.print("Status should be Ready, is " + this.gameState.getState().get() + " \n");
+        System.out.print("Status should be Ready, is " + this.sm.get() + " \n");
         
         
     }
@@ -138,11 +137,11 @@ public class Game {
     
         if(this.hostPlayer.getReady() && this.clientPlayer.getReady()){
             this.updateSM(); // sets state to HostTurn
-            System.out.print("Status should be Host Turn, is " + this.gameState.getState().get() + " \n");
-            if(this.gameState.getState() == GameSM.HostTurn && this.hostPlayer.isMe()){
+            System.out.print("Status should be Host Turn, is " + this.sm.get() + " \n");
+            if(this.sm == GameSM.HostTurn && this.hostPlayer.isMe()){
                 this.frame.set2myTurn();
             }
-            else if (this.gameState.getState() == GameSM.ClientTurn && this.clientPlayer.isMe()){
+            else if (this.sm == GameSM.ClientTurn && this.clientPlayer.isMe()){
                 this.frame.set2enemyTurn();
             }
             this.frame.startFight();
@@ -151,13 +150,16 @@ public class Game {
     }
 
     public void updateSM() {
-        // ..
-        this.gameState.updateSM();
+        this.sm = this.sm.nextState();
     }
+    public void endGameSM() {
+        this.sm.endGame();
+    }
+
 
     private void endGame() {
         // TODO ...
-        this.gameState.sm = this.gameState.sm.endGame();
+        this.sm = this.sm.endGame();
     }
  
 
