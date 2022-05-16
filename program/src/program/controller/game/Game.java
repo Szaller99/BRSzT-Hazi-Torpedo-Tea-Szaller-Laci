@@ -222,7 +222,6 @@ public class Game {
                     this.frame.endEnemyShip(this.enemyShips[i].getX(), this.enemyShips[i].getY(), length, this.enemyShips[i].getOrient());
                 }
                 this.isEnded();
-                this.app.end("You are the winner"); //for testing
                 return tileType.ship;
             }
         }
