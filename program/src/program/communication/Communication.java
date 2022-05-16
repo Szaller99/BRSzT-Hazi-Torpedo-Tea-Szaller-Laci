@@ -90,7 +90,7 @@ public class Communication extends Thread {
             posY = Integer.parseInt(stringData[1]);
             orient =(Integer.parseInt(stringData[2]) == 0) ? Orient.VERTICAL : Orient.HORIZONTAL;
             len = Integer.parseInt(stringData[3]);
-            battleships[i] = new Battleship(posX, posY, len, orient);
+            battleships[i] = new Battleship(len, posX, posY, orient);
             i++;
         }
 
