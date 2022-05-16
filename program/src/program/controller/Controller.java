@@ -45,6 +45,7 @@ public class Controller {
                 if(this.game.clientPlayer.getReady() && this.game.hostPlayer.getReady()){
 
                     this.game.startGame();
+                    while(!this.gameStarted) { Thread.sleep(1); }
                 }
             };
                 
