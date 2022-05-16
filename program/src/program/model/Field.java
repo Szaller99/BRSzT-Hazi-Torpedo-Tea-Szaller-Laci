@@ -480,13 +480,17 @@ public class Field extends JComponent {
         if(length==1){
             this.tiles[x][y].set2SingleShip();
             this.tiles[x][y].setShootable(false);
+            if(x!=1){this.tiles[x-1][y].set2Water(); this.tiles[x-1][y].setShootable(false);}
+            if(x!=10){this.tiles[x+1][y].set2Water(); this.tiles[x+1][y].setShootable(false);}
+            if(y!=1){this.tiles[x][y-1].set2Water(); this.tiles[x][y-1].setShootable(false);}
+            if(y!=10){this.tiles[x][y+1].set2Water(); this.tiles[x][y+1].setShootable(false);}
         }
         else{
             if (or == Orient.HORIZONTAL){
                 for(int i=0; i<length;i++){
                     this.tiles[x+i][y].set2MiddleShip(false);
                     if(y!=1){this.tiles[x+i][y-1].set2Water(); this.tiles[x+i][y-1].setShootable(false);}
-                    if(y!=10){this.tiles[x+i][y+1].set2Water(); this.tiles[x+i][y+1]. setShootable(false);}
+                    if(y!=10){this.tiles[x+i][y+1].set2Water(); this.tiles[x+i][y+1].setShootable(false);}
                 }
                 this.tiles[x][y].set2EndShip(ShipEndType.left);
                 this.tiles[x+length-1][y].set2EndShip(ShipEndType.right);
