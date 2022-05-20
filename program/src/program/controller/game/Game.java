@@ -141,9 +141,11 @@ public class Game {
             System.out.print("Status should be Host Turn, is " + this.sm.get() + " \n");
             if(this.sm == GameSM.HostTurn && this.hostPlayer.isMe()){
                 this.frame.set2myTurn();
+                System.out.print("Frame set to My Turn\n");
             }
-            else if (this.sm == GameSM.ClientTurn && this.clientPlayer.isMe()){
+            else if (this.sm == GameSM.HostTurn && this.clientPlayer.isMe()){
                 this.frame.set2enemyTurn();
+                System.out.print("Frame set to Enemy Turn\n");
             }
             this.frame.startFight();
             this.app.gameStarted = true;
