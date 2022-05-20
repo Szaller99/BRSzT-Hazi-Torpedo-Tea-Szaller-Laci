@@ -59,7 +59,7 @@ public class Server extends Communication{
 					System.out.println("[server] waitForShot was set to true");
                     this.handleEnemyShot();
             	    this.setwaitForShot(false);
-                    System.out.println("[server] waitForShot was set to true");
+                    System.out.println("[server] waitForShot was set to false");
                 }
             }
         } catch (Exception e) {
@@ -72,9 +72,6 @@ public class Server extends Communication{
     }
     public void setwaitForClientReady(boolean value) {
         this.waitForClientReady = value;
-    }
-    public void setwaitForShot(boolean value) {
-        this.waitForShot = value;
     }
 
     public boolean isClientReady() throws IOException {

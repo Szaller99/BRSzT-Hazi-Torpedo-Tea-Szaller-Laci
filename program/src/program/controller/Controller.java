@@ -72,7 +72,6 @@ public class Controller {
                 }
             }
             System.out.println("#6");
-            handleEnding();
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -128,13 +127,9 @@ public class Controller {
         System.out.println("gameCreated set to " + this.gameCreated);
     }
 
-    public void handleEnding() {
-
-    }
-
     public void end(String winner)
     {
-        //this.gameFrame.setVisible(false);
+        // this.gameFrame.setVisible(false);
         this.endFrame = new EndFrame(this, winner);
     }
 }

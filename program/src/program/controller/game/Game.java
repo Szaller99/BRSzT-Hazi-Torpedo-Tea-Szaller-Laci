@@ -246,10 +246,8 @@ public class Game {
     }
 
     public boolean ready2Play(){
-        for(int i = 0; i < 7; i++)
-        {
-            if(this.myShips[i].isPlaced() == false)
-            {
+        for (Battleship ship : this.myShips) {
+            if(!ship.isPlaced()){
                 return false;
             }
         }
@@ -274,11 +272,11 @@ public class Game {
         if(loser == false && winner == false) {
             return;
         }
+
+        this.endGame();
         if(winner) {
-            this.endGameSM();
             this.app.end("You are the winner");
         } else {
-            this.endGameSM();
             this.app.end("You lost");
         }
         return;

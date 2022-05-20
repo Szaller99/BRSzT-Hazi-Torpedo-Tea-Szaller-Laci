@@ -169,6 +169,10 @@ public class Communication extends Thread {
         return str;
     }
 
+    public void setwaitForShot(boolean value) {
+        this.waitForShot = value;
+    }
+
     public void handleEnemyShot() throws IOException {
         String shot = this.receiveEnemyShot();
 		this.app.game.receiveEnemysShoot(this.parseShotX(shot), this.parseShotY(shot));

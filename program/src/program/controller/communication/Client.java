@@ -66,12 +66,5 @@ public class Client extends Communication {
     public void setwaitForHostShips(boolean value) {
         this.waitForHostShips = value;
     }
-    public void setwaitForShot(boolean value) {
-        this.waitForShot = value;
-    }
-
-	
-
-
     
 }
