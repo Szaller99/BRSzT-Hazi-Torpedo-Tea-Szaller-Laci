@@ -275,9 +275,9 @@ public class Game {
 
         this.endGame();
         if(winner) {
-            this.app.end("You are the winner");
+            this.app.end(true);
         } else {
-            this.app.end("You lost");
+            this.app.end(false);
         }
         return;
     }

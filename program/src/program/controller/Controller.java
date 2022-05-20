@@ -127,7 +127,7 @@ public class Controller {
         System.out.println("gameCreated set to " + this.gameCreated);
     }
 
-    public void end(String winner)
+    public void end(Boolean winner)
     {
         // this.gameFrame.setVisible(false);
         this.endFrame = new EndFrame(this, winner);

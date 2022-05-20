@@ -17,9 +17,17 @@ public class EndFrame extends JFrame {
     private JLabel title;
     private JLabel text;
     
-    public EndFrame(Controller app, String winner) {
+    public EndFrame(Controller app, Boolean winner) {
         super();
         this.app = app;
+
+        String outText;
+        if(winner){
+            outText = "You won! Congratulations!";
+        }
+        else{
+            outText = "You lost...";
+        }
 
         this.setVisible(true);
         this.setSize(600, 300);
@@ -35,7 +43,7 @@ public class EndFrame extends JFrame {
         this.title.setVisible(true);
         this.title.setFont(new Font("Arial", Font.BOLD, 20));
 
-        this.text = new JLabel(winner, SwingConstants.CENTER);
+        this.text = new JLabel(outText, SwingConstants.CENTER);
         this.text.setForeground(Color.ORANGE);
         this.text.setVisible(true);
         this.text.setFont(new Font("Arial", Font.BOLD, 16));
