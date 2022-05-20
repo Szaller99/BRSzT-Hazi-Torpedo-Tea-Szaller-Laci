@@ -114,7 +114,6 @@ public class Game {
     }
 
     private void setStatusReady(){
-        this.frame.set2ready();
         if (this.clientPlayer.isMe()) // adatok átküldése
         {
             this.sendClientReadyAndShips(); // csak a kliens küldi ezt át a hálózaton
@@ -254,6 +253,8 @@ public class Game {
                 return false;
             }
         }
+        this.frame.set2ready();
+        System.out.print("Frame set to Ready\n");
 
         this.setStatusReady();
         return true;
