@@ -53,8 +53,8 @@ public class Controller {
             System.out.println("#3");
             while(this.game.sm != GameSM.Ended) {
                 Thread.sleep(1);
-                if(this.game.sm == GameSM.HostTurn) { // host turn van és client vagyok
-                    if(!this.isHost) {
+                if(this.game.sm == GameSM.HostTurn) {
+                    if(!this.isHost) {  // host turn van és client vagyok
                         this.client.setwaitForShot(true); // várok a lövésre
                         System.out.println("#4.1");
                         while(this.game.sm == GameSM.HostTurn) { Thread.sleep(1); }
@@ -62,8 +62,8 @@ public class Controller {
                     }
                 }
              
-                if(this.game.sm == GameSM.ClientTurn) { // client turn van és host vagyok
-                    if(this.isHost) {
+                if(this.game.sm == GameSM.ClientTurn) { 
+                    if(this.isHost) { // client turn van és host vagyok
                         this.server.setwaitForShot(true); // várok a lövésre
                         System.out.println("#5.1");
                         while(this.game.sm == GameSM.ClientTurn) { Thread.sleep(1); }

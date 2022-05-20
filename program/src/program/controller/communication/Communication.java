@@ -147,19 +147,19 @@ public class Communication extends Thread {
 	}
 
     public void sendShot(int x, int y) {
-		// System.out.println("[client] trying to send ready message..");
+		System.out.println("trying to send shot message..");
 		String dataToSend = this.prepareShotToSend(x, y);
 		try {
 			this.dos.writeUTF(dataToSend);  
 			this.dos.flush();
 		} catch (Exception e) {
-			//TODO: handle exception
+			System.out.println(e);
 		}
 	}
  
     public String receiveEnemyShips() throws IOException {
         String str = (String)dis.readUTF(); 
-        System.out.println("got shops: " + str);
+        System.out.println("got ships: " + str);
         return str;
     }
 
