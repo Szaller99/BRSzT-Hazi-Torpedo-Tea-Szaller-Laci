@@ -13,8 +13,10 @@ public class WelcomeFrame extends JFrame{
     private Controller app;
     private CreateGameButton createGame;
     private JoinGameButton joinGame;
-    private JTextField IP;
-    private IPSign ipSign;
+    private JoinFrame joinFrame;
+    private CreateFrame createFrame;
+    private boolean create = false;
+    private boolean join = false;
     public WelcomeFrame(Controller app) {
         super();
         this.app = app;
@@ -34,26 +36,34 @@ public class WelcomeFrame extends JFrame{
 
         this.createGame = new CreateGameButton(this);
         this.joinGame = new JoinGameButton(this);
-        this.IP = new JTextField();
-        this.ipSign = new IPSign();
 
-        welcomeFrameContainer.setLayout(new GridLayout(4,1, 10, 10));
+        welcomeFrameContainer.setLayout(new GridLayout(2,1, 10, 10));
         welcomeFrameContainer.add(createGame);
-        welcomeFrameContainer.add(ipSign);
-        welcomeFrameContainer.add(IP);
         welcomeFrameContainer.add(joinGame);
         this.paintComponents(this.getGraphics());
     }
 
     public void createGame(){
-        String ip = Communication.getMyIpAddressString(); 
-        this.ipSign.setSign2IP(ip);
-        this.paintComponents(this.getGraphics());
-        this.app.create(); // beware, this blocks the code
+        this.createFrame = new CreateFrame(app);
+        this.setVisible(false);
+        this. create = true;
     }
 
     public void joinGame(){
-        String ip = this.IP.getText();
-        this.app.join(ip);
+        this.joinFrame = new JoinFrame(app);
+        this.setVisible(false);
+        this.join = true;
     }
+    
+    public void hideAllFrames(){
+        this.setVisible(false);
+        if(this.create){
+            this.createFrame.setVisible(false);
+        }
+        if (join){
+            this.joinFrame.setVisible(false);
+        }
+    }
+
+    
 }

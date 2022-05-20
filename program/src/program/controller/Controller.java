@@ -121,7 +121,7 @@ public class Controller {
 
     public void start()
     {
-        this.welcomeFrame.setVisible(false);
+        this.welcomeFrame.hideAllFrames();
         this.gameFrame.setVisible(true);
         this.gameCreated = true;
         System.out.println("gameCreated set to " + this.gameCreated);
