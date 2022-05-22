@@ -13,6 +13,7 @@ public class WelcomeFrame extends JFrame{
     private Controller app;
     private CreateGameButton createGame;
     private JoinGameButton joinGame;
+    private JLabel title;
     private JoinFrame joinFrame;
     private CreateFrame createFrame;
     private boolean create = false;
@@ -36,8 +37,17 @@ public class WelcomeFrame extends JFrame{
 
         this.createGame = new CreateGameButton(this);
         this.joinGame = new JoinGameButton(this);
+        this.title = new JLabel("Battleship",SwingConstants.CENTER);
+        this.title.setVerticalAlignment(SwingConstants.CENTER);
+        this.title.setFont(new Font("Arial", Font.BOLD, 25));
+        this.title.setForeground(new Color(255,0,0));
+        this.title.setBounds(0, 0, 600, 100);
 
-        welcomeFrameContainer.setLayout(new GridLayout(2,1, 10, 10));
+
+        
+
+        welcomeFrameContainer.setLayout(null);
+        welcomeFrameContainer.add(title);
         welcomeFrameContainer.add(createGame);
         welcomeFrameContainer.add(joinGame);
         this.paintComponents(this.getGraphics());
@@ -46,7 +56,7 @@ public class WelcomeFrame extends JFrame{
     public void createGame(){
         this.createFrame = new CreateFrame(app);
         this.setVisible(false);
-        this. create = true;
+        this.create = true;
     }
 
     public void joinGame(){
@@ -60,7 +70,7 @@ public class WelcomeFrame extends JFrame{
         if(this.create){
             this.createFrame.setVisible(false);
         }
-        if (join){
+        if (this.join){
             this.joinFrame.setVisible(false);
         }
     }

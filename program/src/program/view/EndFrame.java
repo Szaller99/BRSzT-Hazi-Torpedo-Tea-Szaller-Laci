@@ -30,7 +30,7 @@ public class EndFrame extends JFrame {
         }
 
         this.setVisible(true);
-        this.setSize(600, 300);
+        this.setSize(300, 200);
         this.setResizable(false);
         this.setTitle("Game ended");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

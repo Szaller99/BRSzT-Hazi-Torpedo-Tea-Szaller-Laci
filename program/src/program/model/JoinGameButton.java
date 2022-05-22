@@ -5,6 +5,7 @@ import program.view.*;
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 
+import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 
 public class JoinGameButton extends JButton implements MouseInputListener{
@@ -12,6 +13,7 @@ public class JoinGameButton extends JButton implements MouseInputListener{
     private JoinFrame myJoinFrame;
     private boolean join;
     public JoinGameButton(WelcomeFrame myFrame){
+        this.setBounds(200, 250, 200, 70);
         this.setText("Join Game");
         this.myWelcomeFrame = myFrame;
         this.addMouseListener(this);
@@ -20,6 +22,7 @@ public class JoinGameButton extends JButton implements MouseInputListener{
         this.join = false;
     }
     public JoinGameButton(JoinFrame myFrame){
+        this.setBounds(200, 250, 200, 70);
         this.setText("Join Game");
         this.myJoinFrame = myFrame;
         this.addMouseListener(this);

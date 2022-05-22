@@ -12,6 +12,7 @@ public class CreateGameButton extends JButton implements MouseInputListener{
     private CreateFrame myCreateFrame;
     private boolean create;
     public CreateGameButton(WelcomeFrame myFrame){
+        this.setBounds(200, 150, 200, 70);
         this.setText("Create Game");
         this.myWelcomeFrame = myFrame;
         this.addMouseListener(this);
@@ -20,6 +21,7 @@ public class CreateGameButton extends JButton implements MouseInputListener{
         this.create = false;
     }
     public CreateGameButton(CreateFrame myFrame){
+        this.setBounds(200, 250, 200, 70);
         this.setText("Create Game");
         this.myCreateFrame = myFrame;
         this.addMouseListener(this);

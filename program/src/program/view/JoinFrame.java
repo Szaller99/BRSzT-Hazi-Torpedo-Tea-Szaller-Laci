@@ -13,6 +13,7 @@ public class JoinFrame extends JFrame{
     private Controller app;
     private JoinGameButton joinGame;
     private JTextField IP;
+    private JLabel title;
 
     public JoinFrame(Controller app) {
         super();
@@ -30,10 +31,21 @@ public class JoinFrame extends JFrame{
         Container createFrameContainer = this.getContentPane();
         createFrameContainer.setBackground(new Color(60,70,60));
 
+        this.title = new JLabel("Enter the host's IP",SwingConstants.CENTER);
+        this.title.setVerticalAlignment(SwingConstants.CENTER);
+        this.title.setFont(new Font("Arial", Font.BOLD, 25));
+        this.title.setForeground(new Color(255,0,0));
+        this.title.setBounds(0, 0, 600, 100);
+
         this.IP = new JTextField();
+        this.IP.setBounds(200, 150, 200, 30);
+        this.IP.setBackground(new Color(200,200,200));
+        this.IP.setForeground(Color.BLACK);
+
         this.joinGame = new JoinGameButton(this);
 
-        createFrameContainer.setLayout(new GridLayout(2,1, 10, 10));
+        createFrameContainer.setLayout(null);
+        createFrameContainer.add(title);
         createFrameContainer.add(IP);
         createFrameContainer.add(joinGame);
         this.paintComponents(this.getGraphics());
