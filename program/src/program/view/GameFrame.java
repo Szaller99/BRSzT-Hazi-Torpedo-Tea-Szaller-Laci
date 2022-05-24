@@ -3,7 +3,7 @@ package program.view;
 import program.controller.Controller;
 import program.controller.game.Game;
 import program.controller.game.Orient;
-import program.model.*;
+import program.components.*;
 
 import javax.swing.*;
 import java.awt.*;

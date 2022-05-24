@@ -1,8 +1,7 @@
 package program.view;
 
-import program.controller.communication.Communication;
 import program.controller.Controller;
-import program.model.*;
+import program.components.*;
 
 import javax.swing.*;
 
@@ -18,10 +17,10 @@ public class JoinFrame extends JFrame{
     public JoinFrame(Controller app) {
         super();
         this.app = app;
-        this.setupWelcomeFrame();
+        this.setupJoinFrame();
     }
 
-    private void setupWelcomeFrame() {
+    private void setupJoinFrame() {
         this.setVisible(true);
         this.setSize(600, 600);
         this.setResizable(false);

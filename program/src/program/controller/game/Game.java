@@ -1,7 +1,7 @@
 package program.controller.game;
 
 import program.controller.Controller;
-import program.model.*;
+import program.components.*;
 import program.view.GameFrame;
 
 public class Game {
@@ -50,8 +50,6 @@ public class Game {
 
         this.frame = new GameFrame(this.app, this);
         this.frame.set2setup();
-        
-
     }
 
     private void sendShoot(int x, int y){
@@ -61,7 +59,10 @@ public class Game {
             this.app.client.sendShot(x,y);
         }
         this.updateSM(); // sets SM to ClientTurn
-        System.out.print("Status should be ClientTurn, is " + this.sm.get() + " \n");
+
+        if (this.app.isHost) { System.out.print("Status should be HostTurn, is " + this.sm.get() + " \n"); } 
+        else { System.out.print("Status should be ClientTurn, is " + this.sm.get() + " \n"); }
+        
         this.frame.set2enemyTurn();
     }
 

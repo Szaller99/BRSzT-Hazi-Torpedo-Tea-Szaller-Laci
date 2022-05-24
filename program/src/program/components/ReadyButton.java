@@ -1,4 +1,4 @@
-package program.model;
+package program.components;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;

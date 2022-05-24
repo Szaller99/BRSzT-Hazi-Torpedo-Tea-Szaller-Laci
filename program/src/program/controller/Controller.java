@@ -3,7 +3,6 @@ import program.view.*;
 
 import program.controller.communication.Client;
 import program.controller.communication.Server;
-import program.controller.communication.Communication;
 import program.controller.game.Game;
 import program.controller.game.GameSM;
 
@@ -11,15 +10,12 @@ public class Controller {
 
     private WelcomeFrame welcomeFrame;
     private GameFrame gameFrame;
-    private EndFrame endFrame;
     public Game game;
     public boolean gameCreated = false;
     public boolean gameStarted = false;
     public boolean isHost;
-    public Communication comm;
     public Client client;
     public Server server;
-    public Thread thread;
 
     public Controller()
     {
@@ -130,6 +126,6 @@ public class Controller {
     public void end(Boolean winner)
     {
         // this.gameFrame.setVisible(false);
-        this.endFrame = new EndFrame(this, winner);
+        EndFrame endFrame = new EndFrame(this, winner);
     }
 }

@@ -1,8 +1,7 @@
 package program.view;
 
-import program.controller.communication.Communication;
 import program.controller.Controller;
-import program.model.*;
+import program.components.*;
 
 import javax.swing.*;
 
@@ -64,7 +63,7 @@ public class WelcomeFrame extends JFrame{
         this.setVisible(false);
         this.join = true;
     }
-    
+
     public void hideAllFrames(){
         this.setVisible(false);
         if(this.create){

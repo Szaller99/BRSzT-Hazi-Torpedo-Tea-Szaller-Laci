@@ -1,44 +1,43 @@
-package program.model;
+package program.components;
 
 import program.view.*;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 
-import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 
-public class JoinGameButton extends JButton implements MouseInputListener{
+public class CreateGameButton extends JButton implements MouseInputListener{
     private WelcomeFrame myWelcomeFrame;
-    private JoinFrame myJoinFrame;
-    private boolean join;
-    public JoinGameButton(WelcomeFrame myFrame){
-        this.setBounds(200, 250, 200, 70);
-        this.setText("Join Game");
+    private CreateFrame myCreateFrame;
+    private boolean create;
+    public CreateGameButton(WelcomeFrame myFrame){
+        this.setBounds(200, 150, 200, 70);
+        this.setText("Create Game");
         this.myWelcomeFrame = myFrame;
         this.addMouseListener(this);
         this.setFocusable(true);
         this.setVisible(true);
-        this.join = false;
+        this.create = false;
     }
-    public JoinGameButton(JoinFrame myFrame){
+    public CreateGameButton(CreateFrame myFrame){
         this.setBounds(200, 250, 200, 70);
-        this.setText("Join Game");
-        this.myJoinFrame = myFrame;
+        this.setText("Create Game");
+        this.myCreateFrame = myFrame;
         this.addMouseListener(this);
         this.setFocusable(true);
         this.setVisible(true);
-        this.join = true;
+        this.create = true;
     }
 
     public void mouseClicked(MouseEvent e) {
-        if(join){
-            this.myJoinFrame.joinGame();
+        // System.out.print("Create Game in button \n");
+        if(this.create){
+            this.myCreateFrame.createGame();
         }
         else{
-            this.myWelcomeFrame.joinGame();
+            this.myWelcomeFrame.createGame();
         }
-        
     }
 
     public void mousePressed(MouseEvent e) {
