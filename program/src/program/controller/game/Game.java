@@ -255,6 +255,15 @@ public class Game {
         return true;
     }
 
+    public boolean able2Delete(){
+        for (Battleship ship : this.myShips) {
+            if(ship.isPlaced()){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void isEnded(){
         boolean winner = true;
         boolean loser = true;

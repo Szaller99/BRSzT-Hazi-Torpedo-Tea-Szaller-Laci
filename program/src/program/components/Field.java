@@ -397,12 +397,16 @@ public class Field extends JComponent {
         }
     }
 
-    public void set2Delete(){
+    public boolean set2Delete(){
+        if(!myFrame.myGame.able2Delete()){
+            return false;
+        }
         for (int i = 1; i <= 10; i++) {
             for (int j = 1; j <= 10; j++) {
                 tiles[i][j].setToDelete(true);
             }
         }
+        return true;
     }
 
     public void clear2Delete(){

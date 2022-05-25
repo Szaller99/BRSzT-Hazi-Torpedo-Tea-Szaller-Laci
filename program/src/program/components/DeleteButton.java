@@ -26,8 +26,9 @@ public class DeleteButton extends JButton implements MouseInputListener {
         {
             System.out.print("Delete Button was pressed \n");
             // todo delete ship function
-            myTurnSign.DeleteShip();
-            myField.set2Delete();
+            if(myField.set2Delete()){
+                myTurnSign.DeleteShip();
+            }
         }
         public void mousePressed(MouseEvent e){
     

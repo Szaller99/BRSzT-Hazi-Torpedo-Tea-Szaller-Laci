@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 public class GameFrame extends JFrame {
     private Controller app;
-    private Game myGame;
+    public Game myGame;
     public TurnSign turnSign;
     public Field myField;
     public Field enemyField;
