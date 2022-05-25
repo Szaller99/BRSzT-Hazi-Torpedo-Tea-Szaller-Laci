@@ -155,10 +155,6 @@ public class Game {
     public void updateSM() {
         this.sm = this.sm.nextState();
     }
-    public void endGameSM() {
-        this.sm.endGame();
-    }
-
 
     private void endGame() {
         // TODO ...
