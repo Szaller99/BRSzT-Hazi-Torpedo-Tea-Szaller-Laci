@@ -1,7 +1,7 @@
 package program.controller.game;
 
 import program.controller.Controller;
-import program.model.*;
+import program.components.*;
 import program.view.GameFrame;
 
 public class Game {
@@ -50,8 +50,6 @@ public class Game {
 
         this.frame = new GameFrame(this.app, this);
         this.frame.set2setup();
-        
-
     }
 
     private void sendShoot(int x, int y){
@@ -61,7 +59,10 @@ public class Game {
             this.app.client.sendShot(x,y);
         }
         this.updateSM(); // sets SM to ClientTurn
-        System.out.print("Status should be ClientTurn, is " + this.sm.get() + " \n");
+
+        if (this.app.isHost) { System.out.print("Status should be HostTurn, is " + this.sm.get() + " \n"); } 
+        else { System.out.print("Status should be ClientTurn, is " + this.sm.get() + " \n"); }
+        
         this.frame.set2enemyTurn();
     }
 
@@ -84,6 +85,7 @@ public class Game {
                     this.myShips[i].destroy();
                     this.frame.myShips.hideShip(length);
                 }
+                this.isEnded();
             }
         }
 
@@ -113,7 +115,6 @@ public class Game {
     }
 
     private void setStatusReady(){
-        this.frame.set2ready();
         if (this.clientPlayer.isMe()) // adatok átküldése
         {
             this.sendClientReadyAndShips(); // csak a kliens küldi ezt át a hálózaton
@@ -140,9 +141,11 @@ public class Game {
             System.out.print("Status should be Host Turn, is " + this.sm.get() + " \n");
             if(this.sm == GameSM.HostTurn && this.hostPlayer.isMe()){
                 this.frame.set2myTurn();
+                System.out.print("Frame set to My Turn\n");
             }
-            else if (this.sm == GameSM.ClientTurn && this.clientPlayer.isMe()){
+            else if (this.sm == GameSM.HostTurn && this.clientPlayer.isMe()){
                 this.frame.set2enemyTurn();
+                System.out.print("Frame set to Enemy Turn\n");
             }
             this.frame.startFight();
             this.app.gameStarted = true;
@@ -152,10 +155,6 @@ public class Game {
     public void updateSM() {
         this.sm = this.sm.nextState();
     }
-    public void endGameSM() {
-        this.sm.endGame();
-    }
-
 
     private void endGame() {
         // TODO ...
@@ -220,6 +219,7 @@ public class Game {
                     this.frame.enemyShips.hideShip(length);
                     this.frame.endEnemyShip(this.enemyShips[i].getX(), this.enemyShips[i].getY(), length, this.enemyShips[i].getOrient());
                 }
+                this.isEnded();
                 return tileType.ship;
             }
         }
@@ -243,15 +243,48 @@ public class Game {
     }
 
     public boolean ready2Play(){
-        for(int i = 0; i < 7; i++)
-        {
-            if(this.myShips[i].isPlaced() == false)
-            {
+        for (Battleship ship : this.myShips) {
+            if(!ship.isPlaced()){
                 return false;
             }
         }
+        this.frame.set2ready();
+        System.out.print("Frame set to Ready\n");
 
         this.setStatusReady();
         return true;
+    }
+
+    public boolean able2Delete(){
+        for (Battleship ship : this.myShips) {
+            if(ship.isPlaced()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void isEnded(){
+        boolean winner = true;
+        boolean loser = true;
+        for(int i = 0; i < 7; i++) {
+            if(this.myShips[i].isDestroyed() == false) {
+                loser = false;
+            }
+            if(this.enemyShips[i].isDestroyed() == false) {
+                winner = false;
+            }
+        }
+        if(loser == false && winner == false) {
+            return;
+        }
+
+        this.endGame();
+        if(winner) {
+            this.app.end(true);
+        } else {
+            this.app.end(false);
+        }
+        return;
     }
 }

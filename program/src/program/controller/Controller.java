@@ -3,7 +3,6 @@ import program.view.*;
 
 import program.controller.communication.Client;
 import program.controller.communication.Server;
-import program.controller.communication.Communication;
 import program.controller.game.Game;
 import program.controller.game.GameSM;
 
@@ -15,10 +14,8 @@ public class Controller {
     public boolean gameCreated = false;
     public boolean gameStarted = false;
     public boolean isHost;
-    public Communication comm;
     public Client client;
     public Server server;
-    public Thread thread;
 
     public Controller()
     {
@@ -52,8 +49,8 @@ public class Controller {
             System.out.println("#3");
             while(this.game.sm != GameSM.Ended) {
                 Thread.sleep(1);
-                if(this.game.sm == GameSM.HostTurn) { // host turn van és client vagyok
-                    if(!this.isHost) {
+                if(this.game.sm == GameSM.HostTurn) {
+                    if(!this.isHost) {  // host turn van és client vagyok
                         this.client.setwaitForShot(true); // várok a lövésre
                         System.out.println("#4.1");
                         while(this.game.sm == GameSM.HostTurn) { Thread.sleep(1); }
@@ -61,8 +58,8 @@ public class Controller {
                     }
                 }
              
-                if(this.game.sm == GameSM.ClientTurn) { // client turn van és host vagyok
-                    if(this.isHost) {
+                if(this.game.sm == GameSM.ClientTurn) { 
+                    if(this.isHost) { // client turn van és host vagyok
                         this.server.setwaitForShot(true); // várok a lövésre
                         System.out.println("#5.1");
                         while(this.game.sm == GameSM.ClientTurn) { Thread.sleep(1); }
@@ -71,7 +68,6 @@ public class Controller {
                 }
             }
             System.out.println("#6");
-            handleEnding();
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -121,13 +117,15 @@ public class Controller {
 
     public void start()
     {
-        this.welcomeFrame.setVisible(false);
+        this.welcomeFrame.hideAllFrames();
         this.gameFrame.setVisible(true);
         this.gameCreated = true;
         System.out.println("gameCreated set to " + this.gameCreated);
     }
 
-    public void handleEnding() {
-
+    public void end(Boolean winner)
+    {
+        // this.gameFrame.setVisible(false);
+        EndFrame endFrame = new EndFrame(this, winner);
     }
 }

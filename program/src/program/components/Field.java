@@ -1,4 +1,4 @@
-package program.model;
+package program.components;
 
 import javax.swing.*;
 
@@ -253,15 +253,15 @@ public class Field extends JComponent {
                 if(this.tiles[x-1][y].getType() == tileType.ship){
                     if (this.tiles[x-2][y].getType() == tileType.ship) { this.tiles[x-1][y].set2EndShip(ShipEndType.right); }
                 }
-                if(this.tiles[x+1][y].getType() == tileType.ship){
+                if (x!=10){ if(this.tiles[x+1][y].getType() == tileType.ship){
                     if ((this.tiles[x+2][y].getType() == tileType.ship) && (x!=10)) { this.tiles[x+1][y].set2EndShip(ShipEndType.left); }
-                }
+                }}
                 if(this.tiles[x][y-1].getType() == tileType.ship){
                     if (this.tiles[x][y-2].getType() == tileType.ship) { this.tiles[x][y-1].set2EndShip(ShipEndType.lower); }
                 }
-                if(this.tiles[x][y+1].getType() == tileType.ship){
+                if (y!=10){ if(this.tiles[x][y+1].getType() == tileType.ship){
                     if ((this.tiles[x][y+2].getType() == tileType.ship) && (x!=10)) { this.tiles[x][y+1].set2EndShip(ShipEndType.upper); }
-                }
+                }}
                 break;
                     
                 case ship:
@@ -286,7 +286,7 @@ public class Field extends JComponent {
                         }
                     }
                 }
-                if(this.tiles[x+1][y].getType() == tileType.ship){
+                if (x!=10){ if(this.tiles[x+1][y].getType() == tileType.ship){
                     if(x==1){
                         this.tiles[x][y].set2EndShip(ShipEndType.left);
                     }
@@ -304,7 +304,7 @@ public class Field extends JComponent {
                             this.tiles[x+1][y].set2EndShip(ShipEndType.right);
                         }
                     }
-                }
+                }}
                 if(this.tiles[x][y-1].getType() == tileType.ship){
                     if(y==1){
                         this.tiles[x][y].set2EndShip(ShipEndType.upper);
@@ -324,7 +324,7 @@ public class Field extends JComponent {
                         }
                     }
                 }
-                if(this.tiles[x][y+1].getType() == tileType.ship){
+                if(y!=10){ if(this.tiles[x][y+1].getType() == tileType.ship){
                     if(y==1){
                         this.tiles[x][y].set2EndShip(ShipEndType.lower);
                     }
@@ -342,7 +342,7 @@ public class Field extends JComponent {
                             this.tiles[x][y+1].set2EndShip(ShipEndType.lower);
                         }
                     }
-                }
+                }}
                 break;
                 
                 default:
@@ -397,12 +397,16 @@ public class Field extends JComponent {
         }
     }
 
-    public void set2Delete(){
+    public boolean set2Delete(){
+        if(!myFrame.myGame.able2Delete()){
+            return false;
+        }
         for (int i = 1; i <= 10; i++) {
             for (int j = 1; j <= 10; j++) {
                 tiles[i][j].setToDelete(true);
             }
         }
+        return true;
     }
 
     public void clear2Delete(){
@@ -480,13 +484,17 @@ public class Field extends JComponent {
         if(length==1){
             this.tiles[x][y].set2SingleShip();
             this.tiles[x][y].setShootable(false);
+            if(x!=1){this.tiles[x-1][y].set2Water(); this.tiles[x-1][y].setShootable(false);}
+            if(x!=10){this.tiles[x+1][y].set2Water(); this.tiles[x+1][y].setShootable(false);}
+            if(y!=1){this.tiles[x][y-1].set2Water(); this.tiles[x][y-1].setShootable(false);}
+            if(y!=10){this.tiles[x][y+1].set2Water(); this.tiles[x][y+1].setShootable(false);}
         }
         else{
             if (or == Orient.HORIZONTAL){
                 for(int i=0; i<length;i++){
                     this.tiles[x+i][y].set2MiddleShip(false);
                     if(y!=1){this.tiles[x+i][y-1].set2Water(); this.tiles[x+i][y-1].setShootable(false);}
-                    if(y!=10){this.tiles[x+i][y+1].set2Water(); this.tiles[x+i][y+1]. setShootable(false);}
+                    if(y!=10){this.tiles[x+i][y+1].set2Water(); this.tiles[x+i][y+1].setShootable(false);}
                 }
                 this.tiles[x][y].set2EndShip(ShipEndType.left);
                 this.tiles[x+length-1][y].set2EndShip(ShipEndType.right);

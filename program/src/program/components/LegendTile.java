@@ -1,4 +1,4 @@
-package program.model;
+package program.components;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;

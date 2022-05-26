@@ -39,17 +39,20 @@ public class Client extends Communication {
 		try {	
 			while(!this.app.gameCreated) { Thread.sleep(1);}
         	while(this.keepClientThreadAlive) { // waiting for tasks
+				Thread.sleep(1);
         	    if(this.waitForHostShips) {
 					System.out.println("[client] waitForHostShips was set to true");
 					this.app.game.enemyShips = this.parseShips(this.receiveEnemyShips());
 					this.app.game.hostPlayer.setReady();
 					while (!this.app.gameStarted) { Thread.sleep(1); } // waiting for main thread to act
         	        this.setwaitForHostShips(false);
+					System.out.println("[client] waitForHostShips was set to false");
 				}
         	    if(this.waitForShot) {
 					System.out.println("[client] waitForShot was set to true");
 					this.handleEnemyShot();
         	        this.setwaitForShot(false);
+					System.out.println("[client] waitForShot was set to false");
 				}
 			}
 		} catch (Exception e) {
@@ -63,12 +66,5 @@ public class Client extends Communication {
     public void setwaitForHostShips(boolean value) {
         this.waitForHostShips = value;
     }
-    public void setwaitForShot(boolean value) {
-        this.waitForShot = value;
-    }
-
-	
-
-
     
 }

@@ -1,4 +1,4 @@
-package program.model;
+package program.components;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,7 +6,7 @@ import java.awt.*;
 public class IPSign extends JComponent{
     JLabel Sign;
     public IPSign(){
-        this.setBounds(20,200,240,50);
+        this.setBounds(200,150,200,40);
         this.setVisible(true);
 
         this.setBackground(Color.LIGHT_GRAY);
@@ -18,7 +18,7 @@ public class IPSign extends JComponent{
         this.Sign.setVisible(true);
         this.Sign.setForeground(Color.RED);
         this.Sign.setFont(new Font("Arial", Font.BOLD, 16));
-        this.Sign.setBounds(30, 15, 240, 30);
+        this.Sign.setBounds(0, 0, 200, 30);
         this.add(Sign);
 
         this.paintComponents(this.getGraphics());

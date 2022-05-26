@@ -1,8 +1,7 @@
 package program.view;
 
-import program.controller.communication.Communication;
 import program.controller.Controller;
-import program.model.*;
+import program.components.*;
 
 import javax.swing.*;
 
@@ -13,8 +12,11 @@ public class WelcomeFrame extends JFrame{
     private Controller app;
     private CreateGameButton createGame;
     private JoinGameButton joinGame;
-    private JTextField IP;
-    private IPSign ipSign;
+    private JLabel title;
+    private JoinFrame joinFrame;
+    private CreateFrame createFrame;
+    private boolean create = false;
+    private boolean join = false;
     public WelcomeFrame(Controller app) {
         super();
         this.app = app;
@@ -34,26 +36,43 @@ public class WelcomeFrame extends JFrame{
 
         this.createGame = new CreateGameButton(this);
         this.joinGame = new JoinGameButton(this);
-        this.IP = new JTextField();
-        this.ipSign = new IPSign();
+        this.title = new JLabel("Battleship",SwingConstants.CENTER);
+        this.title.setVerticalAlignment(SwingConstants.CENTER);
+        this.title.setFont(new Font("Arial", Font.BOLD, 25));
+        this.title.setForeground(new Color(255,0,0));
+        this.title.setBounds(0, 0, 600, 100);
 
-        welcomeFrameContainer.setLayout(new GridLayout(4,1, 10, 10));
+
+        
+
+        welcomeFrameContainer.setLayout(null);
+        welcomeFrameContainer.add(title);
         welcomeFrameContainer.add(createGame);
-        welcomeFrameContainer.add(ipSign);
-        welcomeFrameContainer.add(IP);
         welcomeFrameContainer.add(joinGame);
         this.paintComponents(this.getGraphics());
     }
 
     public void createGame(){
-        String ip = Communication.getMyIpAddressString(); 
-        this.ipSign.setSign2IP(ip);
-        this.paintComponents(this.getGraphics());
-        this.app.create(); // beware, this blocks the code
+        this.createFrame = new CreateFrame(app);
+        this.setVisible(false);
+        this.create = true;
     }
 
     public void joinGame(){
-        String ip = this.IP.getText();
-        this.app.join(ip);
+        this.joinFrame = new JoinFrame(app);
+        this.setVisible(false);
+        this.join = true;
     }
+
+    public void hideAllFrames(){
+        this.setVisible(false);
+        if(this.create){
+            this.createFrame.setVisible(false);
+        }
+        if (this.join){
+            this.joinFrame.setVisible(false);
+        }
+    }
+
+    
 }

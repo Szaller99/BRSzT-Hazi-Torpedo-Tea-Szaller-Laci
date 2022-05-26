@@ -39,6 +39,7 @@ public class Server extends Communication{
         try { 
             while(!this.app.gameCreated) { Thread.sleep(1);}
             while(this.keepServerThreadAlive) { // waiting for tasks
+                Thread.sleep(1);
                 if(this.waitForClientReady) {
                     System.out.println("[server] setwaitForClientReady was set to true");
                     while (this.isClientReady()) { Thread.sleep(1); }         
@@ -50,13 +51,15 @@ public class Server extends Communication{
                     this.sendShips(this.app.game.myShips);
                     this.readyToUpdateSM = true;
 
-                    while (!this.app.gameStarted) { } // waiting for main thread to act
+                    while (!this.app.gameStarted) { Thread.sleep(1); } // waiting for main thread to act
                     this.setwaitForClientReady(false);
+                    System.out.println("[server] setwaitForClientReady was set to false");
                 }
                 if(this.waitForShot) {
-					System.out.println("[client] waitForShot was set to true");
+					System.out.println("[server] waitForShot was set to true");
                     this.handleEnemyShot();
             	    this.setwaitForShot(false);
+                    System.out.println("[server] waitForShot was set to false");
                 }
             }
         } catch (Exception e) {
@@ -69,9 +72,6 @@ public class Server extends Communication{
     }
     public void setwaitForClientReady(boolean value) {
         this.waitForClientReady = value;
-    }
-    public void setwaitForShot(boolean value) {
-        this.waitForShot = value;
     }
 
     public boolean isClientReady() throws IOException {
